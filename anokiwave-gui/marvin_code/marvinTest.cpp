@@ -1,11 +1,9 @@
 // include libraries
 #include <iostream>
 #include "GTDIO.h"
-#include "time.h"
-
 
 void CheckStatus(SHORT nStatus) {
-  CHAR  sz[512];
+  CHAR sz[512];
   if (!nStatus) return;
   DioGetErrorString(nStatus, sz, sizeof sz);
   std::cout << sz;
