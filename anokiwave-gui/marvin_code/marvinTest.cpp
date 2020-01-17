@@ -2,13 +2,14 @@
 #include <iostream>
 #include "GTDIO.h"
 
+
 void CheckStatus(SHORT nStatus) {
   CHAR sz[512];
   if (!nStatus) return;
   DioGetErrorString(nStatus, sz, sizeof sz);
-  std::cout sz;
-  std::cout "Aborting the program...";
-  exit(nStatus);
+  std::cout << sz;
+  std::cout << "Aborting the program...";
+  return;
 }
 
 int main() {
