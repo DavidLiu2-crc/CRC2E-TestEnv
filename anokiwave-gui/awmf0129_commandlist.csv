@@ -1,0 +1,10 @@
+81,4,Set Scratch Value, Description, Scratch Register, Scratch Register, Scratch Register, Scratch Register
+82,0,Read Scratch Value, Description
+83,0,Request Fixed Sequence, Description
+A0,7,PAA Pointing Command, Description, Beam Configuration (00/01/10/11), \u0398 Theta angle, \u0398 Theta angle, \u03A6 Phi angle, \u03A6 Phi angle, Frequency, Frequency
+B1,0,Array Configuration Request, Description
+C0,2,Factory Reset, Description, BA11
+C1,4,Configure IP Address, Description, Octet 1 IP, Octet 2 IP, Octet 3 IP, Octet 4 IP
+E0,1,Enable Beam, Description, (0 Off /1 On)
+F0,0,Status Summary Request, Description
+F1,0,Status Detail Request, Description
