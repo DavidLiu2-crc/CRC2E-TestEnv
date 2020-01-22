@@ -1,42 +1,66 @@
 // marvin_test01.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
+/*
+    Suppose LVDS connection to PAA is
+    IO 0: CLK
+    IO 1: SDI
+    IO 2: SDO
+    IO 3: LATCH
+    IO 4: STROBE
+*/
+
+// General C++ modules
 #include <iostream>
 #include <Windows.h>
-#include "..\..\GTDIO.h"
+#include <vector>
 
-void CheckStatus(SHORT nStatus) {
-    CHAR errorString[512];
-    if (!nStatus) return;
-    DioGetErrorString(nStatus, errorString, sizeof errorString);
-    std::cout << errorString;
-    std::cout << "Aborting the program...";
-    return;
-}
+// GeoTestDigitalInputOutput Module
+// Make sure GTDio32.lib is also included in project
+#include "GTDIO.h"
+
+// User-defined Anokiwave command class
+#include "AnokiCommand.h"
+// User-defined Marvin command functions
+#include "MarvinCommmand.h"
+
 
 int main() {
-    SHORT nSlotNum;
-    SHORT nDensity;
-    SHORT nBanks;
-    SHORT nHandle;
-    SHORT nStatus;
+    SHORT nSlotNum = 0x105; // nSlotNum: Points to Slot number
+    SHORT nMasterHandle;    // Points to Handle pointer
+    SHORT nBoardType;       // Points to Board type
+    SHORT nStatus;          // Points to Status returned by DIO instruction
 
-    nSlotNum = 0;
+    SetupCard(nSlotNum, &nMasterHandle, &nBoardType, &nStatus, DIO_BOARD_TYPE_GX5290);
 
-    DioSetupInitialization(0, 1, nSlotNum, &nDensity, &nBanks, &nHandle, &nStatus);
+    DioHalt(nMasterHandle, &nStatus);
+
+    //// Setup IO Channel Direction
+    //SHORT nWidth, nDirection;
+    //DioGetIOConfiguration(nMasterHandle, &nWidth, &nDirection, &nStatus);
+    //CheckStatus(nStatus);
+    //std::cout << "Width of channels: " << nWidth << "\n";
+    //std::cout << "Direction of IO: " << nDirection << "\n";
+
+    //nWidth = 2;
+    //DioSetupIOConfiguration(nMasterHandle, nWidth, nDirection, &nStatus);
+    //CheckStatus(nStatus);
+    //std::cout << "Width of channels: " << nWidth << "\n";
+    //std::cout << "Direction of IO: " << nDirection << "\n";
+
+    // Setup IO Channel Direction
+    DWORD dwWriteStates = 0x1b;
+    DioSetupChannelsOutputStates(nMasterHandle, dwWriteStates, &nStatus);
     CheckStatus(nStatus);
+    DWORD dwReadStates;
+    DioGetChannelsOutputStates(nMasterHandle, &dwReadStates, &nStatus);
+    CheckStatus(nStatus);
+    std::cout << "Channel Output States: " << dwReadStates << "\n";
+    
+    AnokiCommand anoki;
+    anoki.cmd_SetScratchValue(0x45328933);
+    anoki.commandToVector(6);
+    
 
-    std::cout << "Hello World!\n";
-
+    std::cout << "\nEnd of Marvin Test program\n";
+    return 1;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file

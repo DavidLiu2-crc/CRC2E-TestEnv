@@ -88,8 +88,9 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,13 +149,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnokiCommand.cpp" />
+    <ClCompile Include="MarvinCommand.cpp" />
     <ClCompile Include="marvin_test01.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\GTDIO.h" />
+    <Library Include="..\..\GTDio32.lib" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\..\GTDio32.lib" />
+    <ClInclude Include="AnokiCommand.h" />
+    <ClInclude Include="GTDIO.h" />
+    <ClInclude Include="MarvinCommand.h" />
+    <ClInclude Include="marvin_test01.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="marvin_test01.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
