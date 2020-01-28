@@ -1,5 +1,8 @@
+#pragma once
+
 #include "AnokiCommand.h"
 
+// General C++ modules
 #include <iostream>
 #include <cmath>
 #include <bitset>
@@ -8,21 +11,21 @@
 /*------------------------------------------------
 ----- Start of Basic Command List Definition -----
 ------------------------------------------------*/
-void AnokiCommand::cmd_SetScratchValue(long int nScratchValue) {
-    /**
-     * cmd_SetScratchValue sets the command sequence to set scratch value
-     *
-     * @param
-     * long int nScratchValue: values to be set in scratch register.
-     */
 
-	// Reset reference command array
-    cleanCommandOutArray();
-    // Command Header for SetScratchValue
-    commandOutByte[0] = 0x81;
 
-    // Convert 0xffffffff to byte command sequence
-    long int tempValue = nScratchValue;
+void AnokiCommand::cmd_SetScratchValue(long unsigned nScratchValue) {
+/* Sets the command sequence to set scratch value
+    @param
+        long int nScratchValue: A value between 0 to 4294967295 to set into scratch register
+    @description
+    Fills in the command sequence with value nScratchValue.
+*/
+
+    cleanCommandOutArray();     // Reset reference command array
+    commandOutByte[0] = 0x81;   // Command Header for SetScratchValue
+
+    // Convert long nScratchValue to 4 seperate hex values
+    long unsigned tempValue = nScratchValue;
     commandOutByte[1] = floor(tempValue / 16777216);
     tempValue = tempValue - commandOutByte[1] * 16777216;
     commandOutByte[2] = floor(tempValue / 65536);
@@ -30,15 +33,17 @@ void AnokiCommand::cmd_SetScratchValue(long int nScratchValue) {
     commandOutByte[3] = floor(tempValue / 256);
     commandOutByte[4] = tempValue - commandOutByte[3]*256;
 
-    // Append checksum to end of comand sequence
-    commandOutByte[5] = checksum(commandOutByte, 5);
+    commandOutByte[5] = checksum(commandOutByte, 5); // Append checksum to end of comand sequence
+
+    numResponseCurrent = 7; // Assign the whitespace for next response sequence
 }
 
+
 void AnokiCommand::cmd_ReadScratchRequest() {
-    /**
-     * cmd_ReadScratchRequest sets the command sequence to read scratch request
-     * 
-     */
+/* Sets the command sequence to read the scratch value
+    @description
+    Fills in the command sequence to request the value in scratch register.
+*/
 
     // Reset reference command array
     cleanCommandOutArray();
@@ -46,19 +51,22 @@ void AnokiCommand::cmd_ReadScratchRequest() {
     commandOutByte[0] = 0x82;
     // Append checksum to end of comand sequence
     commandOutByte[1] = checksum(commandOutByte, 1);
+    // Assign the whitespace for next response sequence
+    numResponseCurrent = 7;
 }
 
 void AnokiCommand::cmd_RequestFixedSequence() {
     // Reset reference command array
-    commandOutByte[9] = { 0 };
+    cleanCommandOutArray();
     // Command Header for RequestFixedSequence
     commandOutByte[0] = 0x83;
     // Append checksum to end of comand sequence
     commandOutByte[1] = checksum(commandOutByte, 1);
+    // Assign the whitespace for next response sequence
+    numResponseCurrent = 7;
 }
 
 void AnokiCommand::cmd_PAAPointingCommand() {
-
     // Reset reference command array
     cleanCommandOutArray();
     // Command Header for PAAPointingCommand
@@ -67,7 +75,7 @@ void AnokiCommand::cmd_PAAPointingCommand() {
     // Configure the mode byte
     int mode;
     if (paramModeTXRX) mode = 4;
-    commandOutByte[1] = mode + paramBeamMode;
+    commandOutByte[1] = mode + paramModeBeam;
 
     // Remap theta angle from [0-90] to [0-FFFF];
     theta_uint16ToPointer(paramDirection[0]);
@@ -78,6 +86,9 @@ void AnokiCommand::cmd_PAAPointingCommand() {
     
     // Assume commandOutByte[0:7] correctly set
     commandOutByte[8] = checksum(commandOutByte, 8);
+
+    // Assign the whitespace for next response sequence
+    numResponseCurrent = 9;
 }
 
 void AnokiCommand::cmd_ArrayConfigurationRequest() {
@@ -87,6 +98,9 @@ void AnokiCommand::cmd_ArrayConfigurationRequest() {
     commandOutByte[0] = 0xB1;
     // Append checksum to end of comand sequence
     commandOutByte[1] = checksum(commandOutByte, 1);
+
+    // Assign the whitespace for next response sequence
+    numResponseCurrent = 11;
 }
 
 void AnokiCommand::cmd_FactoryReset() {
@@ -107,6 +121,8 @@ void AnokiCommand::cmd_FactoryReset() {
 
     // Append checksum to end of comand sequence
     commandOutByte[3] = checksum(commandOutByte, 3);
+    // Assign the whitespace for next response sequence
+    numResponseCurrent = 7;
 }
 
 
@@ -126,6 +142,8 @@ void AnokiCommand::cmd_EnableBeam() {
 
     // Append checksum to end of comand sequence
     commandOutByte[2] = checksum(commandOutByte, 2);
+    // Assign the whitespace for next response sequence
+    numResponseCurrent = 7;
 }
 
 void AnokiCommand::cmd_StatusSummaryRequest() {
@@ -135,6 +153,8 @@ void AnokiCommand::cmd_StatusSummaryRequest() {
     commandOutByte[0] = 0xF0;
     // Append checksum to end of comand sequence
     commandOutByte[1] = checksum(commandOutByte, 1);
+    // Assign the whitespace for next response sequence
+    numResponseCurrent = 4;
 }
 
 void AnokiCommand::cmd_StatusDetailRequest() {
@@ -144,6 +164,26 @@ void AnokiCommand::cmd_StatusDetailRequest() {
     commandOutByte[0] = 0xF1;
     // Append checksum to end of comand sequence
     commandOutByte[1] = checksum(commandOutByte, 1);
+    // Assign the whitespace for next response sequence
+    numResponseCurrent = 15;
+}
+
+void AnokiCommand::set_PointingFreq(double _freq) {
+    freq_uint16ToPointer(_freq);
+}
+
+void AnokiCommand::set_PointingAngle(double _theta, double _phi) {
+    theta_uint16ToPointer(_theta);
+    paramDirection[0] = _theta;
+    phi_uint16ToPointer(_phi);
+    paramDirection[1] = _phi;
+}
+
+void AnokiCommand::get_commandSequence(unsigned int* cmdSeq) {
+    // TODO: Change to size of array sequence
+    for (unsigned int i = 0; i < 9; i++) {
+        cmdSeq[i] = commandOutByte[i];
+    }
 }
 /*------------------------------------------------
 ------ END of Basic Command List Definition ------
@@ -156,8 +196,8 @@ void AnokiCommand::cmd_StatusDetailRequest() {
 ------ Start of Helper Function Definition -------
 ------------------------------------------------*/
 
-int AnokiCommand::checksum(int* pCmd, int len_) {
-    /**
+int AnokiCommand::checksum(unsigned int* pCmd, int len_) {
+    /*-----------------------------------------------------------
      * checksum returns the checksum byte of the command sequence
      *
      * @param
@@ -165,10 +205,10 @@ int AnokiCommand::checksum(int* pCmd, int len_) {
      * int len_            : defines the total number of bytes written
      * @return
      * int checksumInt: byte containing the checksum
-     */
+     *----------------------------------------------------------*/
 
     // Initialize temp byte
-    int checksumInt = 0;
+    unsigned int checksumInt = 0;
     // Loop through each command byte within length len_
     for (int i = 0; i < len_; i++) {
         // Bit-wise XOR through each element
@@ -178,58 +218,6 @@ int AnokiCommand::checksum(int* pCmd, int len_) {
     return checksumInt;
 }
 
-void AnokiCommand::commandToVector(int len_) {
-    /*
-    *
-    *
-    * @param
-    * int len_: Length of expected read byte length
-    */
-
-    cleanCommandMemory();
-
-    // Configure start data transmission
-    commandVector[ANOKI_CLK][0] = 0;
-    commandVector[ANOKI_SDI][0] = 0;
-    commandVector[ANOKI_LAT][0] = 1;
-    commandVector[ANOKI_STB][0] = 0;
-
-    // Assign clock pulse to command memory CLK
-    generateClock(commandVector[ANOKI_CLK]);
-    
-    // Convert command byte to command bits
-    cleanCommandOutArray();
-    for (int i = 0; i < sizeof(commandOutByte); i++) {
-        unsigned int commandBits;
-        uint16ToBinInt(commandOutByte[i], &commandBits);
-        for (int j = 0; j < 8; j++) {
-            //commandOutBits[i * 8 + j] = commandBits[j];
-        }
-    }
-    // Assign command bits to command memory SDI
-    for (int i = 1; i < sizeof(commandOutByte); i++) {
-        commandVector[ANOKI_SDI][i] = commandOutByte[i];
-    }
-
-    // Leave SDO alone (for reading from memory)
-
-    // Assign Latch High while writing data
-    for (int i = len_*8; i < ANOKI_numCommandBits; i++) {
-        commandVector[ANOKI_LAT][i] = 1;
-    }
-
-    // Assign Strobe bit high at end
-    commandVector[ANOKI_STB][ANOKI_numCommandBits - 1] = 1;
-
-
-    std::cout << "Command to Bit Vector: \n";
-    for (int i = 0; i < ANOKI_numChannels; i++) {
-        for (int j = 0; j < ANOKI_numCommandBits; j++) {
-            std::cout << commandVector[i][j];
-        }
-        std::cout << "\n";
-    }
-}
 
 void AnokiCommand::show_hexCMD(int* pCmd, int len_) {
     // Display to windows console the command string
@@ -283,34 +271,16 @@ void AnokiCommand::freq_uint16ToPointer(double value) {
 }
 
 void AnokiCommand::cleanCommandOutArray() {
-    // Set all byte in commmandOutByte to 0
-    for (int i = 0; i < sizeof(commandOutByte); i++) {
+    // TODO: Change to size of array sequence
+    for (int i = 0; i < 9; i++) {
         commandOutByte[i] = 0;
-    } // Set all bits in commmandOutBits to 0
-    for (int i = 0; i < sizeof(commandOutBits); i++) {
-        commandOutBits[i] = 0;
     }
 }
 
-void AnokiCommand::cleanCommandMemory() {
-    for (int i = 0; i < ANOKI_numChannels; i++) {
-        for (int j = 0; j < ANOKI_numCommandBits; j++) {
-            commandVector[i][j] = 0;
-        }
-    }
-}
-
-void AnokiCommand::generateClock(unsigned int* channel) {
-
-    bool flag_clk = 0;
-    for (int i = 0; i < ANOKI_numCommandBits; i++) {
-        if (flag_clk) {
-            channel[i] = 1;
-        }
-        else {
-            channel[i] = 0;
-        }
-        flag_clk = !flag_clk;
+void AnokiCommand::cleanCommandInArray() {
+    // TODO: Change to size of array sequence
+    for (int i = 0; i < 14; i++) {
+        commandInByte[i] = 0;
     }
 }
 

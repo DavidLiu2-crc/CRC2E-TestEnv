@@ -8,59 +8,58 @@
     IO 3: LATCH
     IO 4: STROBE
 */
-
-// General C++ modules
 #include <iostream>
-#include <Windows.h>
-#include <vector>
-
-// GeoTestDigitalInputOutput Module
-// Make sure GTDio32.lib is also included in project
-#include "GTDIO.h"
+#include <string>
 
 // User-defined Anokiwave command class
 #include "AnokiCommand.h"
 // User-defined Marvin command functions
-#include "MarvinCommmand.h"
+#include "MarvinCommand.h"
 
 
 int main() {
-    SHORT nSlotNum = 0x105; // nSlotNum: Points to Slot number
-    SHORT nMasterHandle;    // Points to Handle pointer
-    SHORT nBoardType;       // Points to Board type
-    SHORT nStatus;          // Points to Status returned by DIO instruction
 
-    SetupCard(nSlotNum, &nMasterHandle, &nBoardType, &nStatus, DIO_BOARD_TYPE_GX5290);
-
-    DioHalt(nMasterHandle, &nStatus);
-
-    //// Setup IO Channel Direction
-    //SHORT nWidth, nDirection;
-    //DioGetIOConfiguration(nMasterHandle, &nWidth, &nDirection, &nStatus);
-    //CheckStatus(nStatus);
-    //std::cout << "Width of channels: " << nWidth << "\n";
-    //std::cout << "Direction of IO: " << nDirection << "\n";
-
-    //nWidth = 2;
-    //DioSetupIOConfiguration(nMasterHandle, nWidth, nDirection, &nStatus);
-    //CheckStatus(nStatus);
-    //std::cout << "Width of channels: " << nWidth << "\n";
-    //std::cout << "Direction of IO: " << nDirection << "\n";
-
-    // Setup IO Channel Direction
-    DWORD dwWriteStates = 0x1b;
-    DioSetupChannelsOutputStates(nMasterHandle, dwWriteStates, &nStatus);
-    CheckStatus(nStatus);
-    DWORD dwReadStates;
-    DioGetChannelsOutputStates(nMasterHandle, &dwReadStates, &nStatus);
-    CheckStatus(nStatus);
-    std::cout << "Channel Output States: " << dwReadStates << "\n";
-    
+    // Define Marvin card object
+    MarvinCommand marvin;
+    // Define Anokiwave PAA object
     AnokiCommand anoki;
-    anoki.cmd_SetScratchValue(0x45328933);
-    anoki.commandToVector(6);
+
+    unsigned int cmdSeq[1024];
+    unsigned int clkSeq[1024];
+    DWORD cmdIndex = 0;
+
+    //Initialize marvin card
+    marvin.SetupCard(0x105, DIO_IO_INTERFACE_TTL, DIO_BOARD_TYPE_GX5290, DIO_OPERATING_MODE_DEFAULT);
+    // Generate some hexacommand sequence
+    anoki.cmd_SetScratchValue(0xfdecba98);
+    anoki.get_commandSequence(cmdSeq);
+
+    //marvin.addCommandToMemory(unsigned int hexa, unsigned int _channel, unsigned int _cmdPosition);
+    //marvin.addCMDSingleToMemory(0xFF, ANOKI_CLK, 0);
+    
+    unsigned int hexa = 0x67;
+    marvin.addCMDSingleToMemory(hexa, ANOKI_CLK, 0);
+
+    marvin.addCMDSequenceToMemory(cmdSeq, ANOKI_SDI, 8);
+
+    //marvin.addCMDSingleToMemory(0xAA, ANOKI_CLK, 0);
+    //marvin.addCMDSingleToMemory(0xAA, ANOKI_CLK, 8);
+    //marvin.addCMDSingleToMemory(0xAA, ANOKI_CLK, 16);
+
+    marvin.ShowMemory(marvin.dwMemory, 0, 32 );
+    
+    strcpy_s(marvin.szFileNameInput, "marvin_test01.DIO");
+    strcpy_s(marvin.szFileNameOutput, "marvin_test01.DI");
+
+    //marvin.GenerateExampleMemory();
+    marvin.LoadCard(marvin.dwMemory, marvin.dwControl, 10000);
+    marvin.RunProgram(1000);
+    marvin.ReadFromCard();
+
+
     
 
-    std::cout << "\nEnd of Marvin Test program\n";
-    return 1;
+
+
 }
+

@@ -6,8 +6,7 @@ VISAAddresses = {};
 AgilentVISAInfo = instrhwinfo('visa', 'agilent');
 KeysightVISAInfo = instrhwinfo('visa', 'keysight');
 % Parse the IP from the VISA Info strings
-% @() SOME SET OF STRING SPLITER
-VISAAddress   = VISAAddresses{VISAValue};
+VISAAddress   = VISAAddresses{VISAValue};   % @() SOME SET OF STRING SPLITER
 
 % Create VISA Object to which to connect to
 visaObj = instrfind('Tag', 'deepCapture');

@@ -34,14 +34,14 @@
     <ClInclude Include="GTDIO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="marvin_test01.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AnokiCommand.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="marvin_test01.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="MarvinCommand.h">
       <Filter>Header Files</Filter>
