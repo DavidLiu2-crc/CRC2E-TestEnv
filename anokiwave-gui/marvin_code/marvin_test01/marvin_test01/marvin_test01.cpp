@@ -24,35 +24,44 @@ int main() {
     // Define Anokiwave PAA object
     AnokiCommand anoki;
 
-    unsigned int cmdSeq[1024];
-    unsigned int clkSeq[1024];
+    unsigned int cmdSeq[15];
     DWORD cmdIndex = 0;
+    unsigned int cmdLength = 0;
 
     //Initialize marvin card
     marvin.SetupCard(0x105, DIO_IO_INTERFACE_TTL, DIO_BOARD_TYPE_GX5290, DIO_OPERATING_MODE_DEFAULT);
-    // Generate some hexacommand sequence
+    
+
+    // Generate some sample sequence
     anoki.cmd_SetScratchValue(0xfdecba98);
     anoki.get_commandSequence(cmdSeq);
+    anoki.get_commandLength(&cmdLength);
+    marvin.addCMDToMemory(cmdSeq, ANOKI_SDI, cmdLength);
 
-    //marvin.addCommandToMemory(unsigned int hexa, unsigned int _channel, unsigned int _cmdPosition);
-    //marvin.addCMDSingleToMemory(0xFF, ANOKI_CLK, 0);
-    
-    unsigned int hexa = 0x67;
-    marvin.addCMDSingleToMemory(hexa, ANOKI_CLK, 0);
+    // Generate Enable Beam sequence
+    anoki.paramBeamEnable = 1;
+    anoki.cmd_EnableBeam();
+    anoki.get_commandSequence(cmdSeq);
+    anoki.get_commandLength(&cmdLength);
+    marvin.addCMDToMemory(cmdSeq, ANOKI_SDI, cmdLength);
 
-    marvin.addCMDSequenceToMemory(cmdSeq, ANOKI_SDI, 8);
+    // Point the beam in one direction
+    anoki.paramModeBeam = 0;
+    anoki.paramModeTXRX = 0;
+    anoki.set_PointingAngleAE(45, 0);
+    anoki.cmd_PAAPointingCommand();
+    anoki.get_commandSequence(cmdSeq);
+    anoki.get_commandLength(&cmdLength);
+    marvin.addCMDToMemory(cmdSeq, ANOKI_SDI, cmdLength);
 
-    //marvin.addCMDSingleToMemory(0xAA, ANOKI_CLK, 0);
-    //marvin.addCMDSingleToMemory(0xAA, ANOKI_CLK, 8);
-    //marvin.addCMDSingleToMemory(0xAA, ANOKI_CLK, 16);
 
-    marvin.ShowMemory(marvin.dwMemory, 0, 32 );
+    //marvin.ShowMemory(marvin.dwMemory, 0, 64 );
     
     strcpy_s(marvin.szFileNameInput, "marvin_test01.DIO");
     strcpy_s(marvin.szFileNameOutput, "marvin_test01.DI");
 
     //marvin.GenerateExampleMemory();
-    marvin.LoadCard(marvin.dwMemory, marvin.dwControl, 10000);
+    marvin.LoadCard(marvin.dwMemory, marvin.dwControl, 1000);
     marvin.RunProgram(1000);
     marvin.ReadFromCard();
 

@@ -1,0 +1,5 @@
+﻿  ladybugTestGrab_panaramic.cpp
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\anokiwave-gui\ladybug_code\ladybugTestGrab\ladybugTestGrab_panaramic.cpp(98): warning C4715: 'startCamera': not all control paths return a value
+  ladybugTestGrab.vcxproj -> C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\anokiwave-gui\ladybug_code\ladybugTestGrab\x64\Debug\ladybugTestGrab.exe
+  C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\anokiwave-gui\ladybug_code\ladybugTestGrab\x64\Debug\ladybugTestGrab.exe
+  1 File(s) copied

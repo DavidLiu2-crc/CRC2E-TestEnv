@@ -89,7 +89,7 @@ guidata(hObject, handles);
 % uiwait(handles.figure1);
 
 % --- Outputs from this function are returned to the command line.
-function varargout = SounderGUI_OutputFcn(hObject, eventdata, handles) 
+function varargout = SounderGUI_OutputFcn(hObject, eventdata, handles)
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -145,7 +145,7 @@ set(handles.txtStatus, 'String','   Status: Connecting to PXA ...'); drawnow;
 % Get VISA address from GUI
 VISAAddresses = get(handles.visa_popup,'String');
 VISAValue     = get(handles.visa_popup, 'Value');
-VISAAddress   = VISAAddresses{VISAValue}; 
+VISAAddress   = VISAAddresses{VISAValue};
 
 % Create VISA Object to which to connect to
 visaObj = instrfind('Tag', 'deepCapture');
@@ -322,7 +322,7 @@ fileNameBase = [...
     datestr(T0, 'SS')];
 
 % create data folder
-if get(handles.optSave, 'Value') == 1       
+if get(handles.optSave, 'Value') == 1
     mkdir('Results', fileNameBase);
 end
 
@@ -330,7 +330,7 @@ end
 count = 0;
 
 while 1
-   
+
     % Update counter
     count = count + 1;
 
@@ -340,24 +340,24 @@ while 1
 
     % Obtain time stamp
     T = now;
-    
+
     % Binblock read
     fprintf(visaObj, 'FETCH:FCAP?');
     rawData = binblockread(visaObj, 'float32');
     fread(visaObj, 1);
-    
+
     % Reformat
     iqData = reshape(rawData.', 2, length(rawData)/2).';
     if ~(isempty(iqData))
         iqData = complex(iqData(1:blockSize, 1), iqData(1:blockSize, 2));
     end
-    
+
     if get(handles.optVisualize, 'Value') == 1
-        
+
         % Save current axis limits
         xl = get(handles.raw_plot, 'XLim');
         yl = get(handles.raw_plot, 'YLim');
-        
+
         % Update the raw data plot
         t = 1e6*(0:blockSize-1)/(SRate*1e6);
         raw = 20*log10(abs(iqData)) + 10;   % dBm into 50 ohm load
@@ -369,7 +369,7 @@ while 1
         xlabel(handles.raw_plot, 'Time (\mus)');
         ylabel(handles.raw_plot, 'Power (dBm)');
         h = title(handles.raw_plot, 'Raw Data'); set(h, 'Color', 'white')
-        
+
         % Plot thermal noise
         if handles.rdo_kTB.Value == 1
             hold(handles.raw_plot, 'on')
@@ -378,7 +378,7 @@ while 1
             plot(handles.raw_plot, [min(t) max(t)], [kTB kTB], 'w--')
             hold(handles.raw_plot, 'off')
         end
-        
+
         % Scale axis
         if handles.rdo_autoscale.Value == 0
             set(handles.raw_plot, 'XLim', xl);
@@ -387,13 +387,13 @@ while 1
             xlim(handles.raw_plot, [0 max(t)]);
             ylim(handles.raw_plot, 20 * [floor(0.05*min(raw)) ceil(0.05*max(raw))])
         end
-        
+
         % Compute impulse response
         Y = fftshift(fft(iqData));
         ir = 20*log10(abs(ifft(ifftshift(W .* Y .* X)))) + 10;  % dBm into 50 ohm load
         ir = ir - 10*log10(sum(abs(X).^2));
         ir = ir + ACF_dB;                                       % NOTE: amplitude correction needs more work!!
-        
+
         % Save current axis limits
         xl = get(handles.ir_plot, 'XLim');
         yl = get(handles.ir_plot, 'YLim');
@@ -407,7 +407,7 @@ while 1
         xlabel(handles.ir_plot, 'Delay (\mus)');
         ylabel(handles.ir_plot, 'Power (dBm)');
         h = title(handles.ir_plot, 'Impulse Response'); set(h, 'Color', 'white')
-        
+
         % Scale axis
         if handles.rdo_autoscale.Value == 0
             set(handles.ir_plot, 'XLim', xl);
@@ -416,31 +416,31 @@ while 1
             xlim(handles.ir_plot, [0 max(t)]);
             ylim(handles.ir_plot, 20 * [floor(0.05*min(ir)) ceil(0.05*max(ir))])
         end
-       
+
         drawnow
-        
+
         % Update status
-        set(handles.txtStatus, 'String', ['   Status: Measuring data snapshot ', num2str(count)]); drawnow;    
-    
+        set(handles.txtStatus, 'String', ['   Status: Measuring data snapshot ', num2str(count)]); drawnow;
+
     end
-    
+
     if get(handles.optSave, 'Value') == 1
-        
+
         % Save the data
         fileFolder = ['Results/', fileNameBase];
         fileName = [fileNameBase, '-', num2str(count), '.mat'];
         save([fileFolder, '/', fileName], 'iqData', 'freqGHz', 'T');
 
         % Update status
-        set(handles.txtStatus, 'String', ['   Status: Saved data snapshot to ', fileName]); drawnow;  
-       
+        set(handles.txtStatus, 'String', ['   Status: Saved data snapshot to ', fileName]); drawnow;
+
     end
 
     % Check if user pressed stop button
     if strcmp(get(handles.btnGetData, 'String'), 'Start Measurement')
         break
     end
-    
+
 end
 
 

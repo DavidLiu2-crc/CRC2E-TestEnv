@@ -219,6 +219,13 @@ extern "C" {
 #define DIO_CH_LIST_MODE_ALL_DOMAIN_CHANNELS	2
 #define DIO_CH_LIST_MODE_RANGE_OF_CHANNELS		3
 
+//Channel Output data format
+#define DIO_OUTPUT_DATA_FORMAT_NR				0
+#define DIO_OUTPUT_DATA_FORMAT_R0				1
+#define DIO_OUTPUT_DATA_FORMAT_R1				2
+#define DIO_OUTPUT_DATA_FORMAT_RZ				3
+#define DIO_OUTPUT_DATA_FORMAT_RC				4
+
 // DIOPanel() constants - nMode for panel functions
 #define GTDIO_PANEL_MODELESS					0
 #define GTDIO_PANEL_MODAL						1	

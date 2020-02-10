@@ -1,0 +1,4 @@
+﻿ladybugTestGrab.obj : error LNK2019: unresolved external symbol __imp__ladybugErrorToString referenced in function _main
+ladybugTestGrab.obj : error LNK2019: unresolved external symbol __imp__ladybugCreateContext referenced in function _main
+ladybug.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\anokiwave-gui\ladybug_code\ladybugTestGrab\Debug\ladybugTestGrab.exe : fatal error LNK1120: 2 unresolved externals

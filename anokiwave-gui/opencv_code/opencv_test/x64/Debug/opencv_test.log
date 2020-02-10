@@ -1,0 +1,5 @@
+﻿  opencvCameraCal.cpp
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\anokiwave-gui\opencv_code\opencv_test\opencvCameraCal.cpp(18,26): error C2530: 'outputPoints': references must be initialized
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\anokiwave-gui\opencv_code\opencv_test\opencvCameraCal.cpp(19,44): error C2143: syntax error: missing ']' before 'constant'
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\anokiwave-gui\opencv_code\opencv_test\opencvCameraCal.cpp(19,44): error C3260: 'constant': skipping unexpected token(s) before lambda body
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\anokiwave-gui\opencv_code\opencv_test\opencvCameraCal.cpp(31,1): fatal error C1903: unable to recover from previous error(s); stopping compilation

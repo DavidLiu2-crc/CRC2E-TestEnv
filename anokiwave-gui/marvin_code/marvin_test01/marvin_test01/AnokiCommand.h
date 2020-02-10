@@ -1,21 +1,35 @@
 #pragma once
 
+// General C++ modules
+#include <iostream>
+#include <cmath>
+#include <bitset>
+#include <string>
+
+// Global define the anokiwave connection channel
+#define ANOKI_CLK				0
+#define ANOKI_SDI				1
+#define ANOKI_SDO				2
+#define ANOKI_LAT				3
+#define ANOKI_STB				4
+
+#define ANOKI_numChannels		5	// Defines the number of channels
+#define ANOKI_numCommandByte	17	// Defines the maximum number of command bytes
+#define ANOKI_counterMaxWrite	9
+#define ANOKI_counterMaxRead	15
+// Global define a matlab degree version of trig functions
+#define M_PI       3.14159265358979323846   // pi
+
+#define sind(x) (sin(fmod((x), 360) * M_PI / 180))
+#define cosd(x) (cos(fmod((x), 360) * M_PI / 180))
+#define acosd(x) acos(x) * 180 / M_PI
+#define asind(x) asin(x) * 180 / M_PI
+#define atan2d(y,x) atan2(y,x) * 180 / M_PI
+
+
 // --- Defines AnokiCommand as C++ class with function and 
 // properties of the AWMF-0129 antenna command set
 class AnokiCommand {
-
-	// Global define the anokiwave connection channel
-	#define ANOKI_CLK				0
-	#define ANOKI_SDI				1
-	#define ANOKI_SDO				2
-	#define ANOKI_LAT				3
-	#define ANOKI_STB				4
-
-	#define ANOKI_numChannels		5	// Defines the number of channels
-	#define ANOKI_numCommandByte	17	// Defines the maximum number of command bytes
-	#define ANOKI_counterMaxWrite	9
-	#define ANOKI_counterMaxRead	15
-
 
 	public:
 		// Define configuration of PAA
@@ -70,12 +84,18 @@ class AnokiCommand {
 
 		// ---------------- DEFINE SET PARAMETER FUNCTIONS ---------
 
+		// Set the beam on parameter
+
 		// Set the frequency parameter of the PAA
 		void set_PointingFreq(double _freq);
 		// Set the beam pointing angles of the PAA
 		void set_PointingAngle(double _theta, double _phi);
+		// Set the beam pointing angles of the PAA (Azimuth and Elevation)
+		void set_PointingAngleAE(double _azimuth, double _elevation);
 		// Returns the command sequence through the array pointer
 		void get_commandSequence(unsigned int * cmdSeq);
+		// Returns the command sequence length through the array pointer
+		void get_commandLength(unsigned int* cmdLength);
 
 
 		// ---------------- DEFINE HELPER FUNCTIONS ----------------
@@ -92,8 +112,9 @@ class AnokiCommand {
 		void show_hexCMD(int * pCmd, int len_);
 
 	private:
-		int numResponseLast = 0;	// How many bytes expected now
-		int numResponseCurrent = 0;	// How many bytes to expect next
+		unsigned int numResponseLast = 0;	// How many bytes expected from last
+		unsigned int cmdIndex = 0;			// How many bytes in current command
+		unsigned int numResponseNext = 0;	// How many bytes to expect nexttime
 
 
 		// ------------ DEFINE PRIVATE HELPER FUNCTIONS ------------

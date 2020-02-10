@@ -66,6 +66,26 @@ void MarvinCommand::SetupCard(unsigned int nSlotNum, int interfaceType, unsigned
 
 }
 
+void MarvinCommand::SetupChannelAnoki(SHORT handle) {
+	// Define which channels are no return
+	SHORT channels_NR[4] = { 1, 2, 3, 4 };
+	SHORT numChannelsNR = sizeof(channels_NR) / sizeof(SHORT);
+	// Define which channels will return complement
+	// TODO : Attempt to map clock to channel 0
+	SHORT channels_RC[1] = { 0 };
+	SHORT numChannelsRC = sizeof(channels_RC) / sizeof(SHORT);
+
+	// Send the channel data format configuration
+	DioSetupOutputDataFormat(handle, DIO_CH_LIST_MODE_ARRAY_OF_CHANNELS, numChannelsNR, channels_NR, 0, DIO_OUTPUT_DATA_FORMAT_NR, &nStatus);
+	CheckStatus(nStatus);
+	DioSetupOutputDataFormat(handle, DIO_CH_LIST_MODE_ARRAY_OF_CHANNELS, numChannelsRC, channels_RC, 0, DIO_OUTPUT_DATA_FORMAT_RC, &nStatus);
+	CheckStatus(nStatus);
+
+	std::cout << "Channels set to data format of Anokiwave PAA. \n";
+}
+
+
+
 void MarvinCommand::LoadCard(DWORD* _memory, DWORD* _control, DWORD _frequency) {
 	
 	std::cout << "Opening DIO File to write memory into \n";
@@ -73,6 +93,8 @@ void MarvinCommand::LoadCard(DWORD* _memory, DWORD* _control, DWORD _frequency) 
 	// Create a new file through DIOEasy
 	DioFileOpen(szFileNameInput, DIO_FILE_CREATE, &nBoardType, &nFileHandle, &nStatus);
 	CheckStatus(nStatus);
+
+	//SetupChannelAnoki(nFileHandle);
 
 	// Set up file step size -- File OPEN
 	DioFileSetNumberOfSteps(nFileHandle, 4096, &nStatus);
@@ -142,29 +164,127 @@ void MarvinCommand::ReadFromCard() {
 	std::cout << "Read card memory into file\n";
 }
 
-void MarvinCommand::addCMDSingleToMemory(unsigned int value, unsigned int _channel, unsigned int _cmdPosition) {
+void MarvinCommand::addBuffer(bool byteHeader, unsigned int _memoryIndex) {
+	unsigned int latchByte = 0xFF;
+	unsigned int strobeByte = 0x0F;
+	addCMDSingleToMemory(latchByte, 3, _memoryIndex);
+	if (!byteHeader) {	// If byteHeader = 0:End Byte
+		addCMDSingleToMemory(strobeByte, 4, _memoryIndex);
+	}
+}
 
-	unsigned int bitmask = 0x80;
-	unsigned int addBit = 1 << _channel;
+void MarvinCommand::addClock(unsigned int _memoryIndex) {
+
+	unsigned int value = 0x5555;
+	unsigned int bitmask = 0x8000;
+	unsigned int addBit = 1;
+
 	for (int i = 0; i < 8; i++) { // Loop through a single byte (8 bits) on a channel
-		dwMemory[_cmdPosition + i] = value & bitmask ? addBit : 0;
+		DWORD currentWord = dwMemory[_memoryIndex + i];
+		dwMemory[_memoryIndex + i] = value & bitmask ? currentWord + addBit : currentWord;
 		bitmask = bitmask >> 1;
 	}
+}
+
+void MarvinCommand::addCMDToMemory(unsigned int* cmdSeq, unsigned int _dataChannel, unsigned int cmdLength) {
+
+	// Add clock right into memory
+	unsigned int clkByte = 0x55;
+
+	// Add the starting byte
+	addBuffer(true, dwMemoryIndex);
+	dwMemoryIndex += 8*2;
+
+	// Add the command sequence
+	addSequenceToMemory(cmdSeq, cmdLength, _dataChannel, dwMemoryIndex);
+	for (unsigned int i = 0; i < cmdLength * 2; i++) {
+		addClock(dwMemoryIndex + 8*i);
+	}
+	dwMemoryIndex += 8 * 2 * cmdLength;
+
+	// Add the ending byte
+	addBuffer(false, dwMemoryIndex);
+	dwMemoryIndex += 8*2;
 
 }
 
-void MarvinCommand::addCMDSequenceToMemory(unsigned int* seq, unsigned int _channel, unsigned int _cmdPosition) {
+
+
+// ------ LVDS Implementation - Generating own clock pulse -----
+void MarvinCommand::addSequenceToMemory(unsigned int* seq, unsigned int _cmdLength, unsigned int _channel, unsigned int _cmdPosition) {
 	// TODO: Change to size of array sequence
 	for (unsigned int i = 0; i < 9; i++) {
+		addCMDSingleToMemory(seq[i], _channel, _cmdPosition);
+		_cmdPosition += 16;
+	}
+
+	/*for (unsigned int i = 0; i < 9; i++) {
 		unsigned int bitmask = 0x80;
 		unsigned int addBit = 1 << _channel;
 		for (int j = 0; j < 8; j++) {
-			unsigned int bitOffset = i * 8 + j;
+			unsigned int bitOffset = i * 8 * 2 + j;
 			dwMemory[_cmdPosition + bitOffset] = seq[i] & bitmask ? addBit : 0;
+			dwMemory[_cmdPosition + bitOffset + 1] = seq[i] & bitmask ? addBit : 0;
 			bitmask = bitmask >> 1;
 		}
-	}
+	}*/
 }
+
+void MarvinCommand::addCMDSingleToMemory(unsigned int value, unsigned int _channel, unsigned int _cmdPosition) {
+	
+	unsigned int bitmask = 0x80;
+	unsigned int addBit = 1 << _channel;
+	for (int i = 0; i < 8; i++) { // Loop through a single byte (8 bits) on a channel
+		DWORD currentWord = dwMemory[_cmdPosition + 2*i];
+		dwMemory[_cmdPosition + 2*i] = value & bitmask ? currentWord + addBit : currentWord;
+		dwMemory[_cmdPosition + 2*i + 1] = value & bitmask ? currentWord + addBit : currentWord;
+		bitmask = bitmask >> 1;
+	}
+	
+}
+
+// ------ LVDS Implementation - Pulling LVDS Clock Out from J4 -----
+
+//void MarvinCommand::addCMDToMemory(unsigned int* cmdSeq, unsigned int _dataChannel, unsigned int cmdLength) {
+//
+//	// Add the starting byte
+//	addBuffer(true, dwMemoryIndex);
+//	dwMemoryIndex += 8;
+//	// Add the command sequence
+//	addSequenceToMemory(cmdSeq, _dataChannel, dwMemoryIndex);
+//	addSequenceToMemory(clkSeq, 0, dwMemoryIndex);
+//	dwMemoryIndex += 8 * cmdLength;
+//	// Add the ending byte
+//	addBuffer(false, dwMemoryIndex);
+//	dwMemoryIndex += 8;
+//
+//}
+
+//void MarvinCommand::addSequenceToMemory(unsigned int* seq, unsigned int _channel, unsigned int _cmdPosition) {
+//	// TODO: Change to size of array sequence
+//	for (unsigned int i = 0; i < 9; i++) {
+//		unsigned int bitmask = 0x80;
+//		unsigned int addBit = 1 << _channel;
+//		for (int j = 0; j < 8; j++) {
+//			unsigned int bitOffset = i * 8 + j;
+//			dwMemory[_cmdPosition + bitOffset] = seq[i] & bitmask ? addBit : 0;
+//			bitmask = bitmask >> 1;
+//		}
+//	}
+//}
+//
+//void MarvinCommand::addCMDSingleToMemory(unsigned int value, unsigned int _channel, unsigned int _cmdPosition) {
+//
+//	unsigned int bitmask = 0x80;
+//	unsigned int addBit = 1 << _channel;
+//	for (int i = 0; i < 8; i++) { // Loop through a single byte (8 bits) on a channel
+//		dwMemory[_cmdPosition + i] = value & bitmask ? dwMemory[_cmdPosition + i] + addBit : dwMemory[_cmdPosition + i];
+//		bitmask = bitmask >> 1;
+//	}
+//
+//}
+
+
 
 void MarvinCommand::ShowMemory(DWORD* _memory, DWORD posStart, DWORD posEnd) {
 
