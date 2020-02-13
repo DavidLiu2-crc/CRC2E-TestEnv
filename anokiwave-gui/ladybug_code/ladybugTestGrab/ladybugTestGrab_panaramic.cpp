@@ -17,12 +17,11 @@
 
 using namespace std;
 
-//#define ladybugPanoramicWidth 2048
-#define ladybugPanoramicWidth 2048*4
+#define ladybugPanoramicWidth 2048
 #define ladybugPanoramicHeight 1024
 
-#define ladybugColorProcessing LADYBUG_DOWNSAMPLE4 // Fastest color method for real-time usage
-//#define ladybugColorProcessing LADYBUG_HQLINEAR   // High quality method for large stitched images
+//#define ladybugColorProcessing LADYBUG_DOWNSAMPLE4 // Fastest color method for real-time usage
+#define ladybugColorProcessing LADYBUG_DOWNSAMPLE16   // High quality method for large stitched images
 
 // Error handling definition
 #define _HANDLE_ERROR \
@@ -70,15 +69,14 @@ LadybugError startCamera(LadybugContext context) {
     //error = ::ladybugEnableSoftwareRendering(context, true);
     //_HANDLE_ERROR;
 
-    error = ladybugSetColorProcessingMethod(context, ladybugColorProcessing);
+    printf("Setting up camera for Panoramic View \n");
+    error = ::ladybugSetPanoramicViewingAngle(context, LADYBUG_FRONT_0_POLE_5);
     _HANDLE_ERROR;
 
     error = ::ladybugSetAlphaMasking(context, true);
     _HANDLE_ERROR;
 
-
-    printf("Setting up camera for Panoramic View \n");
-    error = ::ladybugSetPanoramicViewingAngle(context, LADYBUG_FRONT_0_POLE_5);
+    error = ladybugSetColorProcessingMethod(context, ladybugColorProcessing);
     _HANDLE_ERROR;
 
     error = ::ladybugConfigureOutputImages(context, LADYBUG_PANORAMIC);
@@ -119,7 +117,7 @@ int main(int argc, char *argv[]) {
     error = startCamera(context);
 
     // --- Start ladybug connection
-    error = ::ladybugStart(context, LADYBUG_DATAFORMAT_COLOR_SEP_HALF_HEIGHT_JPEG12);
+    error = ::ladybugStart(context, LADYBUG_DATAFORMAT_COLOR_SEP_JPEG8);
     
     // ---------------------------------------------------------------------------------
     // Begin controlling the ladybug

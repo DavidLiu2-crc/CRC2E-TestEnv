@@ -154,6 +154,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnokiCommand.cpp" />
+    <ClCompile Include="AnokiMemory.cpp" />
     <ClCompile Include="MarvinCommand.cpp" />
     <ClCompile Include="marvin_test01.cpp" />
   </ItemGroup>
@@ -162,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnokiCommand.h" />
+    <ClInclude Include="AnokiMemory.h" />
     <ClInclude Include="GTDIO.h" />
     <ClInclude Include="MarvinCommand.h" />
     <ClInclude Include="marvin_test01.h" />
@@ -169,6 +171,9 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="marvin_test01.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

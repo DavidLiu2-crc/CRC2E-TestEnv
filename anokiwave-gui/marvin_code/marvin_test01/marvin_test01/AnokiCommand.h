@@ -2,9 +2,10 @@
 
 // General C++ modules
 #include <iostream>
+#include <cstdio>
 #include <cmath>
-#include <bitset>
 #include <string>
+#include <vector>
 
 // Global define the anokiwave connection channel
 #define ANOKI_CLK				0
@@ -17,18 +18,20 @@
 #define ANOKI_numCommandByte	17	// Defines the maximum number of command bytes
 #define ANOKI_counterMaxWrite	9
 #define ANOKI_counterMaxRead	15
-// Global define a matlab degree version of trig functions
-#define M_PI       3.14159265358979323846   // pi
 
-#define sind(x) (sin(fmod((x), 360) * M_PI / 180))
-#define cosd(x) (cos(fmod((x), 360) * M_PI / 180))
-#define acosd(x) acos(x) * 180 / M_PI
-#define asind(x) asin(x) * 180 / M_PI
+// Global define a matlab degree version of trig functions
+#define M_PI		3.14159265358979323846   // pi
+#define sind(x)		(sin(fmod((x), 360) * M_PI / 180))
+#define cosd(x)		(cos(fmod((x), 360) * M_PI / 180))
+#define acosd(x)	acos(x) * 180 / M_PI
+#define asind(x)	asin(x) * 180 / M_PI
 #define atan2d(y,x) atan2(y,x) * 180 / M_PI
 
 
-// --- Defines AnokiCommand as C++ class with function and 
-// properties of the AWMF-0129 antenna command set
+// --- Defines AnokiCommand as C++ class with function and properties of the AWMF-0129 antenna command set
+// --- 1. Call set_*** functions to assign the object attributes of this Anokiwave class
+// --- 2. Call cmd_*** functions to convert object attributes to command sequence
+// --- 3. Call get_*** functions to pass local command sequence to external variables
 class AnokiCommand {
 
 	public:
@@ -52,6 +55,8 @@ class AnokiCommand {
 		unsigned int commandOutByte[ANOKI_counterMaxWrite];	// Max send command byte length
 		unsigned int sizeOfOutByte = sizeof(commandOutByte) / sizeof(unsigned int); // Define the array size of commandOutByte
 		
+		char commandOutCalled[256];	// Character array containing the command sequence in readable language
+
 		unsigned int commandInByte[ANOKI_counterMaxRead];	// Max read command byte length
 		unsigned int sizeOfInByte = sizeof(commandInByte) / sizeof(unsigned int); // Define the array size of commandOutByte
 
@@ -73,8 +78,8 @@ class AnokiCommand {
 		void cmd_ArrayConfigurationRequest();
 		// Sends the command to reset the PAA device to factory
 		void cmd_FactoryReset();
-		// void cmd_ConfigureIPAddress(); // Cannot configure over LVDS
-		// Sends the command to enable the beam *IRRADIATING*
+		/* void cmd_ConfigureIPAddress(); // Cannot configure over LVDS */
+		// Sends the command to enable the beam
 		void cmd_EnableBeam();
 		// Sends the command to return the summary status
 		void cmd_StatusSummaryRequest();
@@ -84,32 +89,24 @@ class AnokiCommand {
 
 		// ---------------- DEFINE SET PARAMETER FUNCTIONS ---------
 
-		// Set the beam on parameter
-
 		// Set the frequency parameter of the PAA
 		void set_PointingFreq(double _freq);
 		// Set the beam pointing angles of the PAA
 		void set_PointingAngle(double _theta, double _phi);
 		// Set the beam pointing angles of the PAA (Azimuth and Elevation)
 		void set_PointingAngleAE(double _azimuth, double _elevation);
+
 		// Returns the command sequence through the array pointer
-		void get_commandSequence(unsigned int * cmdSeq);
+		void get_commandSequence(unsigned int* cmdSeq);
+		void get_commandSequence(unsigned int* cmdSeq, std::vector<std::string>& buffer);
 		// Returns the command sequence length through the array pointer
 		void get_commandLength(unsigned int* cmdLength);
-
-
-		// ---------------- DEFINE HELPER FUNCTIONS ----------------
-
-		// Returns the checksum byte of the hexadecimal in pCmd
-		int checksum(unsigned int * pCmd, int len_);
-		// Appends the current command to commmand sequence array.
-		void addToCommandSequence();
 
 
 		// ---------------- DEFINE DISPLAY FUNCTIONS ---------------
 
 		// Print the hex command in windows console
-		void show_hexCMD(int * pCmd, int len_);
+		void show_hexCMD(int * pCmd);
 
 	private:
 		unsigned int numResponseLast = 0;	// How many bytes expected from last
@@ -119,8 +116,13 @@ class AnokiCommand {
 
 		// ------------ DEFINE PRIVATE HELPER FUNCTIONS ------------
 
+		// Returns the checksum byte of the hexadecimal in pCmd
+		int checksum(unsigned int* pCmd, int len_);
+		// Convert the theta decimal value to equivalent hexadecimal in command sequence
 		void theta_uint16ToPointer(double value);
+		// Convert the phi decimal value to equivalent hexadecimal in command sequence
 		void phi_uint16ToPointer(double value);
+		// Convert the frequency decimal value to equivalent hexadecimal in command sequence
 		void freq_uint16ToPointer(double value);
 
 		void cleanCommandOutArray();

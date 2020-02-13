@@ -1,4 +1,15 @@
 % Test the connection to Keysight Signal Analyzer over TCPIP Connection and Anokiwave over serial
+%
+%   Sets up PXA over network
+%   Sets up Anokiwave over Serial COM port (Usually COM4)
+%   Call ladybugPanoramicGrab executable and puts image in \Results
+%
+%   Points Anokiwave Antenna in angles listed in \anglePoint.csv
+%   Fetchs data block from PXA and computes the peak amplitude of Impulse response
+%
+%   Save the gathered data in a Matlab Workspace to \Results
+%
+% -----------------------------------------------------------------------------
 
 % --- Reset the MATLAB workspace ----------------------------------------------
 clc; clear; close all;
@@ -8,23 +19,24 @@ disp(seriallist)      %% Shows which serial ports are connected to user computer
 warning('off','all'); %% warning
 
 % Sets up sweepingfrequency of Antenna and Center frequency of PXA
-paramFreq = 28050;      % Center frequency in MHz
-paramSamplingRate = 200;% Sampling rate in MHz
+paramFreq = 28050;          % Center frequency in MHz
+paramSamplingRate = 200;    % Sampling rate in MHz
 % Sets up PXA fetching parameters
-blockSize = 10000;      % Number of data points to sample every trigger
+blockSize = 10000;          % Number of data points to sample every trigger
+modeBeam = 0;
 
-param_triggerOffset = -5;  % Triger Offset in uS
+param_triggerOffset = -5;   % Triger Offset in uS
 
 % --- Initialize the serial port -----------------------------------------------
 AnokiSerial = serial('COM4', 'BaudRate', 115200, 'ByteOrder', 'bigEndian', 'Timeout', 0.1);
 fopen(AnokiSerial);
 % --- Initialize and open the visa port ----------------------------------------
-visaObj = VisaFindOpen('N9030A');
+visaObj = VisaFindOpen('N9030A', blockSize);
 VisaInitIQBasic(visaObj, blockSize);
 
 % --- Run ladybug executable to grab snapshot ----------------------------------
-%system('ladybugSimpleGrab.exe &');
-%disp('Capturing snapshot and saving from Ladybug V5');
+system('ladybugTestGrab.exe &');
+disp('Capturing snapshot and saving from Ladybug V5');
 
 % --- Initialize PAA to start steering beam ------------------------------------
 % TODO : Find proper set of commands to set Anokiwave PAA to latch RX data
@@ -43,7 +55,7 @@ azim_max = arrayPoint(3,1);
 elev_max = arrayPoint(3,2);
 % Generate axis to plot the angle pattern properly
 domain_azim = linspace(azim_min, azim_max, numRow);
-domain_elev = linspace(elev_min,elev_max, numCol);
+domain_elev = linspace(elev_min, elev_max, numCol);
 
 % --- Read the sample impulse response file ------------------------------------
 load chirp_140MHz_200MSps.mat;
@@ -52,44 +64,55 @@ load chirp_140MHz_200MSps.mat;
 
 % --- Begin iterative angle sweeping -------------------------------------------
 disp('Beginning Sweep across Phase Array Antenna');
-matrix_avgPower = zeros(length(arrayPoint) - 3, 1);
+matrix_peakImpulsePower = zeros(length(arrayPoint) - 3, 1);
 tic
-for i = 4:6
-%for i = 4:length(arrayPoint)
+
+for i = 4:length(arrayPoint)
     % Assume beam mode = 0:RX and Beam config = 0:Beam0
     paramModeTXRX = 0;
-    paramModeBeam = 0;
 
     % Convert and send the azimuth and elevation angles to PAA spherical angle
     %[theta, phi] = convert_coord( arrayPoint(i, 1), arrayPoint(i, 2) );
     theta = arrayPoint(i, 1);
     phi = arrayPoint(i, 2);
-    command_PAA_point(AnokiSerial, paramModeTXRX, paramModeBeam, theta, phi, paramFreq);
+    command_PAA_point(AnokiSerial, 0, modeBeam, theta, phi, paramFreq);
 
     % Call upon the PAA to fetch the a snapshot of data
     rawData = VisaFetchIQ(visaObj, paramFreq, paramSamplingRate, blockSize);
     iqIFdata = ProcessIQChirp(rawData, blockSize, paramSamplingRate, W, X, ACF_dB);
 
-    matrix_avgPower(i-3) = max(iqIFdata);
+    matrix_peakImpulsePower(i - 3) = max(iqIFdata);
 end
+disp("Time to sweep antenna array");
 toc
 
 % Reshape vector to heatmap matrix
-matrix_avgPower = reshape(matrix_avgPower, numRow, numCol);
+matrix_peakImpulsePower = reshape(matrix_peakImpulsePower, numRow, numCol);
+%matrix_peakImpulsePower = flip(matrix_peakImpulsePower,2);
+matrix_peakImpulsePower = matrix_peakImpulsePower.';
 
-% --- Draw heatmap figure and set up plot properties
+% --- Draw heatmap figure and set up plot properties ----------------------
 figure();
-hFigure = heatmap(domain_azim, domain_elev, matrix_avgPower, 'Colormap', jet);
-hFigure.Title = 'Phased Array Antenna Mean Power Sweep';
+hFigure = heatmap(domain_azim, domain_elev, matrix_peakImpulsePower, 'Colormap', jet);
+hFigure.Title = 'Anokiwave Antenna - Peak Impulse Amplitude Sweep';
 hFigure.XLabel = 'Azimuth angle';
 hFigure.YLabel = 'Elevation angle';
-caxis(hFigure, [-100, -40]);
+caxis(hFigure, [-85, -55]);
 disp('Heatmap displayed');
+
+% --- Check heatmap result ------------------------------------------------
+if (max(matrix_peakImpulsePower) < -80)
+    disp("Check cable and communication connections: No chirp impulse received");
+end
 
 
 % --- Close the connections -----------------------------------------------
-fclose(s);          % Close the serial connection to Anokiwave
+fclose(AnokiSerial);          % Close the serial connection to Anokiwave
 fclose(visaObj);    % Close the TCPIP connection to VXA Visa device
+
+% Save the sweeped data for further processing
+save('Results\anokiSweepData.mat', 'matrix_peakImpulsePower', 'domain_azim', 'domain_elev');
+
 
 
 
@@ -100,7 +123,7 @@ fclose(visaObj);    % Close the TCPIP connection to VXA Visa device
 % Defines a function to initialize and open the Visa object at an IP address
 function visaObj = VisaFindOpen(device, blockSize)
     % --- Instrument settings ------------------------------------------------
-    param_visaTimeout = 15;     % Timeout connection time
+    param_visaTimeout = 10;     % Timeout initial connection time
 
     % --- Initialize the visa port ---------------------------------------------
     visaObj = instrfind('Tag', 'deepCapture');        %% Check if visa object already connected
@@ -111,7 +134,7 @@ function visaObj = VisaFindOpen(device, blockSize)
     for i = 1:length(visaDevices)
         disp( "Device " + num2str(i) + " : " + visaDevices(1) );
     end
-    % --- Prompt which device to connect to
+    % --- Prompt which device to connect to if multiple devices found in IP
     if length(visaDevices) > 1
         visaOption = input("Pick a number corresponding to visa address")
     else
@@ -148,6 +171,7 @@ function visaObj = VisaFindOpen(device, blockSize)
         fclose(visaObj);
         throw(myException);
     end
+    fprintf(visaObj, ':DISP:ENAB ON');  % Show real-time data (for debugging)
     disp( strcat('Connected to Visa device : ',device) );
 end
 
@@ -190,7 +214,7 @@ function rawData = VisaFetchIQ(visaObj, centreFreq, samplingRate, blockSize);
 
     % Set up the center frequency before fetching data
 
-    fprintf(visaObj, [':FREQ:CENT ' num2str(centreFreq) ' GHz'] );
+    fprintf(visaObj, [':FREQ:CENT ' num2str(centreFreq) ' MHz'] );
     fprintf(visaObj, [':WAV:SRAT ' num2str(samplingRate) ' MHz'] );  % Samping rate
     % Set up the block size for reading data
     fprintf(visaObj, [':FCAP:LENG ' num2str(blockSize)] );
@@ -206,14 +230,9 @@ end
 
 function ir = ProcessIQChirp(rawData, blockSize, samplingRate, W, X, ACF_dB)
     [iqTime, iqRaw, iqData] = parseRawData(rawData, blockSize, samplingRate);
-
-    figure(1);
-    plot(iqTime, iqRaw);
-
+    %figure(1); plot(iqTime, iqRaw);
     ir = fftIQdata(iqData, W, X, ACF_dB);
-
-    figure(2);
-    plot(iqTime, ir);
+    %figure(2); plot(iqTime, ir);
 end
 
 % Defines a function to parse the raw PXA data
@@ -225,7 +244,7 @@ function [iqTime, iqRaw, iqData] = parseRawData(rawData, blockSize, samplingRate
     end
 
     % Obtain the time domain from raw data tabLength
-    t = 1e6*(0:blockSize-1)/(samplingRate*1e6);
+    iqTime = 1e6*(0:blockSize-1)/(samplingRate*1e6);
     iqRaw = 20*log10(abs(iqData)) + 10;
 end
 
@@ -272,10 +291,10 @@ function command_PAA_point(serial, mode, beam, theta, phi, fMHz)
     if mode, beam_byte = 4; end
 
     % Accept beam values from 0,1,2,3
-    if beam == 0 beam_byte += 0;
-    elseif beam == 1 beam_byte += 1;
-    elseif beam == 2 beam_byte += 2;
-    elseif beam == 3 beam_byte += 3;
+    if beam == 0;
+    elseif beam == 1, beam_byte = beam_byte + 1;
+    elseif beam == 2, beam_byte = beam_byte + 2;
+    elseif beam == 3, beam_byte = beam_byte + 3;
     end
 
     % Convert the theta angle, phi angle, freq mhz to bytes
@@ -334,6 +353,13 @@ function print_command(cmd, sendType, dataType)
     %   print_command displays the command in the matlab console with
     %   information about data stream direction and data type
 
+    % Check if command is empty
+    if isempty(cmd)
+        disp("Check the port, no response from serial port")
+        %Quit script because wrong device configured
+        return;
+    end
+
     % Print what kind of command was sent
     if sendType == 'send'
         fprintf("Command sent: ");
@@ -350,13 +376,6 @@ function print_command(cmd, sendType, dataType)
         end
     end
     fprintf("\n"); % Add new line for readibility
-
-    % Check if command is empty
-    if isempty(cmd)
-        disp("Check the port, no response from serial port")
-        %Quit script because wrong device configured
-        return;
-    end
 end
 
 %Defines a function that sends the command through serial
@@ -372,13 +391,13 @@ function response = send_command(serial, cmd, byteBack)
     % Append the checksum byte
     send_cmd = [cmd checksum(cmd)];
     % Display what the command will look like before transmission
-    print_command(send_cmd, 'send', 'hex');
+    %print_command(send_cmd, 'send', 'hex');
     % Write to the serial port the command
     fwrite(serial, send_cmd);
     % Read immediately whether it be an acknowledgement or information requested
     response = fread(serial, 6);
     % Quick check if NCK received
-    print_command(response, 'read', 'hex');
+    %print_command(response, 'read', 'hex');
     if length(response) > 1
         ack = response(1);
     else

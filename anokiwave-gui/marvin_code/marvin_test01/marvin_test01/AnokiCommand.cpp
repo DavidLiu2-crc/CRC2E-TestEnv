@@ -7,8 +7,6 @@
 /*------------------------------------------------
 ----- Start of Basic Command List Definition -----
 ------------------------------------------------*/
-
-
 void AnokiCommand::cmd_SetScratchValue(long unsigned nScratchValue) {
     /* Sets the command sequence to set scratch value
     @param
@@ -17,7 +15,6 @@ void AnokiCommand::cmd_SetScratchValue(long unsigned nScratchValue) {
     Fills in the commandOut with value nScratchValue.   */
 
     cleanCommandOutArray();     // Reset reference command array
-    cmdIndex = 0;
     commandOutByte[0] = 0x81;   // Command Header for SetScratchValue
 
     // Convert long nScratchValue to 4 seperate hex values
@@ -31,22 +28,28 @@ void AnokiCommand::cmd_SetScratchValue(long unsigned nScratchValue) {
 
     commandOutByte[5] = checksum(commandOutByte, 5); // Append checksum to end of comand sequence
 
+    // Convert command sequence to readable
+    snprintf(commandOutCalled, sizeof(commandOutCalled),
+        "Set Scratch Value (%X %X %X %X)",
+        commandOutByte[1], commandOutByte[2], commandOutByte[3], commandOutByte[4]);
+
     cmdIndex = 6;           // Assign the counter value for current command index
     numResponseNext = 7;    // Assign the whitespace for next response sequence
 }
-
 
 void AnokiCommand::cmd_ReadScratchRequest() {
     /* Sets the command sequence to read the scratch value
         @description
         Fills in the commandOut to request the value in scratch register. */
 
-    // Reset reference command array
-    cleanCommandOutArray();
-    // Command Header for ReadScratchRequest
-    commandOutByte[0] = 0x82;
-    // Append checksum to end of comand sequence
-    commandOutByte[1] = checksum(commandOutByte, 1);
+    
+    cleanCommandOutArray();     // Reset reference command array
+    commandOutByte[0] = 0x82;   // Command Header for ReadScratchRequest
+     
+    commandOutByte[1] = checksum(commandOutByte, 1);    // Append checksum to end of comand sequence
+
+    // Convert command sequence to readable
+    snprintf(commandOutCalled, sizeof(commandOutCalled), "Read Scratch Request");
 
     cmdIndex = 2;           // Assign the counter value for current command index
     numResponseNext = 7;    // Assign the whitespace for next response sequence
@@ -57,12 +60,14 @@ void AnokiCommand::cmd_RequestFixedSequence() {
     @description
     Fills in the commandOut to request the value in fixed register. */
     
-    // Reset reference command array
-    cleanCommandOutArray();
-    // Command Header for RequestFixedSequence
-    commandOutByte[0] = 0x83;
-    // Append checksum to end of comand sequence
-    commandOutByte[1] = checksum(commandOutByte, 1);
+    
+    cleanCommandOutArray();     // Reset reference command array
+    commandOutByte[0] = 0x83;   // Command Header for RequestFixedSequence
+     
+    commandOutByte[1] = checksum(commandOutByte, 1);// Append checksum to end of comand sequence
+
+    // Convert command sequence to readable
+    snprintf(commandOutCalled, sizeof(commandOutCalled), "Request Fixed Sequence");
     
     cmdIndex = 2;           // Assign the counter value for current command index
     numResponseNext = 7;    // Assign the whitespace for next response sequence
@@ -73,25 +78,27 @@ void AnokiCommand::cmd_PAAPointingCommand() {
     @description
     Fills in the commandOut to point the beam in a particular direction. */
 
-    // Reset reference command array
-    cleanCommandOutArray();
-    // Command Header for PAAPointingCommand
-    commandOutByte[0] = 0xA0;
+    std::string charMode;
+
+    cleanCommandOutArray();     // Reset reference command array
+    commandOutByte[0] = 0xA0;   // Command Header for PAAPointingCommand
 
     // Configure the mode byte
     int mode = 0;
-    if (paramModeTXRX) mode = 4;
+    paramModeTXRX ? mode = 4 : mode = 0;
     commandOutByte[1] = mode + paramModeBeam;
 
-    // Remap theta angle from [0-90] to [0-FFFF];
-    theta_uint16ToPointer(paramDirection[0]);
-    // Remap theta angle from [0-360] to [0-FFFF];
-    phi_uint16ToPointer(paramDirection[1]);
-    // Remap frequency to [0-FFFF];
-    freq_uint16ToPointer(paramDirection[2]);
+    theta_uint16ToPointer(paramDirection[0]);   // Remap theta angle from [0-90] to [0-FFFF];
+    phi_uint16ToPointer(paramDirection[1]);     // Remap theta angle from [0-360] to [0-FFFF];
+    freq_uint16ToPointer(paramDirection[2]);    // Remap frequency to [0-FFFF];
     
     // Assume commandOutByte[0:7] correctly set
-    commandOutByte[8] = checksum(commandOutByte, 8);
+    commandOutByte[8] = checksum(commandOutByte, 8); // Append checksum to end of comand sequence
+
+    // Convert command sequence to readable
+    snprintf(commandOutCalled, sizeof(commandOutCalled),
+        "PAA Pointing Command (%s, Beam Mode:%d Theta:%.3f, Phi:%.3f, Frequency:%.0f)",
+        paramModeTXRX ? "TX" : "RX", paramModeBeam, paramDirection[0], paramDirection[1], paramDirection[2]);
 
     cmdIndex = 9;           // Assign the counter value for current command index
     numResponseNext = 9;    // Assign the whitespace for next response sequence
@@ -102,12 +109,14 @@ void AnokiCommand::cmd_ArrayConfigurationRequest() {
     @description
     Fills in the commandOut to request the current array configuration (Revision number, SN, IP). */
 
-    // Reset reference command array
-    cleanCommandOutArray();
-    // Command Header for ArrayConfigurationRequest
-    commandOutByte[0] = 0xB1;
-    // Append checksum to end of comand sequence
-    commandOutByte[1] = checksum(commandOutByte, 1);
+    
+    cleanCommandOutArray();     // Reset reference command array
+    commandOutByte[0] = 0xB1;   // Command Header for ArrayConfigurationRequest
+     
+    commandOutByte[1] = checksum(commandOutByte, 1); // Append checksum to end of comand sequence
+
+    // Convert command sequence to readable
+    snprintf(commandOutCalled, sizeof(commandOutCalled), "Array Configuration Request");
 
     cmdIndex = 2;           // Assign the counter value for current command index
     numResponseNext = 11;   // Assign the whitespace for next response sequence
@@ -118,10 +127,9 @@ void AnokiCommand::cmd_FactoryReset() {
     @description
     Fills in the commandOut to reset the PAA to factory configuration. */
 
-    // Reset reference command array
-    cleanCommandOutArray();
-    // Command Header for cmd_FactoryReset
-    commandOutByte[0] = 0xC0;
+    
+    cleanCommandOutArray();     // Reset reference command array
+    commandOutByte[0] = 0xC0;   // Command Header for cmd_FactoryReset
 
     // Append the accepted reset flag
     if (paramFactoryReset) {
@@ -133,8 +141,10 @@ void AnokiCommand::cmd_FactoryReset() {
         commandOutByte[2] = 0x00;
     }
 
-    // Append checksum to end of comand sequence
-    commandOutByte[3] = checksum(commandOutByte, 3);
+    commandOutByte[3] = checksum(commandOutByte, 3); // Append checksum to end of comand sequence
+
+    // Convert command sequence to readable
+    snprintf(commandOutCalled, sizeof(commandOutCalled), "Factory reset (%s)", paramFactoryReset ? "true": "false");
 
     cmdIndex = 4;           // Assign the counter value for current command index
     numResponseNext = 7;    // Assign the whitespace for next response sequence
@@ -147,21 +157,19 @@ void AnokiCommand::cmd_EnableBeam() {
     @description
     Fills in the commandOut to command the PAA to enable beam. */
 
-    // Reset reference command array
-    cleanCommandOutArray();
-    // Command Header for EnableBeam
-    commandOutByte[0] = 0xE0;
+    
+    cleanCommandOutArray();     // Reset reference command array
+    commandOutByte[0] = 0xE0;   // Command Header for EnableBeam
     
     // Append the enable flag
-    if (paramBeamEnable) {
-        commandOutByte[1] = 1;
-    }
-    else {
-        commandOutByte[1] = 0;
-    }
+    paramBeamEnable ? commandOutByte[1] = 1 : commandOutByte[1] = 0;
 
-    // Append checksum to end of comand sequence
-    commandOutByte[2] = checksum(commandOutByte, 2);
+    
+    commandOutByte[2] = checksum(commandOutByte, 2); // Append checksum to end of comand sequence
+
+    // Convert command sequence to readable
+    snprintf(commandOutCalled, sizeof(commandOutCalled), "Enable Beam (%s)", paramBeamEnable ? "true" : "false");
+
 
     cmdIndex = 3;           // Assign the counter value for current command index
     numResponseNext = 7;    // Assign the whitespace for next response sequence
@@ -173,12 +181,14 @@ void AnokiCommand::cmd_StatusSummaryRequest() {
     @description
     Fills in the commandOut to request the status summary (PAA/Temperature Sensor Faults). */
 
-    // Reset reference command array
-    cleanCommandOutArray();
-    // Command Header for EnableBeam
-    commandOutByte[0] = 0xF0;
-    // Append checksum to end of comand sequence
-    commandOutByte[1] = checksum(commandOutByte, 1);
+    
+    cleanCommandOutArray();     // Reset reference command array
+    commandOutByte[0] = 0xF0;   // Command Header for EnableBeam
+
+    commandOutByte[1] = checksum(commandOutByte, 1); // Append checksum to end of comand sequence
+
+    // Convert command sequence to readable
+    snprintf(commandOutCalled, sizeof(commandOutCalled), "Status Summary Request");
 
     cmdIndex = 2;           // Assign the counter value for current command index
     numResponseNext = 4;    // Assign the whitespace for next response sequence
@@ -190,12 +200,14 @@ void AnokiCommand::cmd_StatusDetailRequest() {
     @description
     Fills in the commandOut to request the detailed status (Pointing angle, frequency and temperature). */
 
-    // Reset reference command array
-    cleanCommandOutArray();
-    // Command Header for EnableBeam
-    commandOutByte[0] = 0xF1;
-    // Append checksum to end of comand sequence
-    commandOutByte[1] = checksum(commandOutByte, 1);
+    
+    cleanCommandOutArray();     // Reset reference command arra
+    commandOutByte[0] = 0xF1;   // Command Header for EnableBeam
+    
+    commandOutByte[1] = checksum(commandOutByte, 1); // Append checksum to end of comand sequence
+
+    // Convert command sequence to readable
+    snprintf(commandOutCalled, sizeof(commandOutCalled), "Status Detail Request");
 
     cmdIndex = 2;           // Assign the counter value for current command index
     numResponseNext = 15;    // Assign the whitespace for next response sequence
@@ -233,25 +245,35 @@ void AnokiCommand::set_PointingAngleAE(double _azimuth, double _elevation) {
     else if (_elevation > 90) _elevation = 90;
 
     // Convert the input angles to cartesian
-    double gx = cosd(_azimuth) * cosd(_elevation);
-    double gy = sind(_azimuth) * sind(_elevation);
-    double gz = cosd(_elevation);
+    double gx = -sind(_elevation);
+    double gy = sind(_azimuth) * cosd(_elevation);
+    double gz = cosd(_azimuth) * cosd(_elevation);
 
     // Set the object property
     double theta = acosd(gz);
-    double phi = atan2d(gy, gx);
+    double phi = atan2d(-gx, -gy);
     if (phi < 0) phi = phi + 360;
 
     paramDirection[0] = theta;
     paramDirection[1] = phi;
 }
 
-
+// Overload function call to grab command sequence and command log
 void AnokiCommand::get_commandSequence(unsigned int* cmdSeq) {
     // TODO: Change to size of array sequence
     for (unsigned int i = 0; i < ANOKI_counterMaxWrite; i++) {
         cmdSeq[i] = commandOutByte[i];
     }
+}
+
+void AnokiCommand::get_commandSequence(unsigned int* cmdSeq, std::vector<std::string> &buffer) {
+    // TODO: Change to size of array sequence
+    for (unsigned int i = 0; i < ANOKI_counterMaxWrite; i++) {
+        cmdSeq[i] = commandOutByte[i];
+    }
+    // Add the current command log
+    buffer.push_back(std::string(commandOutCalled));
+
 }
 
 void AnokiCommand::get_commandLength(unsigned int* cmdLength) {
@@ -267,7 +289,6 @@ void AnokiCommand::get_commandLength(unsigned int* cmdLength) {
 /*------------------------------------------------
 ------ Start of Helper Function Definition -------
 ------------------------------------------------*/
-
 int AnokiCommand::checksum(unsigned int* pCmd, int len_) {
     /*-----------------------------------------------------------
      * checksum returns the checksum byte of the command sequence
@@ -290,10 +311,9 @@ int AnokiCommand::checksum(unsigned int* pCmd, int len_) {
     return checksumInt;
 }
 
-
-void AnokiCommand::show_hexCMD(int* pCmd, int len_) {
+void AnokiCommand::show_hexCMD(int* pCmd) {
     // Display to windows console the command string
-    for (int i = 0; i < len_; i++) {
+    for (int i = 0; i < cmdIndex; i++) {
         std::cout << std::hex << pCmd[i] << " ";
     }
     std::cout << "\n"; // New line terminator

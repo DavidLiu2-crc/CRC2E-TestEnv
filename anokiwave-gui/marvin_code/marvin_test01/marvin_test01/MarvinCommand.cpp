@@ -8,7 +8,14 @@
 /// <param name='nSlotNum'> unsigned int defining the slot number. See PXI/PCI Explorer. </param>
 /// <param name='interfaceType'> int representing the connector type, 0:TTL, 1:LVDS </param>
 /// </summary>
-void MarvinCommand::SetupCard(unsigned int nSlotNum, int interfaceType, unsigned int nExpectBoard, int operatingMode) {
+void MarvinCommand::SetupInterface(unsigned int _nSlotNum, unsigned int _nInterfaceType, unsigned int _nExpectBoard, unsigned int _nOperatingMode) {
+	nSlotNum = _nSlotNum;
+	nInterfaceType = _nInterfaceType;
+	nExpectedBoard = _nExpectBoard;
+	nOperatingMode = _nOperatingMode;
+}
+
+void MarvinCommand::StartConnection() {
 
 	// Initialize and return the board handle of the connected card
 	SHORT Master = 0;
@@ -26,7 +33,7 @@ void MarvinCommand::SetupCard(unsigned int nSlotNum, int interfaceType, unsigned
 
 	// Check and display the board type
 	if (!nStatus) {
-		if (nBoardType == nExpectBoard) {
+		if (nBoardType == nExpectedBoard) {
 			std::cout << "Correct board, initialized. Board Handle: " << nHandle << "\n";
 		}
 		else {
@@ -35,7 +42,7 @@ void MarvinCommand::SetupCard(unsigned int nSlotNum, int interfaceType, unsigned
 	}
 
 	// Set up the connection interface
-	DioSetupInputInterface(nHandle, interfaceType, &nStatus);
+	DioSetupInputInterface(nHandle, nInterfaceType, &nStatus);
 	CheckStatus(nStatus);
 	// Get the connection interface after setup
 	SHORT nConnector;
@@ -50,7 +57,7 @@ void MarvinCommand::SetupCard(unsigned int nSlotNum, int interfaceType, unsigned
 	}
 
 	// Set up the Operating mode of the card
-	DioDomainSetupOperatingMode(nHandle, operatingMode, &nStatus);
+	DioDomainSetupOperatingMode(nHandle, nOperatingMode, &nStatus);
 	CheckStatus(nStatus);
 	// Get the operating mode after setup
 	SHORT nOperatingMode = 0;
@@ -66,27 +73,29 @@ void MarvinCommand::SetupCard(unsigned int nSlotNum, int interfaceType, unsigned
 
 }
 
-void MarvinCommand::SetupChannelAnoki(SHORT handle) {
-	// Define which channels are no return
-	SHORT channels_NR[4] = { 1, 2, 3, 4 };
-	SHORT numChannelsNR = sizeof(channels_NR) / sizeof(SHORT);
-	// Define which channels will return complement
-	// TODO : Attempt to map clock to channel 0
-	SHORT channels_RC[1] = { 0 };
-	SHORT numChannelsRC = sizeof(channels_RC) / sizeof(SHORT);
+//void MarvinCommand::SetupChannelAnoki(SHORT handle) {
+//	// Define which channels are no return
+//	SHORT channels_NR[4] = { 1, 2, 3, 4 };
+//	SHORT numChannelsNR = sizeof(channels_NR) / sizeof(SHORT);
+//	// Define which channels will return complement
+//	// TODO : Attempt to map clock to channel 0
+//	SHORT channels_RC[1] = { 0 };
+//	SHORT numChannelsRC = sizeof(channels_RC) / sizeof(SHORT);
+//
+//	// Send the channel data format configuration
+//	DioSetupOutputDataFormat(handle, DIO_CH_LIST_MODE_ARRAY_OF_CHANNELS, numChannelsNR, channels_NR, 0, DIO_OUTPUT_DATA_FORMAT_NR, &nStatus);
+//	CheckStatus(nStatus);
+//	DioSetupOutputDataFormat(handle, DIO_CH_LIST_MODE_ARRAY_OF_CHANNELS, numChannelsRC, channels_RC, 0, DIO_OUTPUT_DATA_FORMAT_RC, &nStatus);
+//	CheckStatus(nStatus);
+//
+//	std::cout << "Channels set to data format of Anokiwave PAA. \n";
+//}
 
-	// Send the channel data format configuration
-	DioSetupOutputDataFormat(handle, DIO_CH_LIST_MODE_ARRAY_OF_CHANNELS, numChannelsNR, channels_NR, 0, DIO_OUTPUT_DATA_FORMAT_NR, &nStatus);
-	CheckStatus(nStatus);
-	DioSetupOutputDataFormat(handle, DIO_CH_LIST_MODE_ARRAY_OF_CHANNELS, numChannelsRC, channels_RC, 0, DIO_OUTPUT_DATA_FORMAT_RC, &nStatus);
-	CheckStatus(nStatus);
-
-	std::cout << "Channels set to data format of Anokiwave PAA. \n";
+void MarvinCommand::LoadCard() {
+	LoadCardWith(dwMemory, dwControl);
 }
 
-
-
-void MarvinCommand::LoadCard(DWORD* _memory, DWORD* _control, DWORD _frequency) {
+void MarvinCommand::LoadCardWith(DWORD* _memory, DWORD* _control) {
 	
 	std::cout << "Opening DIO File to write memory into \n";
 
@@ -108,7 +117,7 @@ void MarvinCommand::LoadCard(DWORD* _memory, DWORD* _control, DWORD _frequency) 
 	CheckStatus(nStatus);
 
 	// Set the operating frequency of the board
-	DioSetupFrequency(nFileHandle, _frequency, &nStatus);
+	DioSetupFrequency(nFileHandle, nBoardFrequency, &nStatus);
 	CheckStatus(nStatus);
 
 	DioFileClose(nFileHandle, &nStatus);
@@ -164,12 +173,13 @@ void MarvinCommand::ReadFromCard() {
 	std::cout << "Read card memory into file\n";
 }
 
+
 void MarvinCommand::addBuffer(bool byteHeader, unsigned int _memoryIndex) {
 	unsigned int latchByte = 0xFF;
 	unsigned int strobeByte = 0x0F;
-	addCMDSingleToMemory(latchByte, 3, _memoryIndex);
+	addByteToMemory(latchByte, 3, _memoryIndex);
 	if (!byteHeader) {	// If byteHeader = 0:End Byte
-		addCMDSingleToMemory(strobeByte, 4, _memoryIndex);
+		addByteToMemory(strobeByte, 4, _memoryIndex);
 	}
 }
 
@@ -208,14 +218,43 @@ void MarvinCommand::addCMDToMemory(unsigned int* cmdSeq, unsigned int _dataChann
 
 }
 
+void MarvinCommand::addCMDToMemoryWithSkip(unsigned int* cmdSeq, unsigned int _dataChannel, unsigned int cmdLength, double _delayTime) {
+
+	// Add clock right into memory
+	unsigned int clkByte = 0x55;
+
+	// Add the starting byte
+	addBuffer(true, dwMemoryIndex);
+	dwMemoryIndex += 8 * 2;
+
+	// Add the command sequence
+	addSequenceToMemory(cmdSeq, cmdLength, _dataChannel, dwMemoryIndex);
+	for (unsigned int i = 0; i < cmdLength * 2; i++) {
+		addClock(dwMemoryIndex + 8 * i);
+	}
+	dwMemoryIndex += 8 * cmdLength * 2;
+	
+	// Add the skip buffer
+	unsigned int numStepsSkip = _delayTime / (16 * nBoardFrequency);
+	for (unsigned int i = 0; i < cmdLength * 2; i++) {
+		addBuffer(true, dwMemoryIndex);
+		dwMemoryIndex += 8 * 2;
+	}
+
+	// Add the ending byte
+	addBuffer(false, dwMemoryIndex);
+	dwMemoryIndex += 8 * 2;
+
+}
+
 
 
 // ------ LVDS Implementation - Generating own clock pulse -----
 void MarvinCommand::addSequenceToMemory(unsigned int* seq, unsigned int _cmdLength, unsigned int _channel, unsigned int _cmdPosition) {
 	// TODO: Change to size of array sequence
 	for (unsigned int i = 0; i < 9; i++) {
-		addCMDSingleToMemory(seq[i], _channel, _cmdPosition);
-		_cmdPosition += 16;
+		addByteToMemory(seq[i], _channel, _cmdPosition);
+		_cmdPosition += 8*2;
 	}
 
 	/*for (unsigned int i = 0; i < 9; i++) {
@@ -230,7 +269,7 @@ void MarvinCommand::addSequenceToMemory(unsigned int* seq, unsigned int _cmdLeng
 	}*/
 }
 
-void MarvinCommand::addCMDSingleToMemory(unsigned int value, unsigned int _channel, unsigned int _cmdPosition) {
+void MarvinCommand::addByteToMemory(unsigned int value, unsigned int _channel, unsigned int _cmdPosition) {
 	
 	unsigned int bitmask = 0x80;
 	unsigned int addBit = 1 << _channel;
@@ -334,6 +373,6 @@ void MarvinCommand::CheckStatus(SHORT nStatus) {
 	std::cout << "Error Code: " << nStatus << "\t";
 	std::cout << szError << "\n";
 
-	std::cout << "Aborting Program \n";
+	//std::cout << "Aborting Program \n";
 	//exit(nStatus);
 }
