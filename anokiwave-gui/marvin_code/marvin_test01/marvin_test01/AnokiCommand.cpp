@@ -7,7 +7,7 @@
 /*------------------------------------------------
 ----- Start of Basic Command List Definition -----
 ------------------------------------------------*/
-AnokiObj AnokiCommand::cmd_SetScratchValue(long unsigned _nScratchValue) {
+AnokiObj AnokiCommand::cmd_SetScratchValue(unsigned long _nScratchValue) {
 // void AnokiCommand::cmd_SetScratchValue(long unsigned nScratchValue) {
     /* Sets the command sequence to set scratch value
     @param
@@ -46,7 +46,7 @@ AnokiObj AnokiCommand::cmd_SetScratchValue(long unsigned _nScratchValue) {
         _nScratchValue = 0xFFFFFFFF;
     }
 
-    long unsigned tempValue = _nScratchValue;
+    unsigned long tempValue = _nScratchValue;
     cmdOBJ.commandSequence[1] = floor(tempValue / 16777216);
     tempValue = tempValue - cmdOBJ.commandSequence[1] * 16777216;
     cmdOBJ.commandSequence[2] = floor(tempValue / 65536);
@@ -391,7 +391,9 @@ AnokiObj AnokiCommand::cmd_StatusDetailRequest() {
     return cmdOBJ;
 }
 
-void AnokiCommand::set_PointingFreq(double _freq) {
+// ---------------- DEFINE SET PARAMETER FUNCTIONS ---------
+
+void AnokiCommand::set_PointingFreq(float _freq) {
     // Set limits on user frequency input
     if (_freq < 27500) _freq = 27500;
     else if (_freq > 30000) _freq = 300000;
@@ -400,7 +402,7 @@ void AnokiCommand::set_PointingFreq(double _freq) {
     paramDirection[2] = _freq;
 }
 
-void AnokiCommand::set_PointingAngle(double _theta, double _phi) {
+void AnokiCommand::set_PointingAngle(float _theta, float _phi) {
     // Set boundary range for theta angle
     if (_theta < 0) _theta = 0;
     else if (_theta > 90) _theta = 90;
@@ -413,7 +415,7 @@ void AnokiCommand::set_PointingAngle(double _theta, double _phi) {
     paramDirection[1] = _phi;
 }
 
-void AnokiCommand::set_PointingAngleAE(double _azimuth, double _elevation) {
+void AnokiCommand::set_PointingAngleAE(float _azimuth, float _elevation) {
     // Set boundary range for azimuth angle
     if (_azimuth < -90) _azimuth = -90;
     else if (_azimuth > 90) _azimuth = 90;
@@ -435,38 +437,27 @@ void AnokiCommand::set_PointingAngleAE(double _azimuth, double _elevation) {
     paramDirection[1] = phi;
 }
 
-// Overload function call to grab command sequence and command log
-void AnokiCommand::get_commandSequence(unsigned int* cmdSeq) {
-    // TODO: Change to size of array sequence
-    for (unsigned int i = 0; i < ANOKI_counterMaxWrite; i++) {
-        cmdSeq[i] = commandOutByte[i];
-    }
+// 0:Disable, 1:Enable
+void AnokiCommand::set_enableBeam(bool _beamOn) {
+    paramBeamEnable = _beamOn;
 }
 
-void AnokiCommand::get_commandSequence(unsigned int* cmdSeq, std::vector<std::string> &buffer) {
-    // TODO: Change to size of array sequence
-    for (unsigned int i = 0; i < ANOKI_counterMaxWrite; i++) {
-        cmdSeq[i] = commandOutByte[i];
-    }
-    // Add the current command log
-    buffer.push_back(std::string(commandOutCalled));
-
-}
-void AnokiCommand::get_commandSequence(AnokiMemory anokiMem) {
-    // TODO: Change to size of array sequence
-    
-    // Set the current attributes to the command of AnokiCommand object
-    for (unsigned int currentIndex = 0; currentIndex < 10; currentIndex++) {
-        anokiMem.nCurrentCMD[currentIndex] = commandOutByte[currentIndex];
-    }
-    anokiMem.nCurrentLOG = std::string( commandOutCalled );
-    anokiMem.nCurrentANGLE = std::vector< double >(paramDirection[0], paramDirection[1]);
-
+// 0:RX Mode, 1:TX Mode
+void AnokiCommand::set_modeTXRX(bool _mode) {
+    paramModeTXRX = _mode;
 }
 
-void AnokiCommand::get_commandLength(unsigned int* cmdLength) {
-    cmdLength[0] = cmdIndex;
+// 0:Beam 0; 1:TBD; 2:TBD; 3:Spoil
+void AnokiCommand::set_beamMode(unsigned char _modeBeam) {
+    if (_modeBeam > 3) _modeBeam = 0;
+    paramModeBeam = 0;
 }
+
+// 0:Nothing, 1:Reset
+void AnokiCommand::set_factoryFlag(bool _factoryReset) {
+    paramFactoryReset = _factoryReset;
+}
+
 /*------------------------------------------------
 ------ END of Basic Command List Definition ------
 ------------------------------------------------*/
@@ -477,7 +468,15 @@ void AnokiCommand::get_commandLength(unsigned int* cmdLength) {
 /*------------------------------------------------
 ------ Start of Helper Function Definition -------
 ------------------------------------------------*/
-int AnokiCommand::checksum(unsigned int* pCmd, int len_) {
+void AnokiCommand::show_hexCMD(int* pCmd) {
+    // Display to windows console the command string
+    for (int i = 0; i < ANOKI_counterMaxRead; i++) {
+        std::cout << std::hex << pCmd[i] << " ";
+    }
+    std::cout << "\n"; // New line terminator
+}
+
+int AnokiCommand::checksum(unsigned char* pCmd, int len_) {
     /*-----------------------------------------------------------
      * checksum returns the checksum byte of the command sequence
      *
@@ -499,13 +498,7 @@ int AnokiCommand::checksum(unsigned int* pCmd, int len_) {
     return checksumInt;
 }
 
-void AnokiCommand::show_hexCMD(int* pCmd) {
-    // Display to windows console the command string
-    for (int i = 0; i < cmdIndex; i++) {
-        std::cout << std::hex << pCmd[i] << " ";
-    }
-    std::cout << "\n"; // New line terminator
-}
+
 
 /*------------------------------------------------
 ------- END of Helper Function Definition --------
@@ -517,7 +510,7 @@ void AnokiCommand::show_hexCMD(int* pCmd) {
 /*------------------------------------------------
 ------ Start of Private Function Definition ------
 ------------------------------------------------*/
-void AnokiCommand::theta_uint16ToPointer(double value) {
+void AnokiCommand::theta_uint16ToPointer(float value) {
     int msb, lsb;
 
     value = floor(value * 65535 / 90);
@@ -528,7 +521,7 @@ void AnokiCommand::theta_uint16ToPointer(double value) {
     dirSequence[1] = lsb;
 }
 
-void AnokiCommand::phi_uint16ToPointer(double value) {
+void AnokiCommand::phi_uint16ToPointer(float value) {
     int msb, lsb;
 
     value = floor(value * 65535 / 360);
@@ -539,7 +532,7 @@ void AnokiCommand::phi_uint16ToPointer(double value) {
     dirSequence[3] = lsb;
 }
 
-void AnokiCommand::freq_uint16ToPointer(double value) {
+void AnokiCommand::freq_uint16ToPointer(float value) {
     int msb, lsb;
 
     value = floor(value * 65535);
@@ -548,20 +541,6 @@ void AnokiCommand::freq_uint16ToPointer(double value) {
 
     dirSequence[4] = msb;
     dirSequence[5] = lsb;
-}
-
-void AnokiCommand::cleanCommandOutArray() {
-    // TODO: Change to size of array sequence
-    for (int i = 0; i < 9; i++) {
-        commandOutByte[i] = 0;
-    }
-}
-
-void AnokiCommand::cleanCommandInArray() {
-    // TODO: Change to size of array sequence
-    for (int i = 0; i < 14; i++) {
-        commandInByte[i] = 0;
-    }
 }
 
 void AnokiCommand::uint16ToBinInt(unsigned int value, unsigned int* cmdBit) {

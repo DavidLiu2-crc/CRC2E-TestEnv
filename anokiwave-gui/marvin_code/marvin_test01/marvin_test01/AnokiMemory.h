@@ -6,42 +6,35 @@
 #include <string>
 #include <vector>
 
+//#include "AnokiObj.h"
+#include "AnokiCommand.h"
+
 class AnokiMemory {
 
 public:
-	unsigned int nCmdSeqIndex = 0;	// Defines the index of command sequence
-	unsigned int nCmdMemIndex = 0;	// Defines the index of the data memory 
-	unsigned int nCmdCtlIndex = 0;	// Defines the index of the control memory
+	std::vector< AnokiObj > nVectorAnokiOBJ;
+	std::vector< std::vector< float > > nVectorANGLE;
+	std::vector< std::vector< float > > nVectorHeader;
+	AnokiCommand anokiCMD;
 
-	unsigned int nCurrentCMD[10];
-	std::string nCurrentLOG;
-	std::vector<double> nCurrentANGLE;
+	char * pnInputCSVFile;
+	bool nInputFileRead = false;
 
-	std::vector< std::vector< unsigned int > > nVectorCMD;
-	std::vector< std::string > nVectorLOG;
-	std::vector< std::vector< double > > nVectorANGLE;
+	unsigned int paramFrequency = 28000;
+	unsigned int paramBeamMode = 0;
 
-	std::vector<std::string> vsCommandLog;
-	//std::vector< unsigned int [10] > nCmdSeq;
-	std::vector < std::vector<double> > nCmdAngle;
+	int commandSequenceIndex = 0;
+	// Max heap 2147483647?
+	unsigned char* commandSequence = new unsigned char[1000000];
 
-	char pzAngleFile[256], pzMemoryFile[256];
-	unsigned int nCmdMem[4096], nCmdCtl[4096];
+	void readFromCSV(char* pnInputCSVFile);
 
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="_nCurrentCmd"></param>
-	/// <param name="_length"></param>
-	/// <returns></returns>
-	int set_currentCMD(unsigned int *_nCurrentCmd, unsigned int _length);
-
-	void readFromCSV();
-	void setCurrentCommand();
 	
-	
-	
+	void set_CurrentCommand(AnokiObj anokiObj);
+	void cmd_FromCSV();
+	void cmd_StartBeam(unsigned int _beamMode, unsigned short _freq);
+	void cmd_EndBeam();
 
-private:
-
+	void generateCommandSequence();
+	void convertAnokiObjToCommandSequence(int _index);
 };
