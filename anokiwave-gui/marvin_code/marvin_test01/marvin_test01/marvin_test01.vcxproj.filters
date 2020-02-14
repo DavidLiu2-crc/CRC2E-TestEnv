@@ -27,6 +27,9 @@
     <ClCompile Include="AnokiMemory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AnokiObj.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\GTDio32.lib">
@@ -50,6 +53,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AnokiMemory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnokiObj.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

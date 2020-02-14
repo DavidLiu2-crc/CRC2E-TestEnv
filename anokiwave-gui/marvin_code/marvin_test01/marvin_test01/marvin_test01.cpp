@@ -33,27 +33,50 @@ int main(int argc, char* argv[]) {
 
     DWORD cmdIndex = 0;
     unsigned int cmdLength = 0;
-    unsigned int cmdSeq[15];
+    //unsigned int cmdSeq[15];
     std::vector<std::string> commandLog;
 
     
     double delayTime = 1e-6;
-    marvin.nBoardFrequency = 1000000;
+    marvin.nBoardFrequency = SHORT( 1e6 );
 
     //Initialize marvin card
     //marvin.SetupInterface(0x105, DIO_IO_INTERFACE_TTL, DIO_BOARD_TYPE_GX5290, DIO_OPERATING_MODE_DEFAULT);
     //marvin.StartConnection();
 
+    anokiMem.readFromCSV();
 
-
+    // --- Create AnokiObj objects to store the command
+    AnokiObj obj1, obj2;
     // Generate some sample sequence
-    //anoki.cmd_SetScratchValue(0xfdecba98);
+    //obj1 = anoki.cmd_SetScratchValue(0xfdecba98);
+    //obj2 = anoki.cmd_ReadScratchRequest();
+    //obj2 = anoki.cmd_RequestFixedSequence();
+    //obj2 = anoki.cmd_ArrayConfigurationRequest();
+    //obj2 = anoki.cmd_StatusSummaryRequest();
+    //obj2 = anoki.cmd_StatusDetailRequest();
+
+    //anoki.paramFactoryReset = 1;
+    //obj1 = anoki.cmd_FactoryReset();
+
+    anoki.paramBeamEnable = 1;
+    obj1 = anoki.cmd_EnableBeam();
+
+    anoki.paramModeTXRX = 0;
+    anoki.paramModeBeam = 1;
+    anoki.set_PointingAngle(60, 42);
+    anoki.set_PointingFreq(28050);
+    obj1 = anoki.cmd_PAAPointingCommand();
+
+
+
     //anoki.get_commandSequence(cmdSeq, commandLog);
+    //anoki.get_commandSequence(anokiMem);
     //anoki.get_commandLength(&cmdLength);
     //marvin.addCMDToMemory(cmdSeq, ANOKI_SDI, cmdLength);
 
     //anokiMem.pzAngleFile = "anglePoint.csv";
-    anokiMem.readFromCSV();
+    
 
     //// Generate Enable Beam sequence
     //anoki.paramBeamEnable = 1;

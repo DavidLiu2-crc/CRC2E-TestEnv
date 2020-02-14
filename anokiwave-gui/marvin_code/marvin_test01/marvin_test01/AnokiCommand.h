@@ -7,6 +7,9 @@
 #include <string>
 #include <vector>
 
+#include "AnokiObj.h"
+#include "AnokiMemory.h"
+
 // Global define the anokiwave connection channel
 #define ANOKI_CLK				0
 #define ANOKI_SDI				1
@@ -67,24 +70,24 @@ class AnokiCommand {
 		// ---------------- DEFINE BASIC COMMANDS ----------------
 
 		// Sets the command sequence to set scratch value
-		void cmd_SetScratchValue(long unsigned nscratchValue);
+		AnokiObj cmd_SetScratchValue(long unsigned _nscratchValue);
 		// Sets the command sequence to read the scratch value
-		void cmd_ReadScratchRequest();
+		AnokiObj cmd_ReadScratchRequest();
 		// Sets the command sequence to read the fixed value
-		void cmd_RequestFixedSequence();
+		AnokiObj cmd_RequestFixedSequence();
 		// Sends the command to point the beam with mode, angles and frequency
-		void cmd_PAAPointingCommand(); // Needs mode flag, mode beam, with angles and freq already set to hexa
+		AnokiObj cmd_PAAPointingCommand(); // Needs mode flag, mode beam, with angles and freq already set to hexa
 		// Sends the command to return the configuration status
-		void cmd_ArrayConfigurationRequest();
+		AnokiObj cmd_ArrayConfigurationRequest();
 		// Sends the command to reset the PAA device to factory
-		void cmd_FactoryReset();
+		AnokiObj cmd_FactoryReset();
 		/* void cmd_ConfigureIPAddress(); // Cannot configure over LVDS */
 		// Sends the command to enable the beam
-		void cmd_EnableBeam();
+		AnokiObj cmd_EnableBeam();
 		// Sends the command to return the summary status
-		void cmd_StatusSummaryRequest();
+		AnokiObj cmd_StatusSummaryRequest();
 		// Sends the command to return the summary detail
-		void cmd_StatusDetailRequest();
+		AnokiObj cmd_StatusDetailRequest();
 		
 
 		// ---------------- DEFINE SET PARAMETER FUNCTIONS ---------
@@ -99,6 +102,7 @@ class AnokiCommand {
 		// Returns the command sequence through the array pointer
 		void get_commandSequence(unsigned int* cmdSeq);
 		void get_commandSequence(unsigned int* cmdSeq, std::vector<std::string>& buffer);
+		void get_commandSequence(AnokiMemory anokiMem);
 		// Returns the command sequence length through the array pointer
 		void get_commandLength(unsigned int* cmdLength);
 

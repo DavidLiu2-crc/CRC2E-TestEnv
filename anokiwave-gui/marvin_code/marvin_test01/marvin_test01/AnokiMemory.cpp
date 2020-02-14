@@ -23,8 +23,14 @@ void AnokiMemory::readFromCSV() {
 		//std::cout << strFirst.c_str() << "\t" << numSecond.c_str() << "\n";
 
 		std::vector<double> angleLine = { std::stod(strFirst), std::stod(strSecond) };
-		nCmdAngle.push_back(angleLine);
+		nVectorANGLE.push_back(angleLine);
 
 	}
 
 }
+
+// 
+void AnokiMemory::setCurrentCommand() {
+	return;
+}
+
