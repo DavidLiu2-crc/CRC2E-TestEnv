@@ -7,98 +7,58 @@
 /*------------------------------------------------
 ----- Start of Basic Command List Definition -----
 ------------------------------------------------*/
+
 AnokiObj AnokiCommand::cmd_SetScratchValue(unsigned long _nScratchValue) {
 // void AnokiCommand::cmd_SetScratchValue(long unsigned nScratchValue) {
-    /* Sets the command sequence to set scratch value
-    @param
-        long int nScratchValue: A value between 0 to 4294967295 to set into scratch register
-    @description
-    Fills in the commandOut with value nScratchValue.   */
 
-    // --- MATLAB Implementation
-    /*
-    //cleanCommandOutArray();     // Reset reference command array
-    //commandOutByte[0] = 0x81;   // Command Header for SetScratchValue
+    // Define temporary command sequence with HEX values
+    unsigned char cmd[6] = { 0 };
+    cmd[0] = 0x81;                  // Command Header for SetScratchValue
 
-    // Convert long nScratchValue to 4 seperate hex values
-    long unsigned tempValue = nScratchValue;
-    commandOutByte[1] = floor(tempValue / 16777216);
-    tempValue = tempValue - commandOutByte[1] * 16777216;
-    commandOutByte[2] = floor(tempValue / 65536);
-    tempValue = tempValue - commandOutByte[2] * 65536;
-    commandOutByte[3] = floor(tempValue / 256);
-    tempValue = tempValue - commandOutByte[3] * 256;
-    commandOutByte[4] = tempValue;
-
-    // Append checksum to end of comand sequence
-    //commandOutByte[5] = checksum(commandOutByte, 5);
-
-    //cmdIndex = 6;           // Assign the counter value for current command index
-    //numResponseNext = 7;    // Assign the whitespace for next response sequence
-    */
-
-    // --- AnokiOBJ Object-Oriented Implementation
-    AnokiObj cmdOBJ;
-
-    cmdOBJ.commandSequence[0] = 0x81;
-
+    // Bound the input scratch value between 0 and 0xFFFFFFFF
     if (_nScratchValue > 0xFFFFFFFF) {
         _nScratchValue = 0xFFFFFFFF;
     }
 
+    // Convert long nScratchValue to 4 seperate hex values
     unsigned long tempValue = _nScratchValue;
-    cmdOBJ.commandSequence[1] = floor(tempValue / 16777216);
-    tempValue = tempValue - cmdOBJ.commandSequence[1] * 16777216;
-    cmdOBJ.commandSequence[2] = floor(tempValue / 65536);
-    tempValue = tempValue - cmdOBJ.commandSequence[2] * 65536;
-    cmdOBJ.commandSequence[3] = floor(tempValue / 256);
-    tempValue = tempValue - cmdOBJ.commandSequence[3] * 256;
-    cmdOBJ.commandSequence[4] = tempValue;
+    cmd[1] = floor(tempValue / 16777216);
+    tempValue = tempValue - cmd[1] * 16777216;
+    cmd[2] = floor(tempValue / 65536);
+    tempValue = tempValue - cmd[2] * 65536;
+    cmd[3] = floor(tempValue / 256);
+    tempValue = tempValue - cmd[3] * 256;
+    cmd[4] = tempValue;
 
-    
-    cmdOBJ.commandSequence[5] = checksum(cmdOBJ.commandSequence, 5);
+    // Append checksum to end of comand sequence
+    cmd[5] = checksum(cmd, 5); 
 
     // Convert command sequence to string for readiblity
     char commandOutCalled[200];
     snprintf(commandOutCalled, sizeof(commandOutCalled),
-        "Set Scratch Value (%X %X %X %X)",
-        cmdOBJ.commandSequence[1], cmdOBJ.commandSequence[2], cmdOBJ.commandSequence[3], cmdOBJ.commandSequence[4]);
-    
-    cmdOBJ.commandLog = std::string(commandOutCalled);
-    cmdOBJ.commandSendLength = 6;
-    cmdOBJ.commandReadLength = 7;
+        "Set Scratch Value (%X %X %X %X)", cmd[1], cmd[2], cmd[3], cmd[4]);
 
-    return cmdOBJ;
+    // --- AnokiOBJ Object-Oriented Implementation
+    AnokiObj cmdObj;
+    cmdObj.setCommandSequence(cmd, 6, 6, std::string(commandOutCalled));
+    // Return AnokiObj to caller
+    return cmdObj;  
 }
 
 AnokiObj AnokiCommand::cmd_ReadScratchRequest() {
 //void AnokiCommand::cmd_ReadScratchRequest() {
-    /* Sets the command sequence to read the scratch value
-        @description
-        Fills in the commandOut to request the value in scratch register. */
-
-    // --- MATLAB Implementation
-    /* 
-    cleanCommandOutArray();     // Reset reference command array
-    commandOutByte[0] = 0x82;   // Command Header for ReadScratchRequest
-     
-    commandOutByte[1] = checksum(commandOutByte, 1);    // Append checksum to end of comand sequence
     
-    cmdIndex = 2;           // Assign the counter value for current command index
-    numResponseNext = 7;    // Assign the whitespace for next response sequence
-    */
+    unsigned char cmd[2] = { 0 };
+    cmd[0] = 0x82;          // Command Header for ReadScratchRequest
+    cmd[1] = 0x82;          // Checksum for ReadScratchRequest
+
+    std::string cmdLog = "Read Scratch Request ()";
 
     // --- AnokiOBJ Object-Oriented Implementation
-    AnokiObj cmdOBJ;
-    cmdOBJ.commandSequence[0] = 0x82;
-    cmdOBJ.commandSequence[1] = 0x82;
-
-    // Convert command sequence to readable
-    cmdOBJ.commandLog = "Read Scratch Request";
-    cmdOBJ.commandSendLength = 2;
-    cmdOBJ.commandReadLength = 7;
-    
-    return cmdOBJ;
+    AnokiObj cmdObj;
+    cmdObj.setCommandSequence(cmd, 2, 6, cmdLog);
+    // Return AnokiObj to caller
+    return cmdObj;
 }
 
 AnokiObj AnokiCommand::cmd_RequestFixedSequence() {
@@ -107,31 +67,18 @@ AnokiObj AnokiCommand::cmd_RequestFixedSequence() {
     @description
     Fills in the commandOut to request the value in fixed register. */
     
-    // --- MATLAB Implementation
-    /*
-    cleanCommandOutArray();     // Reset reference command array
-    commandOutByte[0] = 0x83;   // Command Header for RequestFixedSequence
-     
-    commandOutByte[1] = checksum(commandOutByte, 1);// Append checksum to end of comand sequence
+    // Define temporary command sequence with HEX values
+    unsigned char cmd[2] = { 0 };
+    cmd[0] = 0x83;          // Command Header for RequestFixedSequence
+    cmd[1] = 0x83;          // Checksum for RequestFixedSequence
 
-    // Convert command sequence to readable
-    snprintf(commandOutCalled, sizeof(commandOutCalled), "Request Fixed Sequence");
-    
-    cmdIndex = 2;           // Assign the counter value for current command index
-    numResponseNext = 7;    // Assign the whitespace for next response sequence
-    */
+    std::string cmdLog = "Request Fixed Sequence ()";
 
     // --- AnokiOBJ Object-Oriented Implementation
-    AnokiObj cmdOBJ;
-    cmdOBJ.commandSequence[0] = 0x83;
-    cmdOBJ.commandSequence[1] = 0x83;
-
-    // Convert command sequence to readable
-    cmdOBJ.commandLog = "Request Fixed Sequence";
-    cmdOBJ.commandSendLength = 2;
-    cmdOBJ.commandReadLength = 7;
-
-    return cmdOBJ;
+    AnokiObj cmdObj;
+    cmdObj.setCommandSequence(cmd, 2, 6, cmdLog);
+    // Return AnokiObj to caller
+    return cmdObj;
 }
 
 AnokiObj AnokiCommand::cmd_PAAPointingCommand() {
@@ -140,64 +87,38 @@ AnokiObj AnokiCommand::cmd_PAAPointingCommand() {
     @description
     Fills in the commandOut to point the beam in a particular direction. */
 
-    // --- MATLAB Implementation
-    /*
-    cleanCommandOutArray();     // Reset reference command array
-    commandOutByte[0] = 0xA0;   // Command Header for PAAPointingCommand
+    // Define temporary command sequence with HEX values
+    unsigned char cmd[9] = { 0 };
+    cmd[0] = 0xA0;          // Command Header for PAAPointingCommand
 
-    // Configure the mode byte
-    int mode = 0;
-    paramModeTXRX ? mode = 4 : mode = 0;
-    commandOutByte[1] = mode + paramModeBeam;
-
-    theta_uint16ToPointer(paramDirection[0]);   // Remap theta angle from [0-90] to [0-FFFF];
-    phi_uint16ToPointer(paramDirection[1]);     // Remap theta angle from [0-360] to [0-FFFF];
-    freq_uint16ToPointer(paramDirection[2]);    // Remap frequency to [0-FFFF];
-    
-    for (unsigned int i = 0; i < 6; i++) {
-        commandOutByte[2 + i] = dirSequence[i];
-    }
-
-    // Assume commandOutByte[0:7] correctly set
-    commandOutByte[8] = checksum(commandOutByte, 8); // Append checksum to end of comand sequence
-
-    // Convert command sequence to readable
-    snprintf(commandOutCalled, sizeof(commandOutCalled),
-        "PAA Pointing Command (%s, Beam Mode:%d Theta:%.3f, Phi:%.3f, Frequency:%.0f)",
-        paramModeTXRX ? "TX" : "RX", paramModeBeam, paramDirection[0], paramDirection[1], paramDirection[2]);
-
-    cmdIndex = 9;           // Assign the counter value for current command index
-    numResponseNext = 9;    // Assign the whitespace for next response sequence
-    */
-
-    // --- AnokiOBJ Object-Oriented Implementation
-    AnokiObj cmdOBJ;
-    cmdOBJ.commandSequence[0] = 0xA0;
-
+    // Append the mode byte
     unsigned int modeByte;
     paramModeTXRX ? modeByte = 4 : modeByte = 0;
     modeByte = modeByte + paramModeBeam;
-    cmdOBJ.commandSequence[1] = modeByte;
+    cmd[1] = modeByte;
 
-    theta_uint16ToPointer(paramDirection[0]);   // Remap theta angle from [0-90] to [0-FFFF];
-    phi_uint16ToPointer(paramDirection[1]);     // Remap theta angle from [0-360] to [0-FFFF];
-    freq_uint16ToPointer(paramDirection[2]);    // Remap frequency to [0-FFFF];
+    // Convert the value to hex values
+    theta_uint16ToPointer(paramTheta);   // Remap theta angle from [0-90] to [0-FFFF];
+    phi_uint16ToPointer(paramPhi);     // Remap theta angle from [0-360] to [0-FFFF];
+    freq_uint16ToPointer(paramFrequency);    // Remap frequency to [0-FFFF];
+
+    // Copy the hex values to command sequence
     for (unsigned int i = 0; i < 6; i++) {
-        cmdOBJ.commandSequence[2 + i] = dirSequence[i];
+        cmd[2 + i] = dirSequence[i];
     }
+    cmd[8] = checksum(cmd, 8); // Append checksum to end of comand sequence
 
-    cmdOBJ.commandSequence[8] = checksum(cmdOBJ.commandSequence, 8);
-
+    // Convert command sequence to string for readiblity
     char commandOutCalled[200];
     snprintf(commandOutCalled, sizeof(commandOutCalled),
-        "PAA Pointing Command (%s, Beam Mode:%d, Theta:%.3f, Phi:%.3f, Frequency:%.0f)",
-        paramModeTXRX ? "TX" : "RX", paramModeBeam, paramDirection[0], paramDirection[1], paramDirection[2]);
-    cmdOBJ.commandLog = std::string(commandOutCalled);
-
-    cmdOBJ.commandSendLength = 9;
-    cmdOBJ.commandReadLength = 7;
-
-    return cmdOBJ;
+        "PAA Pointing Command (%s, Beam Mode:%d, Theta:%.3f, Phi:%.3f, Frequency:%d)",
+        paramModeTXRX ? "TX" : "RX", paramModeBeam, paramTheta, paramPhi, paramFrequency);
+    
+    // --- AnokiOBJ Object-Oriented Implementation
+    AnokiObj cmdObj;
+    cmdObj.setCommandSequence(cmd, 9, 6, std::string(commandOutCalled));
+    // Return AnokiObj to caller
+    return cmdObj;
 
 }
 
@@ -207,29 +128,19 @@ AnokiObj AnokiCommand::cmd_ArrayConfigurationRequest() {
     @description
     Fills in the commandOut to request the current array configuration (Revision number, SN, IP). */
 
-    // --- MATLAB Implementation
-    /*
-    cleanCommandOutArray();     // Reset reference command array
-    commandOutByte[0] = 0xB1;   // Command Header for ArrayConfigurationRequest
-     
-    commandOutByte[1] = checksum(commandOutByte, 1); // Append checksum to end of comand sequence
+    // Define temporary command sequence with HEX values
+    unsigned char cmd[2] = { 0 };
+    cmd[0] = 0xB1;          // Command Header for ArrayConfigurationRequest
+    cmd[1] = 0xB1;          // Checksum for ArrayConfigurationRequest
 
-    // Convert command sequence to readable
-    snprintf(commandOutCalled, sizeof(commandOutCalled), "Array Configuration Request");
-
-    cmdIndex = 2;           // Assign the counter value for current command index
-    numResponseNext = 11;   // Assign the whitespace for next response sequence
-    */
+    std::string cmdLog = "Array Configuration Request ()";
 
     // --- AnokiOBJ Object-Oriented Implementation
-    AnokiObj cmdOBJ;
-    cmdOBJ.commandSequence[0] = 0xB1;
-    cmdOBJ.commandSequence[1] = 0xB1;
-    cmdOBJ.commandLog = "Array Configuration Request";
-    cmdOBJ.commandSendLength = 2;
-    cmdOBJ.commandReadLength = 11;
+    AnokiObj cmdObj;
+    cmdObj.setCommandSequence(cmd, 2, 10, cmdLog);
+    // Return AnokiObj to caller
+    return cmdObj;
 
-    return cmdOBJ;
 }
 
 AnokiObj AnokiCommand::cmd_FactoryReset() {
@@ -238,52 +149,31 @@ AnokiObj AnokiCommand::cmd_FactoryReset() {
     @description
     Fills in the commandOut to reset the PAA to factory configuration. */
 
-    // --- MATLAB Implementation
-    /*
-    cleanCommandOutArray();     // Reset reference command array
-    commandOutByte[0] = 0xC0;   // Command Header for cmd_FactoryReset
+    // Define temporary command sequence with HEX values
+    unsigned char cmd[4] = { 0 };  
+    cmd[0] = 0xC0;          // Command Header for FactoryReset
 
-    // Append the accepted reset flag
+    // Append the required reset flag 0xBA11
     if (paramFactoryReset) {
-        commandOutByte[1] = 0xBA;
-        commandOutByte[2] = 0x11;
+        cmd[1] = 0xBA;
+        cmd[2] = 0x11;
     }
     else {
-        commandOutByte[1] = 0x00;
-        commandOutByte[2] = 0x00;
+        cmd[1] = 0x00;
+        cmd[2] = 0x00;
     }
 
-    commandOutByte[3] = checksum(commandOutByte, 3); // Append checksum to end of comand sequence
+    // Append checksum to end of comand sequence
+    cmd[3] = checksum(cmd, 3);
 
-    // Convert command sequence to readable
-    snprintf(commandOutCalled, sizeof(commandOutCalled), "Factory reset (%s)", paramFactoryReset ? "true": "false");
-
-    cmdIndex = 4;           // Assign the counter value for current command index
-    numResponseNext = 7;    // Assign the whitespace for next response sequence
-    */
+    std::string cmdLog = paramFactoryReset ? "Factory Reset (True)" : "Factory Reset (False)";
 
     // --- AnokiOBJ Object-Oriented Implementation
-    AnokiObj cmdOBJ;
-    cmdOBJ.commandSequence[0] = 0xC0;
-
-    // Append the accepted reset flag
-    if (paramFactoryReset) {
-        cmdOBJ.commandSequence[1] = 0xBA;
-        cmdOBJ.commandSequence[2] = 0x11;
-    }
-    else {
-        cmdOBJ.commandSequence[1] = 0x00;
-        cmdOBJ.commandSequence[2] = 0x00;
-    }
-    cmdOBJ.commandSequence[3] = checksum(cmdOBJ.commandSequence, 3);
-
-    paramFactoryReset ? cmdOBJ.commandLog = "Factory Reset(True)" : cmdOBJ.commandLog = "Factory Reset(False)";
-    cmdOBJ.commandSendLength = 4;
-    cmdOBJ.commandReadLength = 4;
-
-    return cmdOBJ;
+    AnokiObj cmdObj;
+    cmdObj.setCommandSequence(cmd, 4, 6, cmdLog);
+    // Return AnokiObj to caller
+    return cmdObj;
 }
-
 
 AnokiObj AnokiCommand::cmd_EnableBeam() {
 //void AnokiCommand::cmd_EnableBeam() {
@@ -291,37 +181,22 @@ AnokiObj AnokiCommand::cmd_EnableBeam() {
     @description
     Fills in the commandOut to command the PAA to enable beam. */
 
-    // --- MATLAB Implementation
-    /*
-    cleanCommandOutArray();     // Reset reference command array
-    commandOutByte[0] = 0xE0;   // Command Header for EnableBeam
-    
+    // Define temporary command sequence with HEX values
+    unsigned char cmd[3] = { 0 };  
+    cmd[0] = 0xE0;              // Command Header for EnableBeam
+
     // Append the enable flag
-    paramBeamEnable ? commandOutByte[1] = 1 : commandOutByte[1] = 0;
+    cmd[1] = paramBeamEnable ? 1 : 0;
+    // Append checksum to end of comand sequence
+    cmd[2] = checksum(cmd, 2);
 
-    
-    commandOutByte[2] = checksum(commandOutByte, 2); // Append checksum to end of comand sequence
-
-    // Convert command sequence to readable
-    snprintf(commandOutCalled, sizeof(commandOutCalled), "Enable Beam (%s)", paramBeamEnable ? "true" : "false");
-
-
-    cmdIndex = 3;           // Assign the counter value for current command index
-    numResponseNext = 7;    // Assign the whitespace for next response sequence
-    */
+    std::string cmdLog = paramFactoryReset ? "Enable Beam (True)" : "Enable Beam (False)";
 
     // --- AnokiOBJ Object-Oriented Implementation
-    AnokiObj cmdOBJ;
-    cmdOBJ.commandSequence[0] = 0xE0;
-    paramBeamEnable ? cmdOBJ.commandSequence[1] = 1 : cmdOBJ.commandSequence[1] = 0;
-    cmdOBJ.commandSequence[2] = checksum(cmdOBJ.commandSequence, 2);
-
-    paramBeamEnable ? cmdOBJ.commandLog = "Enable Beam" : cmdOBJ.commandLog = "Disable Beam";
-    cmdOBJ.commandSendLength = 3;
-    cmdOBJ.commandReadLength = 7;
-
-    return cmdOBJ;
-    
+    AnokiObj cmdObj;
+    cmdObj.setCommandSequence(cmd, 3, 6, cmdLog);
+    // Return AnokiObj to caller
+    return cmdObj;
 
 }
 
@@ -331,31 +206,18 @@ AnokiObj AnokiCommand::cmd_StatusSummaryRequest() {
     @description
     Fills in the commandOut to request the status summary (PAA/Temperature Sensor Faults). */
 
-    // --- MATLAB Implementation
-    /*
-    cleanCommandOutArray();     // Reset reference command array
-    commandOutByte[0] = 0xF0;   // Command Header for EnableBeam
+    // Define temporary command sequence with HEX values
+    unsigned char cmd[2] = { 0 };
+    cmd[0] = 0xF0;          // Command Header for StatusSummaryRequest
+    cmd[1] = 0xF0;          // Checksum for StatusSummaryRequest
 
-    commandOutByte[1] = checksum(commandOutByte, 1); // Append checksum to end of comand sequence
-
-    // Convert command sequence to readable
-    snprintf(commandOutCalled, sizeof(commandOutCalled), "Status Summary Request");
-
-    cmdIndex = 2;           // Assign the counter value for current command index
-    numResponseNext = 4;    // Assign the whitespace for next response sequence
-    */
+    std::string cmdLog = "Status Summary Request ()";
 
     // --- AnokiOBJ Object-Oriented Implementation
-    AnokiObj cmdOBJ;
-
-    cmdOBJ.commandSequence[0] = 0xF0;
-    cmdOBJ.commandSequence[1] = 0xF0;
-
-    cmdOBJ.commandLog = "Status Summary Request";
-    cmdOBJ.commandSendLength = 2;
-    cmdOBJ.commandReadLength = 4;
-
-    return cmdOBJ;
+    AnokiObj cmdObj;
+    cmdObj.setCommandSequence(cmd, 2, 3, cmdLog);
+    // Return AnokiObj to caller
+    return cmdObj;
 }
 
 AnokiObj AnokiCommand::cmd_StatusDetailRequest() {
@@ -364,31 +226,18 @@ AnokiObj AnokiCommand::cmd_StatusDetailRequest() {
     @description
     Fills in the commandOut to request the detailed status (Pointing angle, frequency and temperature). */
 
-    // --- MATLAB Implementation
-    /*
-    cleanCommandOutArray();     // Reset reference command arra
-    commandOutByte[0] = 0xF1;   // Command Header for EnableBeam
-    
-    commandOutByte[1] = checksum(commandOutByte, 1); // Append checksum to end of comand sequence
+    // Define temporary command sequence with HEX values
+    unsigned char cmd[2] = { 0 };
+    cmd[0] = 0xF1;          // Command Header for StatusDetailRequest
+    cmd[1] = 0xF1;          // Checksum for StatusDetailRequest
 
-    // Convert command sequence to readable
-    snprintf(commandOutCalled, sizeof(commandOutCalled), "Status Detail Request");
-
-    cmdIndex = 2;           // Assign the counter value for current command index
-    numResponseNext = 15;    // Assign the whitespace for next response sequence
-    */
+    std::string cmdLog = "Status Detail Request ()";
 
     // --- AnokiOBJ Object-Oriented Implementation
-    AnokiObj cmdOBJ;
-
-    cmdOBJ.commandSequence[0] = 0xF1;
-    cmdOBJ.commandSequence[1] = 0xF1;
-
-    cmdOBJ.commandLog = "Status Detail Request";
-    cmdOBJ.commandSendLength = 2;
-    cmdOBJ.commandReadLength = 4;
-
-    return cmdOBJ;
+    AnokiObj cmdObj;
+    cmdObj.setCommandSequence(cmd, 2, 14, cmdLog);
+    // Return AnokiObj to caller
+    return cmdObj;
 }
 
 // ---------------- DEFINE SET PARAMETER FUNCTIONS ---------
@@ -399,7 +248,7 @@ void AnokiCommand::set_PointingFreq(float _freq) {
     else if (_freq > 30000) _freq = 300000;
 
     // Set the object property to these values
-    paramDirection[2] = _freq;
+    paramFrequency = _freq;
 }
 
 void AnokiCommand::set_PointingAngle(float _theta, float _phi) {
@@ -411,8 +260,8 @@ void AnokiCommand::set_PointingAngle(float _theta, float _phi) {
     else if (_phi > 360) _phi = 360;
 
     // Set the object property to these values
-    paramDirection[0] = _theta;
-    paramDirection[1] = _phi;
+    paramTheta = _theta;
+    paramPhi = _phi;
 }
 
 void AnokiCommand::set_PointingAngleAE(float _azimuth, float _elevation) {
@@ -433,11 +282,11 @@ void AnokiCommand::set_PointingAngleAE(float _azimuth, float _elevation) {
     double phi = atan2d(-gx, -gy);
     if (phi < 0) phi = phi + 360;
 
-    paramDirection[0] = theta;
-    paramDirection[1] = phi;
+    paramTheta = theta;
+    paramPhi = phi;
 }
 
-// 0:Disable, 1:Enable
+// 0:Disable, 1 : Enable
 void AnokiCommand::set_enableBeam(bool _beamOn) {
     paramBeamEnable = _beamOn;
 }
@@ -488,9 +337,9 @@ int AnokiCommand::checksum(unsigned char* pCmd, int len_) {
      *----------------------------------------------------------*/
 
     // Initialize temp byte
-    unsigned int checksumInt = 0;
+    unsigned int checksumInt = pCmd[0];
     // Loop through each command byte within length len_
-    for (int i = 0; i < len_; i++) {
+    for (int i = 1; i < len_; i++) {
         // Bit-wise XOR through each element
         checksumInt = checksumInt ^ pCmd[i];
     }
@@ -535,7 +384,6 @@ void AnokiCommand::phi_uint16ToPointer(float value) {
 void AnokiCommand::freq_uint16ToPointer(float value) {
     int msb, lsb;
 
-    value = floor(value * 65535);
     msb = floor(value / 256);
     lsb = value - msb * 256;
 

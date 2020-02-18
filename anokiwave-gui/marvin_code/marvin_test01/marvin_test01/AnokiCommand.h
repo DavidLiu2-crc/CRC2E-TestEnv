@@ -1,25 +1,35 @@
+/**
+	File name: AnokiCommand.h
+	
+	Summary: User defined class that returns a AnokiObj object that contains command control information
+			 referenced in Anokiwave ECCN: 5E991
+
+	Author: David Liu - david.liu2@canada.ca
+	PandA - MC2
+
+	Description: Simply initialize this class, calling set_ functions to set the values of parameters, and call cmd_
+				 to obtain the AnokiObj that contains the command information. Currently allows writing command byte,
+				 will attempt to implement read command byte capabilities later.
+
+*/
+
 #pragma once
 
-// General C++ modules
+// General C++ modules import
 #include <iostream>
 #include <cstdio>
 #include <cmath>
 #include <string>
 #include <vector>
 
+// Import user-defined AnokiObj custom object
 #include "AnokiObj.h"
 
-// Global define the anokiwave connection channel
-#define ANOKI_CLK				0
-#define ANOKI_SDI				1
-#define ANOKI_SDO				2
-#define ANOKI_LAT				3
-#define ANOKI_STB				4
-
+// Global define constants for number of bytes possible to write and read
 #define ANOKI_numChannels		5	// Defines the number of channels
 #define ANOKI_numCommandByte	17	// Defines the maximum number of command bytes
-#define ANOKI_counterMaxWrite	9
-#define ANOKI_counterMaxRead	15
+#define ANOKI_counterMaxWrite	9	// Defines the maximum number of command bytes to send
+#define ANOKI_counterMaxRead	15	// Defines the maximum number of command bytes to read
 
 // Global define a matlab degree version of trig functions
 #define M_PI		3.14159265358979323846   // pi
@@ -29,6 +39,15 @@
 #define asind(x)	asin(x) * 180 / M_PI
 #define atan2d(y,x) atan2(y,x) * 180 / M_PI
 
+/// <summary>
+///
+/// </summary>
+/// <param name=""></param>
+/// <returns><c> </c></returns>
+/// <example><code>
+///
+/// </code></example>
+/// <seealso></seealso>
 
 // --- Defines AnokiCommand as C++ class with function and properties of the AWMF-0129 antenna command set
 // --- 1. Call set_*** functions to assign the object attributes of this Anokiwave class
@@ -36,33 +55,66 @@
 class AnokiCommand {
 
 public:
-	// Define configuration of PAA
-	int ack = 0, summary = 0;
-	int addressIP[4] = { 0 };
-	int scratchRegister[4] = { 0 };
-	int fixedRegister[4] = { 0 };
-	int tempCurrent[5] = { 0 };
-	
 	// ---------------- DEFINE BASIC COMMANDS ----------------
 
-	// Sets the command sequence to set scratch value
+	/// <summary>
+	/// Sets the command sequence to write a value into the scratch register.
+	/// <para>Header byte + double to 4 bytes + checksum.</para>
+	/// </summary>
+	/// <param name="_nScratchValue">Hexadecimal value to load onto register</param>
+	/// <returns><c>AnokiObj</c> command object</returns>
 	AnokiObj cmd_SetScratchValue(unsigned long _nscratchValue);
-	// Sets the command sequence to read the scratch value
+
+	/// <summary>
+	/// Sets the command sequence to read the scratch value
+	/// </summary>
+	/// <returns><c>AnokiObj</c> command object</returns>
 	AnokiObj cmd_ReadScratchRequest();
-	// Sets the command sequence to read the fixed value
+	
+	/// <summary>
+	/// Sets the command sequence to read the fixed value
+	/// </summary>
+	/// <returns><c> AnokiObj </c> command object </returns>
 	AnokiObj cmd_RequestFixedSequence();
-	// Sends the command to point the beam with mode, angles and frequency
-	AnokiObj cmd_PAAPointingCommand(); // Needs mode flag, mode beam, with angles and freq already set to hexa
-	// Sends the command to return the configuration status
+
+	/// <summary>
+	/// Sends the command to point the beam with mode, angles and frequency of current instance setting.
+	/// Takes <c>paramModeTXRX</c> as operation mode, and <c>paramModeBeam</c> as beam mode.
+	/// Assumes <c>paramDirection</c> and <c>paramFrequency</c> are set appropriately
+	/// </summary>
+	/// <returns><c> AnokiObj </c> command object </returns>
+	AnokiObj cmd_PAAPointingCommand();
+
+	/// <summary>
+	/// Sends the command to return the configuration status. Returns IP, Serial Number, Revision Number.
+	/// </summary>
+	/// <returns><c> AnokiObj </c> command object </returns>
 	AnokiObj cmd_ArrayConfigurationRequest();
-	// Sends the command to reset the PAA device to factory
+
+	/// <summary>
+	/// Sends the command to reset the PAA device to factory settings.
+	/// Takes value from <c>paramFactoryReset</c> as reset flag.
+	/// </summary>
+	/// <returns><c> AnokiObj </c> command object </returns>
 	AnokiObj cmd_FactoryReset();
 	/* void cmd_ConfigureIPAddress(); // Cannot configure over LVDS */
-	// Sends the command to enable the beam
+
+	/// <summary>
+	/// Sends the command to enable the beam. Takes value from <c>paramBeamEnable</c> as enable flag.
+	/// </summary>
+	/// <returns><c> AnokiObj </c> command object </returns>
 	AnokiObj cmd_EnableBeam();
-	// Sends the command to return the summary status
+
+	/// <summary>
+	/// Sends the command to return the summary status
+	/// </summary>
+	/// <returns><c> AnokiObj </c> command object </returns>
 	AnokiObj cmd_StatusSummaryRequest();
-	// Sends the command to return the summary detail
+
+	/// <summary>
+	/// Sends the command to return the summary detail
+	/// </summary>
+	/// <returns><c> AnokiObj </c> command object </returns>
 	AnokiObj cmd_StatusDetailRequest();
 		
 
@@ -74,13 +126,13 @@ public:
 	void set_PointingAngle(float _theta, float _phi);
 	// Set the beam pointing angles of the PAA (Azimuth and Elevation)
 	void set_PointingAngleAE(float _azimuth, float _elevation);
-	// Set the beam enable parameter
+	// Set the beam enable parameter, 0:Disable, 1:Enable
 	void set_enableBeam(bool _beamOn);
-	// Set the beam transceiver mode
+	// Set the beam transceiver mode, 0:RX Mode, 1:TX Mode
 	void set_modeTXRX(bool _mode);
-	// Set the beam mode / width
+	// Set the beam mode / width, 0:Beam 0; 1:TBD; 2:TBD; 3:Spoil
 	void set_beamMode(unsigned char _modeBeam);
-	// Set the factory reset flag
+	// Set the factory reset flag, 0:Nothing, 1:Reset
 	void set_factoryFlag(bool _factoryReset);
 
 
@@ -95,10 +147,20 @@ private:
 	bool paramModeTXRX = 0;		// 0:RX Mode, 1:TX Mode
 	bool paramFactoryReset = 0;	// 0:Nothing, 1:Reset
 	unsigned char paramModeBeam = 0;		// 0:Beam 0; 1:TBD; 2:TBD; 3:Spoil
-	unsigned short paramFrequency = 28000; // Frequency [27500, 30000];
-	float paramDirection[2] = { 0, 0 }; // [theta, phi]
+	unsigned short paramFrequency = 28000; // Frequency [27500 - 30000] MHz;
+	float paramTheta = 0;		// Theta angle [0 - 90]
+	float paramPhi = 0;			// Phi angle [0 - 360]
 
 	unsigned char dirSequence[6] = { 0 }; // [ theta1 theta2 phi1 phi2 freq1 freq2]
+
+	// ---------------- Define read configuration of PAA -------
+	// TODO : Add read byte capabilities to assign parameters in class
+	char readACK = 0;		// Acknowledgement byte, expect 0xC~ 0xE~
+	char readSummary = 0;	// Status byte, expect 0x00
+	int readAddressIP[4] = { 0 };		//IP Address of PAA configuration
+	int readScratchRegister[4] = { 0 }; // Value stored in scratch register
+	int readFixedRegister[4] = { 0 };	// Value stored in fixed register
+	int readTempCurrent[5] = { 0 };		// Value stored in temperature sensors
 
 	// ------------ DEFINE PRIVATE HELPER FUNCTIONS ------------
 

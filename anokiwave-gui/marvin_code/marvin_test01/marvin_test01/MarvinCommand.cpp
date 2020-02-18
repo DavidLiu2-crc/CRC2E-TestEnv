@@ -135,6 +135,10 @@ void MarvinCommand::LoadCardWith(DWORD* _memory, DWORD* _control) {
 	std::cout << "Loading DIO File in card memory \n";
 }
 
+void MarvinCommand::LoadCardMemory(unsigned char* _memory) {
+	return;
+}
+
 void MarvinCommand::GenerateExampleMemory() {
 	
 	std::cout << "Generating some random DWORD memory.\n";
@@ -173,117 +177,120 @@ void MarvinCommand::ReadFromCard() {
 	std::cout << "Read card memory into file\n";
 }
 
-
-void MarvinCommand::addBuffer(bool byteHeader, unsigned int _memoryIndex) {
-	unsigned int latchByte = 0xFF;
-	unsigned int strobeByte = 0x0F;
-	addByteToMemory(latchByte, 3, _memoryIndex);
-	if (!byteHeader) {	// If byteHeader = 0:End Byte
-		addByteToMemory(strobeByte, 4, _memoryIndex);
-	}
-}
-
-void MarvinCommand::addClock(unsigned int _memoryIndex) {
-
-	unsigned int value = 0x5555;
-	unsigned int bitmask = 0x8000;
-	unsigned int addBit = 1;
-
-	for (int i = 0; i < 8; i++) { // Loop through a single byte (8 bits) on a channel
-		DWORD currentWord = dwMemory[_memoryIndex + i];
-		dwMemory[_memoryIndex + i] = value & bitmask ? currentWord + addBit : currentWord;
-		bitmask = bitmask >> 1;
-	}
-}
-
-void MarvinCommand::addCMDToMemory(unsigned int* cmdSeq, unsigned int _dataChannel, unsigned int cmdLength) {
-
-	// Add clock right into memory
-	unsigned int clkByte = 0x55;
-
-	// Add the starting byte
-	addBuffer(true, dwMemoryIndex);
-	dwMemoryIndex += 8*2;
-
-	// Add the command sequence
-	addSequenceToMemory(cmdSeq, cmdLength, _dataChannel, dwMemoryIndex);
-	for (unsigned int i = 0; i < cmdLength * 2; i++) {
-		addClock(dwMemoryIndex + 8*i);
-	}
-	dwMemoryIndex += 8 * 2 * cmdLength;
-
-	// Add the ending byte
-	addBuffer(false, dwMemoryIndex);
-	dwMemoryIndex += 8*2;
-
-}
-
-void MarvinCommand::addCMDToMemoryWithSkip(unsigned int* cmdSeq, unsigned int _dataChannel, unsigned int cmdLength, double _delayTime) {
-
-	// Add clock right into memory
-	unsigned int clkByte = 0x55;
-
-	// Add the starting byte
-	addBuffer(true, dwMemoryIndex);
-	dwMemoryIndex += 8 * 2;
-
-	// Add the command sequence
-	addSequenceToMemory(cmdSeq, cmdLength, _dataChannel, dwMemoryIndex);
-	for (unsigned int i = 0; i < cmdLength * 2; i++) {
-		addClock(dwMemoryIndex + 8 * i);
-	}
-	dwMemoryIndex += 8 * cmdLength * 2;
-	
-	// Add the skip buffer
-	unsigned int numStepsSkip = _delayTime / (16 * nBoardFrequency);
-	for (unsigned int i = 0; i < cmdLength * 2; i++) {
-		addBuffer(true, dwMemoryIndex);
-		dwMemoryIndex += 8 * 2;
-	}
-
-	// Add the ending byte
-	addBuffer(false, dwMemoryIndex);
-	dwMemoryIndex += 8 * 2;
-
+void MarvinCommand::setOperatingFrequency(SHORT _freq) {
+	nBoardFrequency = _freq;
 }
 
 
 
-// ------ LVDS Implementation - Generating own clock pulse -----
-void MarvinCommand::addSequenceToMemory(unsigned int* seq, unsigned int _cmdLength, unsigned int _channel, unsigned int _cmdPosition) {
-	// TODO: Change to size of array sequence
-	for (unsigned int i = 0; i < 9; i++) {
-		addByteToMemory(seq[i], _channel, _cmdPosition);
-		_cmdPosition += 8*2;
-	}
-
-	/*for (unsigned int i = 0; i < 9; i++) {
-		unsigned int bitmask = 0x80;
-		unsigned int addBit = 1 << _channel;
-		for (int j = 0; j < 8; j++) {
-			unsigned int bitOffset = i * 8 * 2 + j;
-			dwMemory[_cmdPosition + bitOffset] = seq[i] & bitmask ? addBit : 0;
-			dwMemory[_cmdPosition + bitOffset + 1] = seq[i] & bitmask ? addBit : 0;
-			bitmask = bitmask >> 1;
-		}
-	}*/
-}
-
-void MarvinCommand::addByteToMemory(unsigned int value, unsigned int _channel, unsigned int _cmdPosition) {
-	
-	unsigned int bitmask = 0x80;
-	unsigned int addBit = 1 << _channel;
-	for (int i = 0; i < 8; i++) { // Loop through a single byte (8 bits) on a channel
-		DWORD currentWord = dwMemory[_cmdPosition + 2*i];
-		dwMemory[_cmdPosition + 2*i] = value & bitmask ? currentWord + addBit : currentWord;
-		dwMemory[_cmdPosition + 2*i + 1] = value & bitmask ? currentWord + addBit : currentWord;
-		bitmask = bitmask >> 1;
-	}
-	
-}
-
+//void MarvinCommand::addBuffer(bool byteHeader, unsigned int _memoryIndex) {
+//	unsigned int latchByte = 0xFF;
+//	unsigned int strobeByte = 0x0F;
+//	addByteToMemory(latchByte, 3, _memoryIndex);
+//	if (!byteHeader) {	// If byteHeader = 0:End Byte
+//		addByteToMemory(strobeByte, 4, _memoryIndex);
+//	}
+//}
+//
+//void MarvinCommand::addClock(unsigned int _memoryIndex) {
+//
+//	unsigned int value = 0x5555;
+//	unsigned int bitmask = 0x8000;
+//	unsigned int addBit = 1;
+//
+//	for (int i = 0; i < 8; i++) { // Loop through a single byte (8 bits) on a channel
+//		DWORD currentWord = dwMemory[_memoryIndex + i];
+//		dwMemory[_memoryIndex + i] = value & bitmask ? currentWord + addBit : currentWord;
+//		bitmask = bitmask >> 1;
+//	}
+//}
+//
+//void MarvinCommand::addCMDToMemory(unsigned int* cmdSeq, unsigned int _dataChannel, unsigned int cmdLength) {
+//
+//	// Add clock right into memory
+//	unsigned int clkByte = 0x55;
+//
+//	// Add the starting byte
+//	addBuffer(true, dwMemoryIndex);
+//	dwMemoryIndex += 8*2;
+//
+//	// Add the command sequence
+//	addSequenceToMemory(cmdSeq, cmdLength, _dataChannel, dwMemoryIndex);
+//	for (unsigned int i = 0; i < cmdLength * 2; i++) {
+//		addClock(dwMemoryIndex + 8*i);
+//	}
+//	dwMemoryIndex += 8 * 2 * cmdLength;
+//
+//	// Add the ending byte
+//	addBuffer(false, dwMemoryIndex);
+//	dwMemoryIndex += 8*2;
+//
+//}
+//
+//void MarvinCommand::addCMDToMemoryWithSkip(unsigned int* cmdSeq, unsigned int _dataChannel, unsigned int cmdLength, double _delayTime) {
+//
+//	// Add clock right into memory
+//	unsigned int clkByte = 0x55;
+//
+//	// Add the starting byte
+//	addBuffer(true, dwMemoryIndex);
+//	dwMemoryIndex += 8 * 2;
+//
+//	// Add the command sequence
+//	addSequenceToMemory(cmdSeq, cmdLength, _dataChannel, dwMemoryIndex);
+//	for (unsigned int i = 0; i < cmdLength * 2; i++) {
+//		addClock(dwMemoryIndex + 8 * i);
+//	}
+//	dwMemoryIndex += 8 * cmdLength * 2;
+//	
+//	// Add the skip buffer
+//	unsigned int numStepsSkip = _delayTime / (16 * nBoardFrequency);
+//	for (unsigned int i = 0; i < cmdLength * 2; i++) {
+//		addBuffer(true, dwMemoryIndex);
+//		dwMemoryIndex += 8 * 2;
+//	}
+//
+//	// Add the ending byte
+//	addBuffer(false, dwMemoryIndex);
+//	dwMemoryIndex += 8 * 2;
+//
+//}
+//
+//
+//
+//// ------ LVDS Implementation - Generating own clock pulse -----
+//void MarvinCommand::addSequenceToMemory(unsigned int* seq, unsigned int _cmdLength, unsigned int _channel, unsigned int _cmdPosition) {
+//	// TODO: Change to size of array sequence
+//	for (unsigned int i = 0; i < 9; i++) {
+//		addByteToMemory(seq[i], _channel, _cmdPosition);
+//		_cmdPosition += 8*2;
+//	}
+//
+//	/*for (unsigned int i = 0; i < 9; i++) {
+//		unsigned int bitmask = 0x80;
+//		unsigned int addBit = 1 << _channel;
+//		for (int j = 0; j < 8; j++) {
+//			unsigned int bitOffset = i * 8 * 2 + j;
+//			dwMemory[_cmdPosition + bitOffset] = seq[i] & bitmask ? addBit : 0;
+//			dwMemory[_cmdPosition + bitOffset + 1] = seq[i] & bitmask ? addBit : 0;
+//			bitmask = bitmask >> 1;
+//		}
+//	}*/
+//}
+//
+//void MarvinCommand::addByteToMemory(unsigned int value, unsigned int _channel, unsigned int _cmdPosition) {
+//	
+//	unsigned int bitmask = 0x80;
+//	unsigned int addBit = 1 << _channel;
+//	for (int i = 0; i < 8; i++) { // Loop through a single byte (8 bits) on a channel
+//		DWORD currentWord = dwMemory[_cmdPosition + 2*i];
+//		dwMemory[_cmdPosition + 2*i] = value & bitmask ? currentWord + addBit : currentWord;
+//		dwMemory[_cmdPosition + 2*i + 1] = value & bitmask ? currentWord + addBit : currentWord;
+//		bitmask = bitmask >> 1;
+//	}
+//	
+//}
 // ------ LVDS Implementation - Pulling LVDS Clock Out from J4 -----
-
 //void MarvinCommand::addCMDToMemory(unsigned int* cmdSeq, unsigned int _dataChannel, unsigned int cmdLength) {
 //
 //	// Add the starting byte

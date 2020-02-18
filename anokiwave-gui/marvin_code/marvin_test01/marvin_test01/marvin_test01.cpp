@@ -16,7 +16,7 @@
 
 // User-defined Anokiwave memory class
 #include "AnokiMemory.h"
-//#include "AnokiCommand.h"
+#include "AnokiCommand.h"
 //#include "AnokiObj.h"
 
 // User-defined Marvin command functions
@@ -28,12 +28,14 @@ int main(int argc, char* argv[]) {
 
     // Define User-defined class that handles parts of the communication
     MarvinCommand marvin;
-    AnokiMemory anoki;
+    marvin.setOperatingFrequency(10000000);
 
-    /* //Generate some sample sequence
+    AnokiMemory anoki(10000000);
+
+    //Generate some sample sequence
     //AnokiCommand anokiCmd;
     //AnokiObj obj1, obj2;
-    //obj1 = anokiCmd.cmd_SetScratchValue(0xfdecba98);
+    //obj1 = anokiCmd.cmd_SetScratchValue(0xfedcba98);
     //obj1 = anokiCmd.cmd_ReadScratchRequest();
     //obj1 = anokiCmd.cmd_RequestFixedSequence();
 
@@ -52,7 +54,7 @@ int main(int argc, char* argv[]) {
     //obj1 = anokiCmd.cmd_ArrayConfigurationRequest();
     //obj1 = anokiCmd.cmd_StatusSummaryRequest();
     //obj1 = anokiCmd.cmd_StatusDetailRequest();
-    */
+
 
     // --- Find the local relative filepath of .csv with 2 column defining angles.
     char nInputCSVFile[100];
@@ -70,35 +72,31 @@ int main(int argc, char* argv[]) {
     // Start the connection on the anokiwave with a beam mode and frequency
     anoki.cmd_StartBeam(0, 28050);
     // Read the angles to generate an anokiObj that contains the command information
-    anoki.cmd_FromCSV();
+    anoki.cmd_steerAngle();
     // End the connection to the anokiwave
     anoki.cmd_EndBeam();
 
-    anoki.generateCommandSequence();
+    anoki.generateCommandSequenceFromFile();
+    //anoki.showAnokiCommandSequence(8*9);
 
     
 
-
-    double delayTime = 1e-6;
-    marvin.nBoardFrequency = SHORT(1e6);
-
     // --- Initialize marvin card
-    //marvin.SetupInterface(0x105, DIO_IO_INTERFACE_TTL, DIO_BOARD_TYPE_GX5290, DIO_OPERATING_MODE_DEFAULT);
-    //marvin.StartConnection();
+    marvin.SetupInterface(0x105, DIO_IO_INTERFACE_TTL, DIO_BOARD_TYPE_GX5290, DIO_OPERATING_MODE_DEFAULT);
+    marvin.StartConnection();
 
     //marvin.ShowMemory(marvin.dwMemory, 0, 64 );
 
-
-
+    marvin.LoadCardMemory(anoki.commandSequence);
 
     strcpy_s(marvin.szFileNameInput, "marvin_test01.DIO");
     strcpy_s(marvin.szFileNameOutput, "marvin_test01.DI");
 
-    //marvin.GenerateExampleMemory();
-    //marvin.LoadCard();
-    //marvin.LoadCardWith(marvin.dwMemory, marvin.dwControl);
-    //marvin.RunProgram(1000);
-    //marvin.ReadFromCard();
+    marvin.GenerateExampleMemory();
+    marvin.LoadCard();
+    marvin.LoadCardWith(marvin.dwMemory, marvin.dwControl);
+    marvin.RunProgram(1000);
+    marvin.ReadFromCard();
 
 
 
