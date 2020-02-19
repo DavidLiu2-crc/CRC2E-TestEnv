@@ -18,10 +18,10 @@ class MarvinCommand {
 // prefix _[variablename] means an external value that is passed
 public:
 	// ---- Define public attributes ------------------------------------------------------------
-	unsigned int nSlotNum;			// Value of slot number in chassis
-	unsigned int nInterfaceType;	// Value of interface type 0:TTL, 1:LVDS
-	unsigned int nExpectedBoard;	// Value of expected board type
-	unsigned int nOperatingMode;	// value of the operating mode 0:Default, 1:Real-Time Compare
+	SHORT nSlotNum;			// Value of slot number in chassis
+	SHORT nInterfaceType;	// Value of interface type 0:TTL, 1:LVDS
+	SHORT nExpectedBoard;	// Value of expected board type
+	SHORT nOperatingMode;	// value of the operating mode 0:Default, 1:Real-Time Compare
 
 		
 	SHORT nHandle;		// Pointer of the card handle
@@ -34,9 +34,12 @@ public:
 	SHORT nBoardFrequency;	// Pointer of the card board frequency
 
 	// TODO: Change memory and controller to heap memory
-	DWORD dwSize = 4096;			// Defines number of steps
-	DWORD dwMemory[4096] = { 0 };	// Defines the data memory
-	DWORD dwControl[4096] = { 0 };	// Defines the controller memory
+	DWORD dwSize = 0;	// Defines number of steps
+	DWORD* dwMemory;	// Defines the pointer to data memory
+	DWORD* dwControl;	// Defines the pointer to control memory
+
+	//DWORD dwMemory[4096] = { 0 };	// Defines the data memory
+	//DWORD dwControl[4096] = { 0 };	// Defines the controller memory
 		
 
 	CHAR szFileNameInput[128];	// Defines the name of the input file
@@ -45,16 +48,18 @@ public:
 	// --- Define Public functions here --------------------------------------------------------
 
 	// Initializes the card connected at nSlotNum as nExpectBoard type, of interfaceType connection with operating mode
-	void SetupInterface(unsigned int _nSlotNum, unsigned int _nInterfaceType, unsigned int _nExpectBoard, unsigned int _nOperatingMode);
+	void SetupInterface(SHORT _nSlotNum, SHORT _nInterfaceType, SHORT _nExpectBoard, SHORT _nOperatingMode);
 	// Start communicating with the card
 	void StartConnection();
 	/* // Initialize IO Channels to Data Format for easier bit flipping (GX5055 only)
 	// void SetupChannelAnoki(SHORT handle); */
+
+	void StartDIOLoad(DWORD _numSteps);
+
 	// Opens DIOEasy handle and loads the memory and control content of this instance
-	void LoadCard();
+	void LoadCard(unsigned short* _memory);
 	// Opens DIOEasy handle and loads _memory and _control onto card
-	void LoadCardWith(DWORD* _memory, DWORD* _control);
-	void LoadCardMemory(unsigned char* _memory);
+	void LoadVectorToCard();
 	// Loads the Data Memory and Control Memory with random information
 	void GenerateExampleMemory();
 	// Set Marvin Card to Run state 

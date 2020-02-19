@@ -15,20 +15,14 @@ class AnokiMemory {
 public:
 	// Command Object to assign the attributes and create the command object
 	AnokiCommand anokiCMD;
-	// Parameter for the PAA frequency [27500 - 30000];
-	unsigned int paramFrequency = 28000;
-	// Parameter for the Beam Mode| 0:Mode 0, 1:Mode 1, 2:Mode 2, 3:Mode 4
-	unsigned int paramBeamMode = 0;
-	// Vector that stores AnokiObj objects
-	std::vector< AnokiObj > nVectorAnokiOBJ;
+	std::vector< AnokiObj > nVectorAnokiOBJ;			// Vector that stores AnokiObj objects
+	std::vector< std::vector< float > > nVectorANGLE;	// Vector that stores the angles to sweep
+	std::vector< std::vector< float > > nVectorHeader;	// Vector that stores the header information of the csv file
+	std::vector< unsigned int >			nVectorINDEX;	// Vector that stores the index of the corresponding command sequence
 
-	// Vector that stores the angles to sweep
-	std::vector< std::vector< float > > nVectorANGLE;
-	// Vector that stores the header information of the csv file
-	std::vector< std::vector< float > > nVectorHeader;
-	// Vector that stores the index of the corresponding command sequence
-	std::vector< unsigned int >			nVectorINDEX;
-
+	unsigned int paramFrequency = 28000;	// Parameter for the PAA frequency [27500 - 30000];
+	unsigned int paramBeamMode = 0;			// Parameter for the Beam Mode| 0:Mode 0, 1:Mode 1, 2:Mode 2, 3:Mode 4
+	
 	// ---------------------------------------------------
 	// Proper indexing types depending on length of command sequence
 	// unsigned char:	[0 - 255 ff]
@@ -40,40 +34,34 @@ public:
 	// double: 1.7E+- 308
 	// ---------------------------------------------------
 
+	unsigned int maxCommandSequence = 10000000; // Index counter for max number of command sequences to traverse
+	unsigned int commandSequenceIndex = 0; // Index counter for where commandSequenceIndex is located currently
+	unsigned short* commandSequence = new unsigned short[10000000];	// Heap declaration for commandSequence
 	
-	// Index counter for max number of command sequences to traverse
-	unsigned int maxCommandSequence = 1000000;
-	// Heap declaration for commandSequence
-	unsigned char* commandSequence = new unsigned char[1000000];
-	// Index counter for where commandSequenceIndex is located currently
-	unsigned int commandSequenceIndex = 0;
+	unsigned int cardFrequency;// Operating card frequency of the object to delay for
 	
-	// Operating card frequency of the object to delay for
-	unsigned int cardFrequency = 1e6;
-	// Calculated number of steps at operating card frequency
-	unsigned int numStepsPAADelay = 0;
-	unsigned int numStepsStrobeBit = 10;
-	unsigned int numStepsScanDelay = 0;
+	unsigned int numStepsPAADelay = 0;	// Number of steps for PAA calculation delay
+	unsigned int numStepsStrobeBit = 10;// Number of steps for Strobe high
+	unsigned int numStepsScanDelay = 0; // Number of steps for PXA scan time
 
+	char* pnInputCSVFile;		// Relative path of the input angle CSV file
+	bool nInputFileRead = false;// Flag for input file read into memory
 
-	// Relative path of the input angle CSV file
-	char* pnInputCSVFile;
-	bool nInputFileRead = false;
+	char* pnOutputASCIIFil;		// Relative path of the output ASCII file
+	bool nOutputFileRead = false;// Flag for output file written
 
-	// Relative path of the output ASCII file
-	char* pnOutputASCIIFile;
-	bool nOutputFileRead = false;
-
-
+	bool flag_genClock = false;	// Flag for two step if creating own clock implementation
 
 	// General constructor
 	AnokiMemory() {
-		numStepsPAADelay = 10;
+		cardFrequency = 1000000;
+		numStepsPAADelay = 20;
 		numStepsScanDelay = 20;
 	}
+	// Constructor if card operating frequency passed as argument
 	AnokiMemory(unsigned int _cardFreq) {
 		// Check if the input frequency is reasonably bounded by 100MHz
-		_cardFreq > 1e8 ? cardFrequency = unsigned int(1e8): cardFrequency = _cardFreq;
+		_cardFreq > 1e8 ? cardFrequency = unsigned int(100000000): cardFrequency = _cardFreq;
 
 		// Calculate number of steps to delay for PAA point calculation
 		float delay_PAAPointTime = 12e-6;
@@ -102,7 +90,6 @@ public:
 	/// char filePath = 'anglePoint.csv';
 	/// readFromCSV( filePath );
 	/// </code></example>
-	/// <exception cref="FileIOException">If the file is not found in relative directory</exception>
 	void readFromCSV(char* pnInputCSVFile);
 	// Adds calls the PAA command with each line of angle values
 	void cmd_steerAngle();
@@ -120,8 +107,11 @@ public:
 	void addDelayStep(unsigned int _numSteps, unsigned char stepValue);
 	// Append appropriate number of steps for PAA point steering timing
 	void addSteerTiming();
+	// Set all the commands to include the clock bit in its step (Double length)
+	void set_CreateClockFlag(bool _flagClock);
 
 	void exportMemoryToASCII();
+	void exportMemoryToReadable();
 
 	// Displays a subsegment of the command sequence binary steps of a certain length from 0
 	void showAnokiCommandSequence(unsigned int _len);

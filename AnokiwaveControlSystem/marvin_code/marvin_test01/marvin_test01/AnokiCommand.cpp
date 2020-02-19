@@ -39,7 +39,7 @@ AnokiObj AnokiCommand::cmd_SetScratchValue(unsigned long _nScratchValue) {
         "Set Scratch Value (%X %X %X %X)", cmd[1], cmd[2], cmd[3], cmd[4]);
 
     // --- AnokiOBJ Object-Oriented Implementation
-    AnokiObj cmdObj;
+    AnokiObj cmdObj(flag_generateClock);
     cmdObj.setCommandSequence(cmd, 6, 6, std::string(commandOutCalled));
     // Return AnokiObj to caller
     return cmdObj;  
@@ -55,7 +55,7 @@ AnokiObj AnokiCommand::cmd_ReadScratchRequest() {
     std::string cmdLog = "Read Scratch Request ()";
 
     // --- AnokiOBJ Object-Oriented Implementation
-    AnokiObj cmdObj;
+    AnokiObj cmdObj(flag_generateClock);
     cmdObj.setCommandSequence(cmd, 2, 6, cmdLog);
     // Return AnokiObj to caller
     return cmdObj;
@@ -75,7 +75,7 @@ AnokiObj AnokiCommand::cmd_RequestFixedSequence() {
     std::string cmdLog = "Request Fixed Sequence ()";
 
     // --- AnokiOBJ Object-Oriented Implementation
-    AnokiObj cmdObj;
+    AnokiObj cmdObj(flag_generateClock);
     cmdObj.setCommandSequence(cmd, 2, 6, cmdLog);
     // Return AnokiObj to caller
     return cmdObj;
@@ -93,14 +93,14 @@ AnokiObj AnokiCommand::cmd_PAAPointingCommand() {
 
     // Append the mode byte
     unsigned int modeByte;
-    paramModeTXRX ? modeByte = 4 : modeByte = 0;
-    modeByte = modeByte + paramModeBeam;
+    paramBeamTXRX ? modeByte = 4 : modeByte = 0;
+    modeByte = modeByte + paramBeamMode;
     cmd[1] = modeByte;
 
     // Convert the value to hex values
-    theta_uint16ToPointer(paramTheta);   // Remap theta angle from [0-90] to [0-FFFF];
-    phi_uint16ToPointer(paramPhi);     // Remap theta angle from [0-360] to [0-FFFF];
-    freq_uint16ToPointer(paramFrequency);    // Remap frequency to [0-FFFF];
+    theta_uint16ToPointer(paramTheta, &dirSequence[0]);   // Remap theta angle from [0-90] to [0-FFFF];
+    phi_uint16ToPointer(paramPhi, &dirSequence[2]);     // Remap theta angle from [0-360] to [0-FFFF];
+    freq_uint16ToPointer(paramFrequency, &dirSequence[4]);    // Remap frequency to [0-FFFF];
 
     // Copy the hex values to command sequence
     for (unsigned int i = 0; i < 6; i++) {
@@ -111,11 +111,11 @@ AnokiObj AnokiCommand::cmd_PAAPointingCommand() {
     // Convert command sequence to string for readiblity
     char commandOutCalled[200];
     snprintf(commandOutCalled, sizeof(commandOutCalled),
-        "PAA Pointing Command (%s, Beam Mode:%d, Theta:%.3f, Phi:%.3f, Frequency:%d)",
-        paramModeTXRX ? "TX" : "RX", paramModeBeam, paramTheta, paramPhi, paramFrequency);
+        "PAA Pointing Command (%s, Beam: Mode %d, Theta:%.3f, Phi:%.3f, Frequency:%d MHz)",
+        paramBeamTXRX ? "TX" : "RX", paramBeamMode, paramTheta, paramPhi, paramFrequency);
     
     // --- AnokiOBJ Object-Oriented Implementation
-    AnokiObj cmdObj;
+    AnokiObj cmdObj(flag_generateClock);
     cmdObj.setCommandSequence(cmd, 9, 6, std::string(commandOutCalled));
     // Return AnokiObj to caller
     return cmdObj;
@@ -136,7 +136,7 @@ AnokiObj AnokiCommand::cmd_ArrayConfigurationRequest() {
     std::string cmdLog = "Array Configuration Request ()";
 
     // --- AnokiOBJ Object-Oriented Implementation
-    AnokiObj cmdObj;
+    AnokiObj cmdObj(flag_generateClock);
     cmdObj.setCommandSequence(cmd, 2, 10, cmdLog);
     // Return AnokiObj to caller
     return cmdObj;
@@ -169,7 +169,7 @@ AnokiObj AnokiCommand::cmd_FactoryReset() {
     std::string cmdLog = paramFactoryReset ? "Factory Reset (True)" : "Factory Reset (False)";
 
     // --- AnokiOBJ Object-Oriented Implementation
-    AnokiObj cmdObj;
+    AnokiObj cmdObj(flag_generateClock);
     cmdObj.setCommandSequence(cmd, 4, 6, cmdLog);
     // Return AnokiObj to caller
     return cmdObj;
@@ -190,10 +190,10 @@ AnokiObj AnokiCommand::cmd_EnableBeam() {
     // Append checksum to end of comand sequence
     cmd[2] = checksum(cmd, 2);
 
-    std::string cmdLog = paramFactoryReset ? "Enable Beam (True)" : "Enable Beam (False)";
+    std::string cmdLog = paramBeamEnable ? "Enable Beam (True)" : "Enable Beam (False)";
 
     // --- AnokiOBJ Object-Oriented Implementation
-    AnokiObj cmdObj;
+    AnokiObj cmdObj(flag_generateClock);
     cmdObj.setCommandSequence(cmd, 3, 6, cmdLog);
     // Return AnokiObj to caller
     return cmdObj;
@@ -214,7 +214,7 @@ AnokiObj AnokiCommand::cmd_StatusSummaryRequest() {
     std::string cmdLog = "Status Summary Request ()";
 
     // --- AnokiOBJ Object-Oriented Implementation
-    AnokiObj cmdObj;
+    AnokiObj cmdObj(flag_generateClock);
     cmdObj.setCommandSequence(cmd, 2, 3, cmdLog);
     // Return AnokiObj to caller
     return cmdObj;
@@ -234,7 +234,7 @@ AnokiObj AnokiCommand::cmd_StatusDetailRequest() {
     std::string cmdLog = "Status Detail Request ()";
 
     // --- AnokiOBJ Object-Oriented Implementation
-    AnokiObj cmdObj;
+    AnokiObj cmdObj(flag_generateClock);
     cmdObj.setCommandSequence(cmd, 2, 14, cmdLog);
     // Return AnokiObj to caller
     return cmdObj;
@@ -293,18 +293,22 @@ void AnokiCommand::set_enableBeam(bool _beamOn) {
 
 // 0:RX Mode, 1:TX Mode
 void AnokiCommand::set_modeTXRX(bool _mode) {
-    paramModeTXRX = _mode;
+    paramBeamTXRX = _mode;
 }
 
 // 0:Beam 0; 1:TBD; 2:TBD; 3:Spoil
 void AnokiCommand::set_beamMode(unsigned char _modeBeam) {
     if (_modeBeam > 3) _modeBeam = 0;
-    paramModeBeam = 0;
+    paramBeamMode = 0;
 }
 
 // 0:Nothing, 1:Reset
 void AnokiCommand::set_factoryFlag(bool _factoryReset) {
     paramFactoryReset = _factoryReset;
+}
+
+void AnokiCommand::set_generateClock(bool _flagGenClock) {
+    flag_generateClock = _flagGenClock;
 }
 
 /*------------------------------------------------
@@ -317,13 +321,6 @@ void AnokiCommand::set_factoryFlag(bool _factoryReset) {
 /*------------------------------------------------
 ------ Start of Helper Function Definition -------
 ------------------------------------------------*/
-void AnokiCommand::show_hexCMD(int* pCmd) {
-    // Display to windows console the command string
-    for (int i = 0; i < ANOKI_counterMaxRead; i++) {
-        std::cout << std::hex << pCmd[i] << " ";
-    }
-    std::cout << "\n"; // New line terminator
-}
 
 int AnokiCommand::checksum(unsigned char* pCmd, int len_) {
     /*-----------------------------------------------------------
@@ -347,56 +344,41 @@ int AnokiCommand::checksum(unsigned char* pCmd, int len_) {
     return checksumInt;
 }
 
-
-
-/*------------------------------------------------
-------- END of Helper Function Definition --------
-------------------------------------------------*/
-
-
-
-
-/*------------------------------------------------
------- Start of Private Function Definition ------
-------------------------------------------------*/
-void AnokiCommand::theta_uint16ToPointer(float value) {
+void AnokiCommand::theta_uint16ToPointer(float value, unsigned char * pnSequence) {
     int msb, lsb;
 
     value = floor(value * 65535 / 90);
     msb = floor(value / 256);
     lsb = value - msb * 256;
 
-    dirSequence[0] = msb;
-    dirSequence[1] = lsb;
+    // Set the current pointed and next pointed value 
+    pnSequence[0] = msb;
+    pnSequence[1] = lsb;
 }
 
-void AnokiCommand::phi_uint16ToPointer(float value) {
+void AnokiCommand::phi_uint16ToPointer(float value, unsigned char* pnSequence) {
     int msb, lsb;
 
     value = floor(value * 65535 / 360);
     msb = floor(value / 256);
     lsb = value - msb * 256;
 
-    dirSequence[2] = msb;
-    dirSequence[3] = lsb;
+    // Set the current pointed and next pointed value 
+    pnSequence[0] = msb;
+    pnSequence[1] = lsb;
 }
 
-void AnokiCommand::freq_uint16ToPointer(float value) {
+void AnokiCommand::freq_uint16ToPointer(float value, unsigned char* pnSequence) {
     int msb, lsb;
 
     msb = floor(value / 256);
     lsb = value - msb * 256;
 
-    dirSequence[4] = msb;
-    dirSequence[5] = lsb;
+    // Set the current pointed and next pointed value 
+    pnSequence[0] = msb;
+    pnSequence[1] = lsb;
 }
 
-void AnokiCommand::uint16ToBinInt(unsigned int value, unsigned int* cmdBit) {
-
-    int i = 0;
-    while (value > 0) {
-        cmdBit[i] = value % 2;
-        value = value / 2;
-        i++;
-    }
-}
+/*------------------------------------------------
+------- END of Helper Function Definition --------
+------------------------------------------------*/

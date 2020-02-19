@@ -14,10 +14,18 @@ void AnokiObj::convertSeqToASCII() {
 		// Loop through each of the 8 bits
 		for (unsigned char j = 0; j < 8; j++) {
 			bool setBit = commandByte & maskByte;
+
+			// Add atleast one command
 			cmdSeqRaw[index] = setBit ? addByte : 0;
+			index++;
+
+			// Add a second bit if clock sequence requires it
+			if (createClockCycle) {
+				cmdSeqRaw[index] = setBit ? addByte +1: 1;
+				index++;
+			}
 
 			maskByte = maskByte >> 1;
-			index++;
 		}
 
 	}

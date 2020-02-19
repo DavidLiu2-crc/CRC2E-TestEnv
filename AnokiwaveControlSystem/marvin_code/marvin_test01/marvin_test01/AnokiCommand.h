@@ -55,6 +55,13 @@
 class AnokiCommand {
 
 public:
+	AnokiCommand() {
+		// Nothing happens
+	}
+	AnokiCommand(bool _flagGenClock) {
+		flag_generateClock = _flagGenClock;
+	}
+
 	// ---------------- DEFINE BASIC COMMANDS ----------------
 
 	/// <summary>
@@ -135,19 +142,17 @@ public:
 	// Set the factory reset flag, 0:Nothing, 1:Reset
 	void set_factoryFlag(bool _factoryReset);
 
+	void set_generateClock(bool _flagGenClock);
 
-	// ---------------- DEFINE DISPLAY FUNCTIONS ---------------
-
-	// Print the hex command in windows console
-	void show_hexCMD(int * pCmd);
 
 private:
 	// ---------------- Define parameters of PAA ----------------
 	bool paramBeamEnable = 0;	// 0:Disable, 1:Enable
-	bool paramModeTXRX = 0;		// 0:RX Mode, 1:TX Mode
+	bool paramBeamTXRX = 0;		// 0:RX Mode, 1:TX Mode
 	bool paramFactoryReset = 0;	// 0:Nothing, 1:Reset
-	unsigned char paramModeBeam = 0;		// 0:Beam 0; 1:TBD; 2:TBD; 3:Spoil
-	unsigned short paramFrequency = 28000; // Frequency [27500 - 30000] MHz;
+	unsigned char paramBeamMode = 0;		// 0:Beam 0; 1:TBD; 2:TBD; 3:Spoil
+	unsigned short paramFrequency = 28000;	// Frequency [27500 - 30000] MHz;
+	bool flag_generateClock = false;
 	float paramTheta = 0;		// Theta angle [0 - 90]
 	float paramPhi = 0;			// Phi angle [0 - 360]
 
@@ -155,24 +160,24 @@ private:
 
 	// ---------------- Define read configuration of PAA -------
 	// TODO : Add read byte capabilities to assign parameters in class
-	char readACK = 0;		// Acknowledgement byte, expect 0xC~ 0xE~
-	char readSummary = 0;	// Status byte, expect 0x00
-	int readAddressIP[4] = { 0 };		//IP Address of PAA configuration
-	int readScratchRegister[4] = { 0 }; // Value stored in scratch register
-	int readFixedRegister[4] = { 0 };	// Value stored in fixed register
-	int readTempCurrent[5] = { 0 };		// Value stored in temperature sensors
+	unsigned char readACK = 0;		// Acknowledgement byte, expect 0xC~ 0xE~
+	unsigned char readSummary = 0;	// Status byte, expect 0x00
+	unsigned char readAddressIP[4] = { 0 };		//IP Address of PAA configuration
+	unsigned char readScratchRegister[4] = { 0 }; // Value stored in scratch register
+	unsigned char readFixedRegister[4] = { 0 };	// Value stored in fixed register
+	unsigned char readTempCurrent[5] = { 0 };		// Value stored in temperature sensors
 
 	// ------------ DEFINE PRIVATE HELPER FUNCTIONS ------------
 
 	// Returns the checksum byte of the hexadecimal in pCmd
 	int checksum(unsigned char* pCmd, int len_);
 	// Convert the theta decimal value to equivalent hexadecimal in command sequence
-	void theta_uint16ToPointer(float value);
+	void theta_uint16ToPointer(float value, unsigned char* pnSequence);
 	// Convert the phi decimal value to equivalent hexadecimal in command sequence
-	void phi_uint16ToPointer(float value);
+	void phi_uint16ToPointer(float value, unsigned char* pnSequence);
 	// Convert the frequency decimal value to equivalent hexadecimal in command sequence
-	void freq_uint16ToPointer(float value);
+	void freq_uint16ToPointer(float value, unsigned char* pnSequence);
 
-	void uint16ToBinInt(unsigned int value, unsigned int* cmdBit);
+	// TODO: Add support to read value from dirSequence pointer to value.
 };
 
