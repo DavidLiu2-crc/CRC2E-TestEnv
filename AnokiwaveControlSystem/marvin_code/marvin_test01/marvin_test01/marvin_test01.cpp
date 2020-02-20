@@ -26,7 +26,7 @@
 
 int main(int argc, char* argv[]) {
     // Define execution frequency
-    unsigned int _exeFrequency = 1000000;
+    unsigned long _exeFrequency = 10000000;
 
     // Define User-defined class that handles GTDIO interface
     MarvinCommand marvin;
@@ -88,20 +88,20 @@ int main(int argc, char* argv[]) {
     std::cout << "\n";
 
     // --- Initialize marvin card
-    marvin.SetupInterface(0x103, DIO_IO_INTERFACE_TTL, DIO_BOARD_TYPE_GX5290, DIO_OPERATING_MODE_DEFAULT);
+    marvin.SetupInterface(0x103, DIO_IO_INTERFACE_LVDS, DIO_BOARD_TYPE_GX5290, DIO_OPERATING_MODE_DEFAULT);
     marvin.StartConnection();
 
     strcpy_s(marvin.szFileNameInput, "marvin_test01.DIO");
-    strcpy_s(marvin.szFileNameOutput, "marvin_test01.DI");
+    strcpy_s(marvin.szFileNameOutput, "marvin_test01__.DI");
 
     DWORD numberOfSteps = anoki.commandSequenceIndex;
     marvin.StartDIOLoad(numberOfSteps);
     marvin.LoadCard(anoki.commandSequence, anoki.controlSequence);
     marvin.LoadVectorToCard();
-    marvin.RunProgram(1000);
+    marvin.RunProgram(1000);  
     marvin.ReadFromCard();
 
-
+    anoki.maskedReadMemory();
 
 
 

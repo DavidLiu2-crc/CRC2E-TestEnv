@@ -101,7 +101,7 @@ Sends the command to return the summary detail
 </summary>
 <returns><c> AnokiObj </c> command object </returns>
 </member>
-<member name="M:AnokiMemory.readFromCSV(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte*)" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.h" line="80">
+<member name="M:AnokiMemory.readFromCSV(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte*)" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.h" line="90">
 <summary>
 Opens the .csv file and adds the angles into a (m x n) matrix. Assumes csv file contain 2 column theta, phi values.
 <para>
@@ -117,6 +117,12 @@ Sets the <c>nInputFileRead</c> flag as true.
 char filePath = 'anglePoint.csv';
 readFromCSV( filePath );
 </code></example>
+</member>
+<member name="M:MarvinCommand.StartConnection" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\MarvinCommand.h" line="52">
+<summary>
+Starts connection with Marvin Card located at nSlotNum.
+Configures the <c>nInterfaceType, nBoardType, nOperatingMode, IOConfiguration</c>
+</summary>
 </member>
 </members>
 </doc>

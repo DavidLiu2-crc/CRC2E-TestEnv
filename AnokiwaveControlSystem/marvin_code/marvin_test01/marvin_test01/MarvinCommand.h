@@ -18,11 +18,11 @@ class MarvinCommand {
 // prefix _[variablename] means an external value that is passed
 public:
 	// ---- Define public attributes ------------------------------------------------------------
-	SHORT nSlotNum;			// Value of slot number in chassis
-	SHORT nInterfaceType;	// Value of interface type 0:TTL, 1:LVDS
-	SHORT nExpectedBoard;	// Value of expected board type
-	SHORT nOperatingMode;	// value of the operating mode 0:Default, 1:Real-Time Compare
-
+	SHORT nSlotNum;			// Value of slot number in chassis; 0x103 for PXI chassis
+	SHORT nInterfaceType;	// Value of interface type; 0:TTL, 1:LVDS
+	SHORT nExpectedBoard;	// Value of expected board type; 0x70 for GX5292
+	SHORT nOperatingMode;	// Value of the operating mode; 0:Default, 1:Real-Time Compare
+	SHORT nWidth;			// Value of the channel width; 0:32 bit, 1:16 bit, 2:8 bit, 3:4 bit, 4:2 bit, 5:1 bit
 		
 	SHORT nHandle;		// Pointer of the card handle
 	SHORT nFileHandle;	// Pointer of the DIO file handle
@@ -31,7 +31,7 @@ public:
 	SHORT nBanks;		// Pointer of the number of memory banks
 
 	SHORT nStatus;			// Pointer of the error status value
-	SHORT nBoardFrequency;	// Pointer of the card board frequency
+	DWORD nBoardFrequency;	// Pointer of the card board frequency
 
 	// TODO: Change memory and controller to heap memory
 	DWORD dwSize = 0;	// Defines number of steps
@@ -48,7 +48,11 @@ public:
 
 	// Initializes the card connected at nSlotNum as nExpectBoard type, of interfaceType connection with operating mode
 	void SetupInterface(SHORT _nSlotNum, SHORT _nInterfaceType, SHORT _nExpectBoard, SHORT _nOperatingMode);
-	// Start communicating with the card
+	
+	/// <summary>
+	/// Starts connection with Marvin Card located at nSlotNum.
+	/// Configures the <c>nInterfaceType, nBoardType, nOperatingMode, IOConfiguration</c>
+	/// </summary>
 	void StartConnection();
 	/* // Initialize IO Channels to Data Format for easier bit flipping (GX5055 only)
 	// void SetupChannelAnoki(SHORT handle); */
@@ -56,7 +60,7 @@ public:
 	void StartDIOLoad(DWORD _numSteps);
 
 	// Opens DIOEasy handle and loads the memory and control content of this instance
-	void LoadCard(unsigned int* _memory, unsigned int* _control);
+	void LoadCard(unsigned long* _memory, unsigned long* _control);
 	// Opens DIOEasy handle and loads _memory and _control onto card
 	void LoadVectorToCard();
 	// Loads the Data Memory and Control Memory with random information
@@ -65,9 +69,11 @@ public:
 	void RunProgram(DWORD _milliseconds);
 	// Read the Marvin Card memory as .DI file
 	void ReadFromCard();
+	// Configure the properties of the object file for readibility
+	void ConfigureDioObject();
 
 
-	void setOperatingFrequency(SHORT _freq);
+	void setOperatingFrequency(unsigned long _freq);
 	
 
 	//// Adds a latch high, strobe low to current memory index and post-increments

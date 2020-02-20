@@ -19,23 +19,23 @@ void MarvinCommand::SetupInterface(SHORT _nSlotNum, SHORT _nInterfaceType, SHORT
 
 void MarvinCommand::StartConnection() {
 
-	// Initialize and return the board handle of the connected card
+	// --- Initialize and return the board handle of the connected card -----------------------
 	SHORT Master = 0;
 	SHORT BoardNum = 1;
 	DioSetupInitialization(Master, BoardNum, nSlotNum, &nDensity, &nBanks, &nHandle, &nStatus);
 	CheckStatus(nStatus);
-	//if (nStatus < 0) {
-	//	throw std::domain_error("DIO Card not initialized.");
-	//}
+	// TODO: Add throw catch exception to stop running commands if card not even initialized
+
+	// Stop any operations at initialization
+	ctrlHalt();
 
 	DioReset(nHandle, &nStatus);
 	CheckStatus(nStatus);
 	std::cout << "MarvinCommand: Reseting board at board handle: " << nHandle << "\n";
 
-	// Get the board type
+	// --- Get the board type -----------------------------------------------------------------
 	DioGetBoardType(nHandle, &nBoardType, &nStatus);
 	CheckStatus(nStatus);
-
 	// Check and display the board type
 	if (!nStatus) {
 		if (nBoardType == nExpectedBoard) {
@@ -46,7 +46,7 @@ void MarvinCommand::StartConnection() {
 		}
 	}
 
-	// Set up the connection interface
+	// --- Set up the connection interface ----------------------------------------------------
 	DioSetupInputInterface(nHandle, nInterfaceType, &nStatus);
 	CheckStatus(nStatus);
 	// Get the connection interface after setup
@@ -57,7 +57,7 @@ void MarvinCommand::StartConnection() {
 	std::cout << "MarvinCommand: Marvin Card Interface: ";
 	std::cout << (nConnector ? "LVDS \n" : "TTL \n");
 
-	// Set up the Operating mode of the card
+	// --- Set up the Operating mode of the card ----------------------------------------------
 	DioDomainSetupOperatingMode(nHandle, nOperatingMode, &nStatus);
 	CheckStatus(nStatus);
 	// Get the operating mode after setup
@@ -67,6 +67,21 @@ void MarvinCommand::StartConnection() {
 	// Display the Operating mode of the card
 	std::cout << "MarvinCommand: Operating mode: ";
 	std::cout << (nOperatingMode ? "Real-Time Compare \n" : "High Speed IO Default \n");
+
+	// --- Set up the IO Configuration the card ------------------------------------------------
+	//nWidth = 0; // 32 bit channel wide: 64MB
+	nWidth = 2; //8 bit channel wide: 256MB
+	SHORT nDirection = 0;
+	DioSetupIOConfiguration(nHandle, nWidth, nDirection, &nStatus);
+	CheckStatus(nStatus);
+	DioGetIOConfiguration(nHandle, &nWidth, &nDirection, &nStatus);
+	CheckStatus(nStatus);
+	// Retrieve the channel width
+	unsigned int readWidth = 32;
+	readWidth = readWidth >> nWidth;
+	std::cout << "MarvinCommand: IO Channel Width set to: " << readWidth << "\n";
+	std::cout << "MarvinCommand: Max steps in memory: " << (64 << nWidth) << "MB \n";
+
 }
 
 //void MarvinCommand::SetupChannelAnoki(SHORT handle) {
@@ -89,13 +104,20 @@ void MarvinCommand::StartConnection() {
 
 void MarvinCommand::StartDIOLoad(DWORD _numSteps) {
 	// Create a new file through DIOEasy
-	
 	std::cout << "MarvinCommand: Opening DIO File handle\n";
 	DioFileOpen(szFileNameInput, DIO_FILE_CREATE, &nBoardType, &nFileHandle, &nStatus);
 	CheckStatus(nStatus);
 
-	// Create data format (only GX5055)
-	//SetupChannelAnoki(nFileHandle);
+	// Give idea of how many steps will be loaded
+	double fileSize = _numSteps / 1024;
+	char sizeOfFile[100];
+	std::string fileChar = "KB";
+	if (fileSize > 1024) {
+		fileSize = fileSize / 1024;
+		fileChar = "MB";
+	}
+	snprintf(sizeOfFile, sizeof(sizeOfFile), "MarvinCommand: Loading DIO File: %.3f %s \n", fileSize, fileChar.c_str() );
+	std::cout << std::string(sizeOfFile);
 
 	// Set up file step size -- File CREATE
 	std::cout << "MarvinCommand: Assigning number of steps to copy\n";
@@ -104,12 +126,15 @@ void MarvinCommand::StartDIOLoad(DWORD _numSteps) {
 	CheckStatus(nStatus);
 }
 
-void MarvinCommand::LoadCard(unsigned int* _memory, unsigned int* _control) {
+void MarvinCommand::LoadCard(unsigned long* _memory, unsigned long* _control) {
+	dwMemory = _memory;
+
 	// Load the data information into memory
 	std::cout << "MarvinCommand: Memory location pointer set\n";
 	DioWriteOutMemory(nFileHandle, _memory, 0, dwSize, &nStatus);
 	CheckStatus(nStatus);
 
+	dwControl = _control;
 
 	// Load the control information into direction memory
 	DioWriteDirectionMemory(nFileHandle, _control, 0, dwSize, &nStatus);
@@ -168,17 +193,23 @@ void MarvinCommand::RunProgram(DWORD _milliseconds) {
 }
 
 void MarvinCommand::ReadFromCard() {
-	std::cout << "MarvinCommand: Reading from card memory \n";
+	//Read back the card memory after operation with Anokiwave PAA
+	DioReadInMemory(nHandle, dwMemory, 0, dwSize, &nStatus);
+	CheckStatus(nStatus);
+	std::cout << "MarvinCommand: Reading Card Memory into AnokiMemory heap \n";
+
 	DioSaveFile(nHandle, szFileNameOutput, 0, &dwSize, &nStatus);
 	CheckStatus(nStatus);
 	std::cout << "MarvinCommand: Read card memory into file\n";
 }
 
-void MarvinCommand::setOperatingFrequency(SHORT _freq) {
+void MarvinCommand::setOperatingFrequency(unsigned long _freq) {
 	nBoardFrequency = _freq;
 }
 
-
+void MarvinCommand::ConfigureDioObject() {
+	//
+}
 
 //void MarvinCommand::addBuffer(bool byteHeader, unsigned int _memoryIndex) {
 //	unsigned int latchByte = 0xFF;

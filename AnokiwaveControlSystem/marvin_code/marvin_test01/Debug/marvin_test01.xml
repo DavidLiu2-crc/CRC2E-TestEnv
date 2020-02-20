@@ -9,6 +9,11 @@
 Simple function to initialize the card locating in nSlotNum with connector of type interfaceType.
 <param name="nSlotNum"> unsigned int defining the slot number. See PXI/PCI Explorer. </param><param name="interfaceType"> int representing the connector type, 0:TTL, 1:LVDS </param></summary>
         </member>
+        <member name="M:MarvinCommand.StartConnection">
+            <summary>
+Starts connection with Marvin Card located at nSlotNum.
+Configures the <c>nInterfaceType, nBoardType, nOperatingMode, IOConfiguration</c></summary>
+        </member>
         <member name="M:AnokiMemory.cmd_StartBeam(System.UInt32,System.UInt16)">
             <summary>
 Calls Enable Beam and PAA point toward normal before beginning sweep.

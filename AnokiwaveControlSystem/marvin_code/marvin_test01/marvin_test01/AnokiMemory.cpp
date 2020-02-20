@@ -223,6 +223,11 @@ void AnokiMemory::addSteerTiming() {
 	addDelayStep(numStepsScanDelay, 0x08);
 }
 
+void AnokiMemory::set_CreateClockFlag(bool _flagClock) {
+	flag_genClock = _flagClock;
+	anokiCMD.set_generateClock(_flagClock);
+}
+
 void AnokiMemory::exportMemoryToASCII() {
 	std::ofstream ascFile;
 	ascFile.open("commandseq.asc");
@@ -265,6 +270,36 @@ void AnokiMemory::exportMemoryToReadable() {
 	std::cout << "AnokiMemory: Exporting memory to text log \n";
 }
 
+void AnokiMemory::maskedReadMemory() {
+
+	// How many byte segments to read
+	size_t numReadSegments = nVectorAnokiOBJ.size();
+
+	for (unsigned int index = 1; index < numReadSegments; index++) {
+		// How many bytes to read depends on last anokiobj.readLength
+		unsigned char readLength = nVectorAnokiOBJ[index - 1].getCmdReadLength();
+		unsigned int indexToRead = nVectorINDEX[index] + 8;
+		std::vector<unsigned char> readSequence;
+
+		// Iterate through expected byte length
+		for (unsigned char j = 0; j < readLength; j++) {
+			// Mask through each 8 bit at each index
+			unsigned char byte = 0;
+			unsigned char maskByte = 0x80;
+			for (unsigned char k = 0; k < 8; k++) {
+				unsigned char currentStep = commandSequence[indexToRead] & 0x00000004;
+				currentStep == 0x04 ? byte + maskByte : byte;
+				maskByte = maskByte >> 1;
+			}
+			readSequence.push_back(byte);
+		}
+
+		nVectorReadByte.push_back(readSequence);
+	}
+	
+
+}
+
 void AnokiMemory::showAnokiCommandSequence(unsigned int _len) {
 	for (unsigned int index = 0; index < _len; index++) {
 		unsigned char maskByte = 0x80;
@@ -281,7 +316,3 @@ void AnokiMemory::showAnokiCommandSequence(unsigned int _len) {
 	}
 }
 
-void AnokiMemory::set_CreateClockFlag(bool _flagClock) {
-	flag_genClock = _flagClock;
-	anokiCMD.set_generateClock(_flagClock);
-}

@@ -1,5 +1,11 @@
 <?xml version="1.0"?><doc>
 <members>
+<member name="M:MarvinCommand.StartConnection" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\MarvinCommand.h" line="52">
+<summary>
+Starts connection with Marvin Card located at nSlotNum.
+Configures the <c>nInterfaceType, nBoardType, nOperatingMode, IOConfiguration</c>
+</summary>
+</member>
 <member name="M:MarvinCommand.SetupInterface(System.Int16,System.Int16,System.Int16,System.Int16)" decl="false" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\MarvinCommand.cpp" line="8">
 <summary>
 Simple function to initialize the card locating in nSlotNum with connector of type interfaceType.

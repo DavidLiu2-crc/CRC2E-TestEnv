@@ -1,124 +1,4 @@
-﻿  AnokiMemory.cpp
-  Note: including file: C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.h
-  Note: including file:  C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\iostream
-  Note: including file:   C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\yvals_core.h
-  Note: including file:    C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\vcruntime.h
-  Note: including file:     C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\sal.h
-  Note: including file:      C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\concurrencysal.h
-  Note: including file:     C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\vadefs.h
-  Note: including file:    C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\xkeycheck.h
-  Note: including file:   C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\istream
-  Note: including file:    C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\ostream
-  Note: including file:     C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\ios
-  Note: including file:      C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\xlocnum
-  Note: including file:       C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\climits
-  Note: including file:        C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\limits.h
-  Note: including file:       C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\cmath
-  Note: including file:        C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\yvals.h
-  Note: including file:         C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\crtdbg.h
-  Note: including file:          C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\corecrt.h
-  Note: including file:          C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\vcruntime_new_debug.h
-  Note: including file:           C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\vcruntime_new.h
-  Note: including file:         C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\crtdefs.h
-  Note: including file:         C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\use_ansi.h
-  Note: including file:        C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\cstdlib
-  Note: including file:         C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\math.h
-  Note: including file:          C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\corecrt_math.h
-  Note: including file:         C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdlib.h
-  Note: including file:          C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\corecrt_malloc.h
-  Note: including file:          C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\corecrt_search.h
-  Note: including file:           C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stddef.h
-  Note: including file:          C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\corecrt_wstdlib.h
-  Note: including file:        C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\xtgmath.h
-  Note: including file:         C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\xtr1common
-  Note: including file:       C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\cstdio
-  Note: including file:        C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h
-  Note: including file:         C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\corecrt_wstdio.h
-  Note: including file:          C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\corecrt_stdio_config.h
-  Note: including file:       C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\streambuf
-  Note: including file:        C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\xiosbase
-  Note: including file:         C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\share.h
-  Note: including file:          C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\corecrt_share.h
-  Note: including file:         C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\system_error
-  Note: including file:          C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\cerrno
-  Note: including file:           C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\errno.h
-  Note: including file:          C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\stdexcept
-  Note: including file:           C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\exception
-  Note: including file:            C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\type_traits
-  Note: including file:             C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\xstddef
-  Note: including file:              C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\cstddef
-  Note: including file:              C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\initializer_list
-  Note: including file:            C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\malloc.h
-  Note: including file:            C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\vcruntime_exception.h
-  Note: including file:             C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\eh.h
-  Note: including file:              C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\corecrt_terminate.h
-  Note: including file:           C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\xstring
-  Note: including file:            C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\iosfwd
-  Note: including file:             C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\cstring
-  Note: including file:              C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h
-  Note: including file:               C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\corecrt_memory.h
-  Note: including file:                C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\corecrt_memcpy_s.h
-  Note: including file:                 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\vcruntime_string.h
-  Note: including file:               C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\corecrt_wstring.h
-  Note: including file:             C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\cwchar
-  Note: including file:              C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\wchar.h
-  Note: including file:               C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\corecrt_wconio.h
-  Note: including file:               C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\corecrt_wctype.h
-  Note: including file:               C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\corecrt_wdirect.h
-  Note: including file:               C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\corecrt_wio.h
-  Note: including file:               C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\corecrt_wprocess.h
-  Note: including file:               C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\corecrt_wtime.h
-  Note: including file:               C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\sys/stat.h
-  Note: including file:                C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\sys/types.h
-  Note: including file:            C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\xmemory
-  Note: including file:             C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\cstdint
-  Note: including file:              C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\stdint.h
-  Note: including file:             C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\limits
-  Note: including file:              C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\cfloat
-  Note: including file:               C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\float.h
-  Note: including file:             C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\new
-  Note: including file:             C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\xatomic.h
-  Note: including file:              C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\intrin0.h
-  Note: including file:             C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\xutility
-  Note: including file:              C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\utility
-  Note: including file:          C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\xcall_once.h
-  Note: including file:          C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\xerrc.h
-  Note: including file:         C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\xlocale
-  Note: including file:          C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\memory
-  Note: including file:           C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\typeinfo
-  Note: including file:            C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\vcruntime_typeinfo.h
-  Note: including file:          C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\xfacet
-  Note: including file:          C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\xlocinfo
-  Note: including file:           C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\xlocinfo.h
-  Note: including file:            C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\ctype.h
-  Note: including file:            C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\locale.h
-  Note: including file:  C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\fstream
-  Note: including file:  C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\sstream
-  Note: including file:   C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\string
-  Note: including file:    C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\cctype
-  Note: including file:  C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\vector
-  Note: including file:  C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiCommand.h
-  Note: including file:   C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiObj.h
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.h(71,1): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.h(75,1): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.cpp(97,29): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.cpp(124,46): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.cpp(158,2): error C2065: 'commandSequence': undeclared identifier
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.cpp(158,18): error C2065: 'commandSequenceIndex': undeclared identifier
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.cpp(159,2): error C2065: 'commandSequenceIndex': undeclared identifier
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.cpp(161,31): error C2065: 'commandSequenceIndex': undeclared identifier
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.cpp(162,3): error C2065: 'controlSequence': undeclared identifier
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.cpp(168,61): error C2065: 'commandSequenceIndex': undeclared identifier
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.cpp(182,25): error C2065: 'commandSequenceIndex': undeclared identifier
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.cpp(196,3): error C2065: 'commandSequence': undeclared identifier
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.cpp(196,19): error C2065: 'commandSequenceIndex': undeclared identifier
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.cpp(197,3): error C2065: 'commandSequenceIndex': undeclared identifier
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.cpp(209,3): error C2065: 'commandSequence': undeclared identifier
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.cpp(209,19): error C2065: 'commandSequenceIndex': undeclared identifier
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.cpp(210,3): error C2065: 'commandSequenceIndex': undeclared identifier
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.cpp(231,31): error C2065: 'commandSequenceIndex': undeclared identifier
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.cpp(233,24): error C2065: 'commandSequence': undeclared identifier
-  marvin_test01.cpp
+﻿  marvin_test01.cpp
   Note: including file: C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\iostream
   Note: including file:  C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\yvals_core.h
   Note: including file:   C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\vcruntime.h
@@ -219,8 +99,8 @@ C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\m
   Note: including file:  C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\sstream
   Note: including file:  C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiCommand.h
   Note: including file:   C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiObj.h
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.h(71,1): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.h(75,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.h(76,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.h(80,1): warning C4305: 'initializing': truncation from 'double' to 'float'
   Note: including file: C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\MarvinCommand.h
   Note: including file:  C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\Windows.h
   Note: including file:   C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winapifamily.h
@@ -442,12 +322,4 @@ C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\m
   Note: including file:   C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\time.h
   Note: including file:   C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\xtimec.h
   Note: including file:  C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\bitset
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\marvin_test01.cpp(97,53): error C2039: 'commandSequenceIndex': is not a member of 'AnokiMemory'
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.h(13): message : see declaration of 'AnokiMemory'
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\marvin_test01.cpp(99,42): error C2039: 'commandSequence': is not a member of 'AnokiMemory'
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.h(13): message : see declaration of 'AnokiMemory'
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\marvin_test01.cpp(99,65): error C2039: 'controlSequence': is not a member of 'AnokiMemory'
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.h(13): message : see declaration of 'AnokiMemory'
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\marvin_test01.cpp(99,65): error C2660: 'MarvinCommand::LoadCard': function does not take 1 arguments
-C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\MarvinCommand.h(59,7): message : see declaration of 'MarvinCommand::LoadCard'
-  Generating Code...
+  marvin_test01.vcxproj -> C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\Debug\marvin_test01.exe

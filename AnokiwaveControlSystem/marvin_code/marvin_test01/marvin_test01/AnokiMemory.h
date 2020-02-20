@@ -19,6 +19,7 @@ public:
 	std::vector< std::vector< float > > nVectorANGLE;	// Vector that stores the angles to sweep
 	std::vector< std::vector< float > > nVectorHeader;	// Vector that stores the header information of the csv file
 	std::vector< unsigned int >			nVectorINDEX;	// Vector that stores the index of the corresponding command sequence
+	std::vector< std::vector<unsigned char> > nVectorReadByte;
 
 	unsigned int paramFrequency = 28000;	// Parameter for the PAA frequency [27500 - 30000];
 	unsigned int paramBeamMode = 0;			// Parameter for the Beam Mode| 0:Mode 0, 1:Mode 1, 2:Mode 2, 3:Mode 4
@@ -39,8 +40,8 @@ public:
 	unsigned int maxCommandSequence = 10000000; // Index counter for max number of command sequences to traverse
 	unsigned int commandSequenceIndex = 0; // Index counter for where commandSequenceIndex is located currently
 	unsigned int controlSequneceIndex = 0; // Index counter for where controlSequenceIndex is located currently
-	unsigned int* commandSequence = new unsigned int[10000000];	// Heap declaration for commandSequence
-	unsigned int* controlSequence = new unsigned int[10000000];	// Heap declaration for controlSequence
+	unsigned long* commandSequence = new unsigned long[10000000];	// Heap declaration for commandSequence
+	unsigned long* controlSequence = new unsigned long[10000000];	// Heap declaration for controlSequence
 	
 	//unsigned int cardFrequency;// Operating card frequency of the object to delay for
 	
@@ -67,7 +68,7 @@ public:
 		// Nothing else happens when constructed
 	}
 	// Constructor if card operating frequency passed as argument
-	AnokiMemory(unsigned int _cardFreq, char _channelWidth) {
+	AnokiMemory(unsigned long _cardFreq, char _channelWidth) {
 		// Check if the input frequency is reasonably bounded by 100MHz
 		//_cardFreq > 1e8 ? cardFrequency = unsigned int(100000000): cardFrequency = _cardFreq;
 
@@ -123,6 +124,8 @@ public:
 
 	void exportMemoryToASCII();
 	void exportMemoryToReadable();
+
+	void maskedReadMemory();
 
 	// Displays a subsegment of the command sequence binary steps of a certain length from 0
 	void showAnokiCommandSequence(unsigned int _len);

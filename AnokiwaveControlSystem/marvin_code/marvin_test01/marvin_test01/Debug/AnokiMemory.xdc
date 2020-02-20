@@ -101,7 +101,7 @@ Sends the command to return the summary detail
 </summary>
 <returns><c> AnokiObj </c> command object </returns>
 </member>
-<member name="M:AnokiMemory.readFromCSV(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte*)" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.h" line="88">
+<member name="M:AnokiMemory.readFromCSV(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte*)" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\AnokiMemory.h" line="90">
 <summary>
 Opens the .csv file and adds the angles into a (m x n) matrix. Assumes csv file contain 2 column theta, phi values.
 <para>

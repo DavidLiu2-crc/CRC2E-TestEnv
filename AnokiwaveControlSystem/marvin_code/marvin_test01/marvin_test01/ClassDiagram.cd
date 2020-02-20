@@ -17,14 +17,14 @@
   <Class Name="AnokiMemory">
     <Position X="3" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABWIAgEAACAQIAQAgQCAAGAAghQQCAAA0RQgDAAACAA=</HashCode>
+      <HashCode>ABWIAgEAACAQIAQAgQCAAGAAghQQCAAA0QQgDAAACAA=</HashCode>
       <FileName>AnokiMemory.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AnokiObj">
     <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIAAQAACIAAAAAAAAAAAAA6AAAABYAAAAAAAAEAICAg=</HashCode>
+      <HashCode>AIAAQAACIAAAAAAAAAAAAA6AgAABYAAAAAAAAEAICAg=</HashCode>
       <FileName>AnokiObj.h</FileName>
     </TypeIdentifier>
   </Class>
