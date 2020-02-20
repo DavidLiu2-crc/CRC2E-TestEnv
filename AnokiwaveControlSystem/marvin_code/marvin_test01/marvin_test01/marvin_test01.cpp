@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
     MarvinCommand marvin;
     marvin.setOperatingFrequency(_exeFrequency);
     // Define User-defined class that handles Anokwiave interface
-    AnokiMemory anoki(_exeFrequency);
+    AnokiMemory anoki(_exeFrequency, 32);
     anoki.set_CreateClockFlag(true);
 
     //Generate some sample sequence
@@ -84,11 +84,11 @@ int main(int argc, char* argv[]) {
 
     // --- Generate a file describing memory content
     //anoki.exportMemoryToASCII();
-    anoki.exportMemoryToReadable();
+    //anoki.exportMemoryToReadable();
     std::cout << "\n";
 
     // --- Initialize marvin card
-    marvin.SetupInterface(0x105, DIO_IO_INTERFACE_TTL, DIO_BOARD_TYPE_GX5290, DIO_OPERATING_MODE_DEFAULT);
+    marvin.SetupInterface(0x103, DIO_IO_INTERFACE_TTL, DIO_BOARD_TYPE_GX5290, DIO_OPERATING_MODE_DEFAULT);
     marvin.StartConnection();
 
     strcpy_s(marvin.szFileNameInput, "marvin_test01.DIO");
@@ -96,18 +96,8 @@ int main(int argc, char* argv[]) {
 
     DWORD numberOfSteps = anoki.commandSequenceIndex;
     marvin.StartDIOLoad(numberOfSteps);
-    marvin.LoadCard(anoki.commandSequence);
+    marvin.LoadCard(anoki.commandSequence, anoki.controlSequence);
     marvin.LoadVectorToCard();
-
-    //marvin.ShowMemory(marvin.dwMemory, 0, 64 );
-
-    //marvin.LoadCardMemory(anoki.commandSequence);
-
-    
-
-    //marvin.GenerateExampleMemory();
-    //marvin.LoadCard();
-    //marvin.LoadCardWith(marvin.dwMemory, marvin.dwControl);
     marvin.RunProgram(1000);
     marvin.ReadFromCard();
 

@@ -286,23 +286,19 @@ void AnokiCommand::set_PointingAngleAE(float _azimuth, float _elevation) {
     paramPhi = phi;
 }
 
-// 0:Disable, 1 : Enable
 void AnokiCommand::set_enableBeam(bool _beamOn) {
     paramBeamEnable = _beamOn;
 }
 
-// 0:RX Mode, 1:TX Mode
 void AnokiCommand::set_modeTXRX(bool _mode) {
     paramBeamTXRX = _mode;
 }
 
-// 0:Beam 0; 1:TBD; 2:TBD; 3:Spoil
 void AnokiCommand::set_beamMode(unsigned char _modeBeam) {
     if (_modeBeam > 3) _modeBeam = 0;
     paramBeamMode = 0;
 }
 
-// 0:Nothing, 1:Reset
 void AnokiCommand::set_factoryFlag(bool _factoryReset) {
     paramFactoryReset = _factoryReset;
 }

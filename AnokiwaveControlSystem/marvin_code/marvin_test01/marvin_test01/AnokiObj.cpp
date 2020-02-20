@@ -34,15 +34,14 @@ void AnokiObj::convertSeqToASCII() {
 
 void AnokiObj::setCommandSequence(unsigned char* pCmdSeq, unsigned char _sendLength, unsigned char _readLength, std::string _log) {
 	
-	// Set the read and send counter length
+	// Set the read and send byte counter length
 	cmdSend = _sendLength;
 	cmdRead = _readLength;
 	cmdLog = _log;
 
-
 	int copyState = memcpy_s(cmdSeqHex, cmdSend, pCmdSeq, cmdSend);
 	// Catch in case copy command not able to copy all the values
-	if (copyState > 0) {
+	if (copyState != 0) {
 		std::cout << "Error occured, not able to copy contents of pointed array to object";
 	}
 
@@ -61,6 +60,9 @@ unsigned char AnokiObj::getCmdSendLength() {
 }
 unsigned char AnokiObj::getCmdReadLength() {
 	return cmdRead;
+}
+std::string AnokiObj::getCmdLog() {
+	return cmdLog;
 }
 
 void AnokiObj::showCommandHex() {

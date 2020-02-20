@@ -141,7 +141,7 @@ public:
 	void set_beamMode(unsigned char _modeBeam);
 	// Set the factory reset flag, 0:Nothing, 1:Reset
 	void set_factoryFlag(bool _factoryReset);
-
+	// Set the flag for generate clock implementation
 	void set_generateClock(bool _flagGenClock);
 
 

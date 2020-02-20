@@ -3,15 +3,29 @@
   <Class Name="MarvinCommand">
     <Position X="0.5" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAYBICgAAkgAASAQEIgJQQIBA8AAAASIhAANAAQ=</HashCode>
+      <HashCode>AAAAAIIBACgEAEgAASAQEIgJQQIBA4AAAASAhAAMAAQ=</HashCode>
       <FileName>MarvinCommand.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AnokiCommand">
-    <Position X="3.25" Y="0.5" Width="2.5" />
+    <Position X="4.75" Y="0.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>QAgAwgCBKAQBAQIAkCABAUMBgBIBBgJACAQkUMAGgEA=</HashCode>
+      <HashCode>AABIAgEQIEQQAQoggCABA0IBkBYAAAAIQIAkFYAAAEA=</HashCode>
       <FileName>AnokiCommand.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AnokiMemory">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABWIAgEAACAQIAQAgQCAAGAAghQQCAAA0RQgDAAACAA=</HashCode>
+      <FileName>AnokiMemory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AnokiObj">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAQAACIAAAAAAAAAAAAA6AAAABYAAAAAAAAEAICAg=</HashCode>
+      <FileName>AnokiObj.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

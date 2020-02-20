@@ -104,14 +104,15 @@ void MarvinCommand::StartDIOLoad(DWORD _numSteps) {
 	CheckStatus(nStatus);
 }
 
-void MarvinCommand::LoadCard(unsigned short* _memory) {
+void MarvinCommand::LoadCard(unsigned int* _memory, unsigned int* _control) {
 	// Load the data information into memory
 	std::cout << "MarvinCommand: Memory location pointer set\n";
 	DioWriteOutMemory(nFileHandle, _memory, 0, dwSize, &nStatus);
 	CheckStatus(nStatus);
 
+
 	// Load the control information into direction memory
-	DioWriteDirectionMemory(nFileHandle, dwControl, 0, dwSize, &nStatus);
+	DioWriteDirectionMemory(nFileHandle, _control, 0, dwSize, &nStatus);
 	CheckStatus(nStatus);
 }
 
@@ -157,8 +158,8 @@ void MarvinCommand::GenerateExampleMemory() {
 void MarvinCommand::RunProgram(DWORD _milliseconds) {
 	// Prepare card to run program
 	ctrlArm();
-	std::cout << "MarvinCommand: Arming board, Triggering board to run internal program \n";
 	ctrlTrig();
+	std::cout << "MarvinCommand: Armed board, Triggering board to run internal program \n";
 
 	Sleep(_milliseconds);
 

@@ -40,8 +40,7 @@ public:
 
 	//DWORD dwMemory[4096] = { 0 };	// Defines the data memory
 	//DWORD dwControl[4096] = { 0 };	// Defines the controller memory
-		
-
+	
 	CHAR szFileNameInput[128];	// Defines the name of the input file
 	CHAR szFileNameOutput[128];	// Defines the name of the output file
 
@@ -57,7 +56,7 @@ public:
 	void StartDIOLoad(DWORD _numSteps);
 
 	// Opens DIOEasy handle and loads the memory and control content of this instance
-	void LoadCard(unsigned short* _memory);
+	void LoadCard(unsigned int* _memory, unsigned int* _control);
 	// Opens DIOEasy handle and loads _memory and _control onto card
 	void LoadVectorToCard();
 	// Loads the Data Memory and Control Memory with random information

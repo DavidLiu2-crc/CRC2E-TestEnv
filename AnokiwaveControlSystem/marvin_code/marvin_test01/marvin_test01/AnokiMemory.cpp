@@ -154,6 +154,15 @@ void AnokiMemory::generateCommandSequenceFromFile() {
 	// Last object probably is the disable beam command
 	addIndexObjToCommandSequence(numberVectorObj-1);
 
+	// Clear the step to set all 
+	commandSequence[commandSequenceIndex] = 0x08;
+	commandSequenceIndex++;
+
+	for (unsigned int i = 0; i < commandSequenceIndex; i++) {
+		controlSequence[i] = 0x00000004;
+	}
+
+
 	// Show the user how many angles and steps were processed
 	std::cout << "AnokiMemory: Number of angles commanded: " << numberVectorObj << "\n";
 	std::cout << "AnokiMemory: Number of steps processed: " << commandSequenceIndex-3 << "\n";
@@ -180,10 +189,13 @@ void AnokiMemory::addIndexObjToCommandSequence(int _index) {
 	// Get the number of bits in command sequence to copy from corresponding anoki obj
 	rsize_t numBitsToCopy = nVectorAnokiOBJ[_index].getCmdSendLength() * 8;
 	numBitsToCopy = flag_genClock ? numBitsToCopy * 2 : numBitsToCopy;
+	unsigned char* pnCMDMemory = nVectorAnokiOBJ[_index].getCmdRaw();
+
 	// Memory copy directly
-	// TODO : Figure if copying one less element?
-	memcpy_s(&commandSequence[commandSequenceIndex], numBitsToCopy+1, nVectorAnokiOBJ[_index].getCmdRaw(), numBitsToCopy);
-	commandSequenceIndex = commandSequenceIndex + numBitsToCopy;
+	for (unsigned char i = 0; i < numBitsToCopy; i++) {
+		commandSequence[commandSequenceIndex] = pnCMDMemory[i];
+		commandSequenceIndex++;
+	}
 	
 	// Add the ending byte
 	addDelayStep(numEndBit, holdStep);
@@ -192,14 +204,14 @@ void AnokiMemory::addIndexObjToCommandSequence(int _index) {
 // Iterates the cmdseq index counter 
 void AnokiMemory::addDelayStep(unsigned int _numSteps, unsigned char stepValue) {
 
-	unsigned char message[2000];
-
 	// Set the value of the next _numSteps as stepValue
 	for (unsigned int i = 0; i < _numSteps; i++) {
-		message[i] = stepValue;
+		commandSequence[commandSequenceIndex] = stepValue;
+		commandSequenceIndex++;
 	}
-	memcpy_s(&commandSequence[commandSequenceIndex], _numSteps, message, _numSteps);
-	commandSequenceIndex = commandSequenceIndex + _numSteps;
+	//memcpy_s(&commandSequence[commandSequenceIndex], _numSteps*4, message, _numSteps*4);
+	//memset(&commandSequence[commandSequenceIndex], unsigned int(stepValue), _numSteps);
+	//commandSequenceIndex = commandSequenceIndex + _numSteps*4;
 }
 
 void AnokiMemory::addSteerTiming() {
@@ -243,7 +255,7 @@ void AnokiMemory::exportMemoryToReadable() {
 	size_t numberOfCommands = nVectorAnokiOBJ.size();
 	for (unsigned int i = 0; i < numberOfCommands; i++) {
 
-		std::string currentCommand = nVectorAnokiOBJ[i].cmdLog;
+		std::string currentCommand = nVectorAnokiOBJ[i].getCmdLog();
 		unsigned int currentIndex = nVectorINDEX[i];
 
 		ascFile << "Step " << currentIndex << "\tCMD: " << currentCommand << "\n";

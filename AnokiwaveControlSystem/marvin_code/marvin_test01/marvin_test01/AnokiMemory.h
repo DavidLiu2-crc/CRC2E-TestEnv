@@ -34,11 +34,15 @@ public:
 	// double: 1.7E+- 308
 	// ---------------------------------------------------
 
+	char channelWidth;
+
 	unsigned int maxCommandSequence = 10000000; // Index counter for max number of command sequences to traverse
 	unsigned int commandSequenceIndex = 0; // Index counter for where commandSequenceIndex is located currently
-	unsigned short* commandSequence = new unsigned short[10000000];	// Heap declaration for commandSequence
+	unsigned int controlSequneceIndex = 0; // Index counter for where controlSequenceIndex is located currently
+	unsigned int* commandSequence = new unsigned int[10000000];	// Heap declaration for commandSequence
+	unsigned int* controlSequence = new unsigned int[10000000];	// Heap declaration for controlSequence
 	
-	unsigned int cardFrequency;// Operating card frequency of the object to delay for
+	//unsigned int cardFrequency;// Operating card frequency of the object to delay for
 	
 	unsigned int numStepsPAADelay = 0;	// Number of steps for PAA calculation delay
 	unsigned int numStepsStrobeBit = 10;// Number of steps for Strobe high
@@ -47,29 +51,36 @@ public:
 	char* pnInputCSVFile;		// Relative path of the input angle CSV file
 	bool nInputFileRead = false;// Flag for input file read into memory
 
-	char* pnOutputASCIIFil;		// Relative path of the output ASCII file
+	char* pnOutputASCIIFile;		// Relative path of the output ASCII file
 	bool nOutputFileRead = false;// Flag for output file written
 
 	bool flag_genClock = false;	// Flag for two step if creating own clock implementation
 
 	// General constructor
 	AnokiMemory() {
-		cardFrequency = 1000000;
+		// Set the card frequency 
+		//cardFrequency = 1000000;
 		numStepsPAADelay = 20;
 		numStepsScanDelay = 20;
+		// Assume all channels used
+		channelWidth = 32;
+		// Nothing else happens when constructed
 	}
 	// Constructor if card operating frequency passed as argument
-	AnokiMemory(unsigned int _cardFreq) {
+	AnokiMemory(unsigned int _cardFreq, char _channelWidth) {
 		// Check if the input frequency is reasonably bounded by 100MHz
-		_cardFreq > 1e8 ? cardFrequency = unsigned int(100000000): cardFrequency = _cardFreq;
+		//_cardFreq > 1e8 ? cardFrequency = unsigned int(100000000): cardFrequency = _cardFreq;
 
 		// Calculate number of steps to delay for PAA point calculation
 		float delay_PAAPointTime = 12e-6;
-		numStepsPAADelay = unsigned int( ceil(delay_PAAPointTime * cardFrequency) );
+		numStepsPAADelay = unsigned int( ceil(delay_PAAPointTime * _cardFreq) );
 
 		// Calculate number of steps to delay for PXA scanning.
 		float delay_PXAScanTime = 15e-6;
-		numStepsScanDelay = unsigned int( ceil(delay_PXAScanTime * cardFrequency) );
+		numStepsScanDelay = unsigned int( ceil(delay_PXAScanTime * _cardFreq) );
+
+		// Set the channel width 
+		
 	}
 
 
