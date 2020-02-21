@@ -211,6 +211,8 @@ void MarvinCommand::ConfigureDioObject() {
 	//
 }
 
+//// Commands that allow any sequence of unsigned long pointers to be added to heap
+//// Risk of memory leak 
 //void MarvinCommand::addBuffer(bool byteHeader, unsigned int _memoryIndex) {
 //	unsigned int latchByte = 0xFF;
 //	unsigned int strobeByte = 0x0F;
@@ -288,7 +290,7 @@ void MarvinCommand::ConfigureDioObject() {
 //
 //// ------ LVDS Implementation - Generating own clock pulse -----
 //void MarvinCommand::addSequenceToMemory(unsigned int* seq, unsigned int _cmdLength, unsigned int _channel, unsigned int _cmdPosition) {
-//	// TODO: Change to size of array sequence
+//	//  Change to size of array sequence
 //	for (unsigned int i = 0; i < 9; i++) {
 //		addByteToMemory(seq[i], _channel, _cmdPosition);
 //		_cmdPosition += 8*2;

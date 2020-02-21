@@ -7,7 +7,7 @@ void AnokiObj::convertSeqToASCII() {
 
 	// Loop through each element in commandSequence for send length times.
 	for (unsigned char i = 0; i < cmdSend; i++) {
-		unsigned char commandByte = cmdSeqHex[i];
+		unsigned char commandByte = cmdSeqHex.at(i);
 		unsigned char maskByte = 0x80;
 		unsigned char addByte = 1 << ANOKI_SDI;
 
@@ -16,12 +16,12 @@ void AnokiObj::convertSeqToASCII() {
 			bool setBit = commandByte & maskByte;
 
 			// Add atleast one command
-			cmdSeqRaw[index] = setBit ? addByte : 0;
+			cmdSeqRaw.at(index)= setBit ? addByte : 0;
 			index++;
 
 			// Add a second bit if clock sequence requires it
-			if (createClockCycle) {
-				cmdSeqRaw[index] = setBit ? addByte +1: 1;
+			if (flag_generateClock) {
+				cmdSeqRaw.at(index) = setBit ? addByte +1: 1;
 				index++;
 			}
 
@@ -39,7 +39,7 @@ void AnokiObj::setCommandSequence(unsigned char* pCmdSeq, unsigned char _sendLen
 	cmdRead = _readLength;
 	cmdLog = _log;
 
-	int copyState = memcpy_s(cmdSeqHex, cmdSend, pCmdSeq, cmdSend);
+	int copyState = memcpy_s(cmdSeqHex.data(), cmdSend, pCmdSeq, cmdSend);
 	// Catch in case copy command not able to copy all the values
 	if (copyState != 0) {
 		std::cout << "Error occured, not able to copy contents of pointed array to object";
@@ -49,12 +49,43 @@ void AnokiObj::setCommandSequence(unsigned char* pCmdSeq, unsigned char _sendLen
 	convertSeqToASCII();
 }
 
-unsigned char* AnokiObj::getCmdHex() {
-	return cmdSeqHex;
+void AnokiObj::setCommandSequence(unsigned char* pCmdSeq, unsigned char _sendLength, unsigned char _readLength, char* _log) {
+
+	// Set the read and send byte counter length
+	cmdSend = _sendLength;
+	cmdRead = _readLength;
+	cmdLog = std::string( _log );
+
+	int copyState = memcpy_s(cmdSeqHex.data(), cmdSend, pCmdSeq, cmdSend);
+	// Catch in case copy command not able to copy all the values
+	if (copyState != 0) {
+		std::cout << "Error occured, not able to copy contents of pointed array to object";
+	}
+
+	// Convert the sequence to ASCII binary steps
+	convertSeqToASCII();
 }
-unsigned char* AnokiObj::getCmdRaw() {
-	return cmdSeqRaw;
+
+int AnokiObj::memcpy(unsigned long* pCmd, unsigned int* _numberOfStepsCopied) {
+	unsigned int numBitsToCopy = cmdSend * 8;
+	numBitsToCopy = flag_generateClock ? numBitsToCopy * 2 : numBitsToCopy;
+	unsigned int index = 0;
+
+	// Memory copy directly
+	for (unsigned char i = 0; i < numBitsToCopy; i++) {
+		pCmd[i] = cmdSeqRaw[i];
+		index++;
+	}
+	
+	if (index != numBitsToCopy) {
+		return -1;
+	}
+
+	// Pass the number of bytes back to caller
+	*_numberOfStepsCopied = numBitsToCopy;
+	return 0;
 }
+
 unsigned char AnokiObj::getCmdSendLength() {
 	return cmdSend;
 }
@@ -68,7 +99,7 @@ std::string AnokiObj::getCmdLog() {
 void AnokiObj::showCommandHex() {
 	// Iterate through each element in pointer
 	for (unsigned char i = 0; i < cmdSend; i++) {
-		std::cout << " " << cmdSeqHex[i];
+		std::cout << " " << cmdSeqHex.at(i);
 	}std::cout << "\n";
 }
 
@@ -78,7 +109,7 @@ void AnokiObj::showCommandRaw() {
 		//Iterate through each position in byte
 		unsigned char maskByte = 0x80;
 		for (unsigned char i = 0; i < 8; i++) {
-			bool showBit = maskByte & cmdSeqRaw[i];
+			bool showBit = maskByte & cmdSeqRaw.at(i);
 			std::cout << showBit ? 1 : 0;
 		}std::cout << "\n";
 	}

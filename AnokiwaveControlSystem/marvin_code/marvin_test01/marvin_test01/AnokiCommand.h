@@ -4,8 +4,7 @@
 	Summary: User defined class that returns a AnokiObj object that contains command control information
 			 referenced in Anokiwave ECCN: 5E991
 
-	Author: David Liu - david.liu2@canada.ca
-	PandA - MC2
+	Author: David Liu - david.liu2@canada.ca - MC2 2020 COOP
 
 	Description: Simply initialize this class, calling set_ functions to set the values of parameters, and call cmd_
 				 to obtain the AnokiObj that contains the command information. Currently allows writing command byte,
@@ -24,12 +23,6 @@
 
 // Import user-defined AnokiObj custom object
 #include "AnokiObj.h"
-
-// Global define constants for number of bytes possible to write and read
-#define ANOKI_numChannels		5	// Defines the number of channels
-#define ANOKI_numCommandByte	17	// Defines the maximum number of command bytes
-#define ANOKI_counterMaxWrite	9	// Defines the maximum number of command bytes to send
-#define ANOKI_counterMaxRead	15	// Defines the maximum number of command bytes to read
 
 // Global define a matlab degree version of trig functions
 #define M_PI		3.14159265358979323846   // pi
@@ -156,16 +149,19 @@ private:
 	float paramTheta = 0;		// Theta angle [0 - 90]
 	float paramPhi = 0;			// Phi angle [0 - 360]
 
-	unsigned char dirSequence[6] = { 0 }; // [ theta1 theta2 phi1 phi2 freq1 freq2]
+	// --- Define temporary locations when passing AnokiObj to caller
+	std::array<unsigned char, 6> dirSequence = { 0 };	// [ theta1 theta2 phi1 phi2 freq1 freq2]
+	std::array<unsigned char, 9> cmd = { 0 };			// Temporary array used to hold command at each cmd_**
+	std::array<char, 100> cmdLog;						// Temporary array used to hold command log
 
 	// ---------------- Define read configuration of PAA -------
 	// TODO : Add read byte capabilities to assign parameters in class
-	unsigned char readACK = 0;		// Acknowledgement byte, expect 0xC~ 0xE~
-	unsigned char readSummary = 0;	// Status byte, expect 0x00
-	unsigned char readAddressIP[4] = { 0 };		//IP Address of PAA configuration
-	unsigned char readScratchRegister[4] = { 0 }; // Value stored in scratch register
-	unsigned char readFixedRegister[4] = { 0 };	// Value stored in fixed register
-	unsigned char readTempCurrent[5] = { 0 };		// Value stored in temperature sensors
+	//unsigned char readACK = 0;		// Acknowledgement byte, expect 0xC~ 0xE~
+	//unsigned char readSummary = 0;	// Status byte, expect 0x00
+	//unsigned char readAddressIP[4] = { 0 };		//IP Address of PAA configuration
+	//unsigned char readScratchRegister[4] = { 0 }; // Value stored in scratch register
+	//unsigned char readFixedRegister[4] = { 0 };	// Value stored in fixed register
+	//unsigned char readTempCurrent[5] = { 0 };		// Value stored in temperature sensors
 
 	// ------------ DEFINE PRIVATE HELPER FUNCTIONS ------------
 

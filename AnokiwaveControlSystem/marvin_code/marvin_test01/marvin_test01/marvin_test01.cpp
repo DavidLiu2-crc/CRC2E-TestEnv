@@ -63,28 +63,20 @@ int main(int argc, char* argv[]) {
     char nInputCSVFile[100];
     if (argv[1] == NULL) {
         snprintf(nInputCSVFile, sizeof(nInputCSVFile) / sizeof(char), "anglePoint.csv");
-    }
-    else {
+    } else {
         strcpy_s(nInputCSVFile, argv[1]);
     }
 
     // --- Load the angles in the csv file to anokimemory
     anoki.readFromCSV(nInputCSVFile);
-
-    // --- Generate a sequence of objects defining the commands to send
-    // Start the connection on the anokiwave with a beam mode and frequency
-    anoki.cmd_StartBeam(0, 28050);
-    // Read the angles to generate an anokiObj that contains the command information
-    anoki.cmd_steerAngle();
-    // End the connection to the anokiwave
-    anoki.cmd_EndBeam();
-
-    anoki.generateCommandSequenceFromFile();
+    
+    // Set the frequency in case the input file does not have frequency column
+    anoki.generateCommandSequenceFromFile(0, 28050);
     //anoki.showAnokiCommandSequence(8*9);
 
     // --- Generate a file describing memory content
-    //anoki.exportMemoryToASCII();
-    //anoki.exportMemoryToReadable();
+    anoki.exportMemoryToASCII();
+    anoki.exportMemoryToReadable();
     std::cout << "\n";
 
     // --- Initialize marvin card
@@ -94,17 +86,14 @@ int main(int argc, char* argv[]) {
     strcpy_s(marvin.szFileNameInput, "marvin_test01.DIO");
     strcpy_s(marvin.szFileNameOutput, "marvin_test01__.DI");
 
-    DWORD numberOfSteps = anoki.commandSequenceIndex;
-    marvin.StartDIOLoad(numberOfSteps);
-    marvin.LoadCard(anoki.commandSequence, anoki.controlSequence);
+    marvin.StartDIOLoad( anoki.get_numberOfSteps() );
+    marvin.LoadCard(anoki.get_pcmdComm(), anoki.get_pcmdCtrl());
     marvin.LoadVectorToCard();
     marvin.RunProgram(1000);  
     marvin.ReadFromCard();
 
     anoki.maskedReadMemory();
 
-
-
-
+    return 0;
 }
 

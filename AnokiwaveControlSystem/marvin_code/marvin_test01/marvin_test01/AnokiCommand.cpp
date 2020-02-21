@@ -11,9 +11,8 @@
 AnokiObj AnokiCommand::cmd_SetScratchValue(unsigned long _nScratchValue) {
 // void AnokiCommand::cmd_SetScratchValue(long unsigned nScratchValue) {
 
-    // Define temporary command sequence with HEX values
-    unsigned char cmd[6] = { 0 };
-    cmd[0] = 0x81;                  // Command Header for SetScratchValue
+    cmd.fill(0);        // Clear temporary commmand array
+    cmd.at(0) = 0x81;   // Command Header for SetScratchValue
 
     // Bound the input scratch value between 0 and 0xFFFFFFFF
     if (_nScratchValue > 0xFFFFFFFF) {
@@ -22,103 +21,102 @@ AnokiObj AnokiCommand::cmd_SetScratchValue(unsigned long _nScratchValue) {
 
     // Convert long nScratchValue to 4 seperate hex values
     unsigned long tempValue = _nScratchValue;
-    cmd[1] = floor(tempValue / 16777216);
-    tempValue = tempValue - cmd[1] * 16777216;
-    cmd[2] = floor(tempValue / 65536);
-    tempValue = tempValue - cmd[2] * 65536;
-    cmd[3] = floor(tempValue / 256);
-    tempValue = tempValue - cmd[3] * 256;
-    cmd[4] = tempValue;
+    cmd.at(1) = floor(tempValue / 16777216);
+    tempValue = tempValue - cmd.at(1) * 16777216;
+    cmd.at(2) = floor(tempValue / 65536);
+    tempValue = tempValue - cmd.at(2) * 65536;
+    cmd.at(3) = floor(tempValue / 256);
+    tempValue = tempValue - cmd.at(3) * 256;
+    cmd.at(4) = tempValue;
 
     // Append checksum to end of comand sequence
-    cmd[5] = checksum(cmd, 5); 
+    cmd.at(5) = checksum(cmd.data(), 5);
 
     // Convert command sequence to string for readiblity
-    char commandOutCalled[200];
-    snprintf(commandOutCalled, sizeof(commandOutCalled),
-        "Set Scratch Value (%X %X %X %X)", cmd[1], cmd[2], cmd[3], cmd[4]);
+    cmdLog.fill(0);
+    snprintf(cmdLog.data(), sizeof(cmdLog),
+        "Set Scratch Value (%X %X %X %X)", cmd.at(1), cmd.at(2), cmd.at(3), cmd.at(4));
 
     // --- AnokiOBJ Object-Oriented Implementation
     AnokiObj cmdObj(flag_generateClock);
-    cmdObj.setCommandSequence(cmd, 6, 6, std::string(commandOutCalled));
-    // Return AnokiObj to caller
-    return cmdObj;  
+    cmdObj.setCommandSequence(cmd.data(), 6, 6, cmdLog.data());
+    return cmdObj;  // Return AnokiObj to caller
 }
 
 AnokiObj AnokiCommand::cmd_ReadScratchRequest() {
 //void AnokiCommand::cmd_ReadScratchRequest() {
     
-    unsigned char cmd[2] = { 0 };
-    cmd[0] = 0x82;          // Command Header for ReadScratchRequest
-    cmd[1] = 0x82;          // Checksum for ReadScratchRequest
+    cmd.fill(0);        // Clear temporary commmand array
+    cmd.at(0) = 0x82;   // Command Header for ReadScratchRequest
+    cmd.at(1) = 0x82;   // Checksum for ReadScratchRequest
 
-    std::string cmdLog = "Read Scratch Request ()";
+    // Convert command sequence to string for readiblity
+    cmdLog.fill(0);
+    snprintf(cmdLog.data(), sizeof(cmdLog), "Read Scratch Request ()");
 
     // --- AnokiOBJ Object-Oriented Implementation
     AnokiObj cmdObj(flag_generateClock);
-    cmdObj.setCommandSequence(cmd, 2, 6, cmdLog);
-    // Return AnokiObj to caller
-    return cmdObj;
+    cmdObj.setCommandSequence(cmd.data(), 2, 6, cmdLog.data());
+    return cmdObj;  // Return AnokiObj to caller
 }
 
 AnokiObj AnokiCommand::cmd_RequestFixedSequence() {
 // void AnokiCommand::cmd_RequestFixedSequence() {
     /* Sets the command sequence to request fixed sequence
-    @description
-    Fills in the commandOut to request the value in fixed register. */
+        @description Fills in the commandOut to request the value in fixed register.
+    */
     
-    // Define temporary command sequence with HEX values
-    unsigned char cmd[2] = { 0 };
-    cmd[0] = 0x83;          // Command Header for RequestFixedSequence
-    cmd[1] = 0x83;          // Checksum for RequestFixedSequence
+    cmd.fill(0);        // Clear temporary commmand array
+    cmd.at(0) = 0x83;   // Command Header for RequestFixedSequence
+    cmd.at(1) = 0x83;  // Checksum for RequestFixedSequence
 
-    std::string cmdLog = "Request Fixed Sequence ()";
+    // Convert command sequence to string for readiblity
+    cmdLog.fill(0);
+    snprintf(cmdLog.data(), sizeof(cmdLog), "Request Fixed Sequence ()");
 
     // --- AnokiOBJ Object-Oriented Implementation
     AnokiObj cmdObj(flag_generateClock);
-    cmdObj.setCommandSequence(cmd, 2, 6, cmdLog);
-    // Return AnokiObj to caller
-    return cmdObj;
+    cmdObj.setCommandSequence(cmd.data(), 2, 6, cmdLog.data());
+    return cmdObj;  // Return AnokiObj to caller
 }
 
 AnokiObj AnokiCommand::cmd_PAAPointingCommand() {
 //void AnokiCommand::cmd_PAAPointingCommand() {
     /* Sets the command sequence for PAA pointing direction
-    @description
-    Fills in the commandOut to point the beam in a particular direction. */
+        @description Fills in the commandOut to point the beam in a particular direction.
+    */
 
-    // Define temporary command sequence with HEX values
-    unsigned char cmd[9] = { 0 };
-    cmd[0] = 0xA0;          // Command Header for PAAPointingCommand
+    cmd.fill(0);        // Clear temporary commmand array
+    cmd.at(0) = 0xA0;   // Command Header for PAAPointingCommand
 
     // Append the mode byte
     unsigned int modeByte;
     paramBeamTXRX ? modeByte = 4 : modeByte = 0;
     modeByte = modeByte + paramBeamMode;
-    cmd[1] = modeByte;
+    cmd.at(1) = modeByte;   // Set first mode byte
 
     // Convert the value to hex values
+    // TODO: try to fix memory leak here
     theta_uint16ToPointer(paramTheta, &dirSequence[0]);   // Remap theta angle from [0-90] to [0-FFFF];
     phi_uint16ToPointer(paramPhi, &dirSequence[2]);     // Remap theta angle from [0-360] to [0-FFFF];
     freq_uint16ToPointer(paramFrequency, &dirSequence[4]);    // Remap frequency to [0-FFFF];
 
     // Copy the hex values to command sequence
     for (unsigned int i = 0; i < 6; i++) {
-        cmd[2 + i] = dirSequence[i];
+        cmd.at(2 + i) = dirSequence[i];
     }
-    cmd[8] = checksum(cmd, 8); // Append checksum to end of comand sequence
+    cmd.at(8) = checksum(cmd.data(), 8); // Append checksum to end of comand sequence
 
     // Convert command sequence to string for readiblity
-    char commandOutCalled[200];
-    snprintf(commandOutCalled, sizeof(commandOutCalled),
+    cmdLog.fill(0);
+    snprintf(cmdLog.data(), sizeof(cmdLog),
         "PAA Pointing Command (%s, Beam: Mode %d, Theta:%.3f, Phi:%.3f, Frequency:%d MHz)",
         paramBeamTXRX ? "TX" : "RX", paramBeamMode, paramTheta, paramPhi, paramFrequency);
     
     // --- AnokiOBJ Object-Oriented Implementation
     AnokiObj cmdObj(flag_generateClock);
-    cmdObj.setCommandSequence(cmd, 9, 6, std::string(commandOutCalled));
-    // Return AnokiObj to caller
-    return cmdObj;
+    cmdObj.setCommandSequence(cmd.data(), 9, 6, cmdLog.data());
+    return cmdObj;  // Return AnokiObj to caller
 
 }
 
@@ -128,18 +126,18 @@ AnokiObj AnokiCommand::cmd_ArrayConfigurationRequest() {
     @description
     Fills in the commandOut to request the current array configuration (Revision number, SN, IP). */
 
-    // Define temporary command sequence with HEX values
-    unsigned char cmd[2] = { 0 };
-    cmd[0] = 0xB1;          // Command Header for ArrayConfigurationRequest
-    cmd[1] = 0xB1;          // Checksum for ArrayConfigurationRequest
+    cmd.fill(0);        // Clear temporary commmand array
+    cmd.at(0) = 0xB1;   // Command Header for ArrayConfigurationRequest
+    cmd.at(1) = 0xB1;   // Checksum for ArrayConfigurationRequest
 
-    std::string cmdLog = "Array Configuration Request ()";
+    // Convert command sequence to string for readiblity
+    cmdLog.fill(0);
+    snprintf(cmdLog.data(), sizeof(cmdLog), "Array Configuration Request ()");
 
     // --- AnokiOBJ Object-Oriented Implementation
     AnokiObj cmdObj(flag_generateClock);
-    cmdObj.setCommandSequence(cmd, 2, 10, cmdLog);
-    // Return AnokiObj to caller
-    return cmdObj;
+    cmdObj.setCommandSequence(cmd.data(), 2, 10, cmdLog.data());
+    return cmdObj;  // Return AnokiObj to caller
 
 }
 
@@ -149,30 +147,30 @@ AnokiObj AnokiCommand::cmd_FactoryReset() {
     @description
     Fills in the commandOut to reset the PAA to factory configuration. */
 
-    // Define temporary command sequence with HEX values
-    unsigned char cmd[4] = { 0 };  
-    cmd[0] = 0xC0;          // Command Header for FactoryReset
+    cmd.fill(0);        // Clear temporary commmand array
+    cmd.at(0) = 0xC0;   // Command Header for FactoryReset
 
     // Append the required reset flag 0xBA11
     if (paramFactoryReset) {
-        cmd[1] = 0xBA;
-        cmd[2] = 0x11;
+        cmd.at(1) = 0xBA;
+        cmd.at(2) = 0x11;
     }
     else {
-        cmd[1] = 0x00;
-        cmd[2] = 0x00;
+        cmd.at(1) = 0x00;
+        cmd.at(2) = 0x00;
     }
 
     // Append checksum to end of comand sequence
-    cmd[3] = checksum(cmd, 3);
+    cmd.at(3) = checksum(cmd.data(), 3);
 
-    std::string cmdLog = paramFactoryReset ? "Factory Reset (True)" : "Factory Reset (False)";
+    // Convert command sequence to string for readiblity
+    cmdLog.fill(0);
+    snprintf(cmdLog.data(), sizeof(cmdLog), "Factory Reset (%s)", paramFactoryReset ? "True" : "False");
 
     // --- AnokiOBJ Object-Oriented Implementation
     AnokiObj cmdObj(flag_generateClock);
-    cmdObj.setCommandSequence(cmd, 4, 6, cmdLog);
-    // Return AnokiObj to caller
-    return cmdObj;
+    cmdObj.setCommandSequence(cmd.data(), 4, 6, cmdLog.data());
+    return cmdObj;  // Return AnokiObj to caller
 }
 
 AnokiObj AnokiCommand::cmd_EnableBeam() {
@@ -181,22 +179,21 @@ AnokiObj AnokiCommand::cmd_EnableBeam() {
     @description
     Fills in the commandOut to command the PAA to enable beam. */
 
-    // Define temporary command sequence with HEX values
-    unsigned char cmd[3] = { 0 };  
-    cmd[0] = 0xE0;              // Command Header for EnableBeam
+    cmd.fill(0);        // Clear temporary commmand array
+    cmd.at(0) = 0xE0;   // Command Header for EnableBeam
 
-    // Append the enable flag
-    cmd[1] = paramBeamEnable ? 1 : 0;
+    cmd.at(1) = paramBeamEnable ? 1 : 0;        // Append the enable flag
     // Append checksum to end of comand sequence
-    cmd[2] = checksum(cmd, 2);
+    cmd.at(2) = paramBeamEnable ? 0xE1 : 0xE0;
 
-    std::string cmdLog = paramBeamEnable ? "Enable Beam (True)" : "Enable Beam (False)";
+    // Convert command sequence to string for readiblity
+    cmdLog.fill(0);
+    snprintf(cmdLog.data(), sizeof(cmdLog), "Enable Beam (%s)", paramBeamEnable ? "True" : "False");
 
     // --- AnokiOBJ Object-Oriented Implementation
     AnokiObj cmdObj(flag_generateClock);
-    cmdObj.setCommandSequence(cmd, 3, 6, cmdLog);
-    // Return AnokiObj to caller
-    return cmdObj;
+    cmdObj.setCommandSequence(cmd.data(), 3, 6, cmdLog.data());
+    return cmdObj;  // Return AnokiObj to caller
 
 }
 
@@ -206,18 +203,18 @@ AnokiObj AnokiCommand::cmd_StatusSummaryRequest() {
     @description
     Fills in the commandOut to request the status summary (PAA/Temperature Sensor Faults). */
 
-    // Define temporary command sequence with HEX values
-    unsigned char cmd[2] = { 0 };
-    cmd[0] = 0xF0;          // Command Header for StatusSummaryRequest
-    cmd[1] = 0xF0;          // Checksum for StatusSummaryRequest
-
-    std::string cmdLog = "Status Summary Request ()";
+    cmd.fill(0);        // Clear temporary commmand array
+    cmd.at(0) = 0xF0;   // Command Header for StatusSummaryRequest
+    cmd.at(1) = 0xF0;   // Checksum for StatusSummaryRequest
+    
+    // Convert command sequence to string for readiblity
+    cmdLog.fill(0);
+    snprintf(cmdLog.data(), sizeof(cmdLog), "Status Summary Request ()");
 
     // --- AnokiOBJ Object-Oriented Implementation
     AnokiObj cmdObj(flag_generateClock);
-    cmdObj.setCommandSequence(cmd, 2, 3, cmdLog);
-    // Return AnokiObj to caller
-    return cmdObj;
+    cmdObj.setCommandSequence(cmd.data(), 2, 3, cmdLog.data());
+    return cmdObj;  // Return AnokiObj to caller
 }
 
 AnokiObj AnokiCommand::cmd_StatusDetailRequest() {
@@ -226,18 +223,18 @@ AnokiObj AnokiCommand::cmd_StatusDetailRequest() {
     @description
     Fills in the commandOut to request the detailed status (Pointing angle, frequency and temperature). */
 
-    // Define temporary command sequence with HEX values
-    unsigned char cmd[2] = { 0 };
-    cmd[0] = 0xF1;          // Command Header for StatusDetailRequest
-    cmd[1] = 0xF1;          // Checksum for StatusDetailRequest
+    cmd.fill(0);        // Clear temporary commmand array
+    cmd.at(0) = 0xF1;   // Command Header for StatusDetailRequest
+    cmd.at(1) = 0xF1;   // Checksum for StatusDetailRequest
 
-    std::string cmdLog = "Status Detail Request ()";
+    // Convert command sequence to string for readiblity
+    cmdLog.fill(0);
+    snprintf(cmdLog.data(), sizeof(cmdLog), "Status Detail Request ()");
 
     // --- AnokiOBJ Object-Oriented Implementation
     AnokiObj cmdObj(flag_generateClock);
-    cmdObj.setCommandSequence(cmd, 2, 14, cmdLog);
-    // Return AnokiObj to caller
-    return cmdObj;
+    cmdObj.setCommandSequence(cmd.data(), 2, 14, cmdLog.data());
+    return cmdObj; // Return AnokiObj to caller
 }
 
 // ---------------- DEFINE SET PARAMETER FUNCTIONS ---------
@@ -306,6 +303,8 @@ void AnokiCommand::set_factoryFlag(bool _factoryReset) {
 void AnokiCommand::set_generateClock(bool _flagGenClock) {
     flag_generateClock = _flagGenClock;
 }
+
+
 
 /*------------------------------------------------
 ------ END of Basic Command List Definition ------

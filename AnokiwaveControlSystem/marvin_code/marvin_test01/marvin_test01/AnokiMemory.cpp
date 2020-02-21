@@ -4,19 +4,24 @@
 
 
 
-void AnokiMemory::readFromCSV(char* pnInputCSVFile) {
+void AnokiMemory::readFromCSV(char* pnInputFile) {
 	
-	std::ifstream file;
-	// Try and catch file opening exception
-	try {
-		file.open(pnInputCSVFile);
+	// Copy the csv input file name
+	pnInputFilename = std::string(pnInputFile);
+	pnInputFilename = pnInputFilename.substr(0, pnInputFilename.find('.'));
 
-	} catch(std::ios_base::failure e) {
-		nInputFileRead = false;
+	std::ifstream file;
+	// --- Try and catch file opening exception --------------------------------
+	try {
+		file.open(pnInputFile, std::ios::in);
+
+	} catch(std::ios_base::failure& e) {
+		std::cout << "Exception: " << e.code() << " gave " << e.what() << "\n";
+		nInputCSVFileRead = false;
 	}
 	std::string line = "";
 
-	// Read through each line of the file while possible
+	// --- Read through each line of the file while possible --------------------
 	while (std::getline(file, line)) {
 
 		// Set up vector placeholder for numbers in current line
@@ -47,23 +52,154 @@ void AnokiMemory::readFromCSV(char* pnInputCSVFile) {
 		nVectorANGLE.push_back(angleLine);
 	}
 
-	// Remove the header information
-	nVectorHeader.push_back(nVectorANGLE[0]);
-	nVectorHeader.push_back(nVectorANGLE[1]);
-	nVectorHeader.push_back(nVectorANGLE[2]);
-	nVectorANGLE.erase(nVectorANGLE.begin(), nVectorANGLE.begin()+3);
+	// --- Remove the header information ----------------------------------------------
+	unsigned int numberHeaderLines = 3;
+	for (unsigned int i = 0; i < numberHeaderLines; i++) {
+		nVectorAnokiHead.push_back( nVectorANGLE.at(i) );
+	}
+	nVectorANGLE.erase(nVectorANGLE.begin(), nVectorANGLE.begin()+numberHeaderLines);
 
 	// Tells other functions that the csv file was read and to proceed
-	nInputFileRead = true;
+	nInputCSVFileRead = true;
 	// Close the file handler / opens up the file for other processes.
 	file.close();
 
-	std::cout << "AnokiMemory: CSV File angle input read.\n";
+	std::cout << "AnokiMemory: Importing angle CSV File : " << pnInputFile << "\n";
+}
+
+void AnokiMemory::generateCommandSequenceFromFile(unsigned int _beamMode, unsigned short _freq) {
+
+	// --- Generate a sequence of objects defining the commands to send --------------------------
+	// Start the connection on the anokiwave with a beam mode and frequency
+	cmd_StartBeam(_beamMode, _freq);
+	// Read the angles to generate an anokiObj that contains the command information
+	cmd_steerAngle();
+	// End the connection to the anokiwave
+	cmd_EndBeam();
+
+	convertObjToASCII();
+
 }
 
 void AnokiMemory::set_CurrentCommand(AnokiObj anokiObj) {
 	nVectorAnokiOBJ.push_back(anokiObj);
 }
+
+void AnokiMemory::set_CreateClockFlag(bool _flagClock) {
+	flag_genClock = _flagClock;
+	anokiCMD.set_generateClock(_flagClock);
+}
+
+unsigned long AnokiMemory::get_numberOfSteps() {
+	// Equivalent to number of steps so far
+	return commandSequenceIndex;
+}
+
+unsigned long* AnokiMemory::get_pcmdComm() {
+	return commandSequence;
+	//return commandSequence.data();
+}
+
+unsigned long* AnokiMemory::get_pcmdCtrl() {
+	return controlSequence;
+	//return controlSequence.data();
+}
+
+void AnokiMemory::exportMemoryToASCII() {
+	// Copy the ASC output file name
+	pnOutputASCIIFile = pnInputFilename + ".asc";
+
+	std::ofstream ascFile;
+	ascFile.open(pnOutputASCIIFile, std::ios::out);
+
+	// For every line in command sequence
+	for (unsigned int i = 0; i < commandSequenceIndex; i++) {
+
+		unsigned char line = commandSequence[i];
+		unsigned char maskbyte = 0x10;
+
+		ascFile << std::string(27, '0');
+
+		for (unsigned char i = 0; i < 5; i++) {
+			bool showBit = maskbyte & line;
+			ascFile << showBit ? 1 : 0;
+			maskbyte = maskbyte >> 1;
+		}
+		ascFile << "\n";
+	}
+
+	ascFile.close();
+	std::cout << "AnokiMemory: Exporting memory : " << pnOutputASCIIFile << "\n";
+}
+
+void AnokiMemory::exportMemoryToReadable() {
+	// Copy the txt output file name
+	pnOutputTXTFile = pnInputFilename + ".txt";
+
+	std::ofstream txtFile;
+	txtFile.open(pnOutputTXTFile, std::ios::out);
+
+	// For every line in command sequence
+	size_t numberOfCommands = nVectorAnokiOBJ.size();
+	for (unsigned int i = 0; i < numberOfCommands; i++) {
+
+		std::string currentCommand = nVectorAnokiOBJ.at(i).getCmdLog();
+		unsigned int currentIndex = nVectorINDEX.at(i);
+
+		txtFile << "Step " << currentIndex << "\tCMD: " << currentCommand << "\n";
+	}
+
+	txtFile.close();
+	std::cout << "AnokiMemory: Exporting command log : " << pnOutputTXTFile << "\n";
+}
+
+void AnokiMemory::maskedReadMemory() {
+
+	// How many byte segments to read
+	size_t numReadSegments = nVectorAnokiOBJ.size();
+
+	for (unsigned int index = 1; index < numReadSegments; index++) {
+		// How many bytes to read depends on last anokiobj.readLength
+		unsigned char readLength = nVectorAnokiOBJ[index - 1].getCmdReadLength();
+		unsigned int indexToRead = nVectorINDEX[index] + 8;
+		std::vector<unsigned char> readSequence;
+
+		// Iterate through expected byte length
+		for (unsigned char j = 0; j < readLength; j++) {
+			// Mask through each 8 bit at each index
+			unsigned char byte = 0;
+			unsigned char maskByte = 0x80;
+			for (unsigned char k = 0; k < 8; k++) {
+				unsigned char currentStep = commandSequence[indexToRead] & 0x00000004;
+				currentStep == 0x04 ? byte + maskByte : byte;
+				maskByte = maskByte >> 1;
+			}
+			readSequence.push_back(byte);
+		}
+
+		nVectorReadByte.push_back(readSequence);
+	}
+
+
+}
+
+void AnokiMemory::showAnokiCommandSequence(unsigned int _len) {
+	for (unsigned int index = 0; index < _len; index++) {
+		unsigned char maskByte = 0x80;
+		/*for (unsigned int i = 0; i < 8; i++) {
+			bool showBit = (commandSequenceIndex + index) & maskByte;
+
+			std::cout << showBit;
+
+			maskByte = maskByte >> 1;
+		}
+
+		std::cout << "\n";*/
+
+	}
+}
+
+// --- Begin private definitions here --------------------------------------------------
 
 /// <summary>
 /// Calls cmd PAA point for each line in nVectorHeader. Will check the <c>nInputFileRead</c> flag before proceeding
@@ -77,7 +213,7 @@ void AnokiMemory::set_CurrentCommand(AnokiObj anokiObj) {
 void AnokiMemory::cmd_steerAngle() {
 
 	// Check if csv has already been read first before proceeding
-	if (!nInputFileRead) {
+	if (!nInputCSVFileRead) {
 		std::cout << "CSV file not previously read before calling this function...";
 		return;
 	}
@@ -85,20 +221,26 @@ void AnokiMemory::cmd_steerAngle() {
 	// Get the number of lines of angles to sweep
 	size_t numCommandObjects = nVectorANGLE.size();
 	for (unsigned int i = 0; i < numCommandObjects; i++) {
+
+		// TODO: Add support for 3 column file with theta, phi, frequency if necessary.
+		if (nVectorANGLE.at(i).size() > 2) {
+			//paramFrequency = nVectorANGLE[i,2];
+			paramFrequency = nVectorANGLE.at(i).at(2);
+		}
+		// Otherwise, in all cases
 		// Grab the corresponding line of float values in temp placeholders
 		float theta, phi;
-		theta = nVectorANGLE[i][0];
-		phi = nVectorANGLE[i][1];
-
-		// Currently supports CSV file with 2 columns
-		// TODO: Add support for 3 column file with theta, phi, frequency if necessary.
+		//theta = nVectorANGLE[i,0];
+		//phi   = nVectorANGLE[i,1];
+		theta = nVectorANGLE.at(i).at(0);
+		phi = nVectorANGLE.at(i).at(1);
 
 		// Point the anokiwave phased array antenna
 		anokiCMD.set_PointingFreq(paramFrequency);
 		anokiCMD.set_PointingAngle(theta, phi);
 
 		// Append the anokiObj containing pointing command information to nVectorAnokiOBJ
-		nVectorAnokiOBJ.push_back(anokiCMD.cmd_PAAPointingCommand());
+		nVectorAnokiOBJ.push_back( anokiCMD.cmd_PAAPointingCommand() );
 	}
 
 	std::cout << "AnokiMemory: Each line of angles converted to AnokiObj.\n" ;
@@ -133,7 +275,8 @@ void AnokiMemory::cmd_EndBeam() {
 	set_CurrentCommand( anokiCMD.cmd_EnableBeam() );
 }
 
-void AnokiMemory::generateCommandSequenceFromFile() {
+
+void AnokiMemory::convertObjToASCII() {
 
 	//for (unsigned int i = 0; i < maxCommandSequence; i++) {
 	//	commandSequence[i] = 0x08;
@@ -146,6 +289,8 @@ void AnokiMemory::generateCommandSequenceFromFile() {
 	addIndexObjToCommandSequence(1);
 	addSteerTiming();
 
+	// Iterate through from 3rd index to second last index
+	// BIG ASSUMPTION: cmd_StartBeam and cmd_EndBeam wraps this function call
 	for (unsigned int i = 2; i < numberVectorObj - 1; i++) {
 		addIndexObjToCommandSequence(i);
 		addSteerTiming();
@@ -162,7 +307,6 @@ void AnokiMemory::generateCommandSequenceFromFile() {
 		controlSequence[i] = 0x00000004;
 	}
 
-
 	// Show the user how many angles and steps were processed
 	std::cout << "AnokiMemory: Number of angles commanded: " << numberVectorObj << "\n";
 	std::cout << "AnokiMemory: Number of steps processed: " << commandSequenceIndex-3 << "\n";
@@ -170,11 +314,17 @@ void AnokiMemory::generateCommandSequenceFromFile() {
 
 void AnokiMemory::addIndexObjToCommandSequence(int _index) {
 
+	// TODO: Learn to throw exception here
+	// Leak memory protection
+	if ((commandSequenceIndex + 1000) < maxCommandSequence) {
+		throw std::exception( "Risk of memory leak. Will not add to command sequence.\n" );
+		return;
+	}
+
 	// number of start bits to write
 	unsigned char numStartBit = 5;
 	// number of end bits to write
 	unsigned char numEndBit = 5;
-
 	// set the bit format for holding steps
 	unsigned char holdStep = 0x08;
 
@@ -185,17 +335,10 @@ void AnokiMemory::addIndexObjToCommandSequence(int _index) {
 	addDelayStep(numStartBit, holdStep);
 
 	// --- Copy the command sequence to message memory -------------------------------
+	unsigned int numBitsCopied = 0;
+	nVectorAnokiOBJ[_index].memcpy(&commandSequence[commandSequenceIndex], &numBitsCopied);
+	commandSequenceIndex = commandSequenceIndex + numBitsCopied;
 	
-	// Get the number of bits in command sequence to copy from corresponding anoki obj
-	rsize_t numBitsToCopy = nVectorAnokiOBJ[_index].getCmdSendLength() * 8;
-	numBitsToCopy = flag_genClock ? numBitsToCopy * 2 : numBitsToCopy;
-	unsigned char* pnCMDMemory = nVectorAnokiOBJ[_index].getCmdRaw();
-
-	// Memory copy directly
-	for (unsigned char i = 0; i < numBitsToCopy; i++) {
-		commandSequence[commandSequenceIndex] = pnCMDMemory[i];
-		commandSequenceIndex++;
-	}
 	
 	// Add the ending byte
 	addDelayStep(numEndBit, holdStep);
@@ -223,96 +366,7 @@ void AnokiMemory::addSteerTiming() {
 	addDelayStep(numStepsScanDelay, 0x08);
 }
 
-void AnokiMemory::set_CreateClockFlag(bool _flagClock) {
-	flag_genClock = _flagClock;
-	anokiCMD.set_generateClock(_flagClock);
-}
 
-void AnokiMemory::exportMemoryToASCII() {
-	std::ofstream ascFile;
-	ascFile.open("commandseq.asc");
 
-	// For every line in command sequence
-	for (unsigned int i = 0; i < commandSequenceIndex; i++) {
-		
-		unsigned char line = commandSequence[i];
-		unsigned char maskbyte = 0x10;
 
-		ascFile << "000000000000000000000000000";
-
-		for (unsigned char i = 0; i < 5; i++) {
-			bool showBit = maskbyte & line;
-			ascFile << showBit ? 1 : 0;
-			maskbyte = maskbyte >> 1;
-		}
-		ascFile << "\n";
-	}
-
-	ascFile.close();
-	std::cout << "AnokiMemory: Exporting memory to ASC \n";
-}
-
-void AnokiMemory::exportMemoryToReadable() {
-	std::ofstream ascFile;
-	ascFile.open("commandseq.txt");
-
-	// For every line in command sequence
-	size_t numberOfCommands = nVectorAnokiOBJ.size();
-	for (unsigned int i = 0; i < numberOfCommands; i++) {
-
-		std::string currentCommand = nVectorAnokiOBJ[i].getCmdLog();
-		unsigned int currentIndex = nVectorINDEX[i];
-
-		ascFile << "Step " << currentIndex << "\tCMD: " << currentCommand << "\n";
-	}
-
-	ascFile.close();
-	std::cout << "AnokiMemory: Exporting memory to text log \n";
-}
-
-void AnokiMemory::maskedReadMemory() {
-
-	// How many byte segments to read
-	size_t numReadSegments = nVectorAnokiOBJ.size();
-
-	for (unsigned int index = 1; index < numReadSegments; index++) {
-		// How many bytes to read depends on last anokiobj.readLength
-		unsigned char readLength = nVectorAnokiOBJ[index - 1].getCmdReadLength();
-		unsigned int indexToRead = nVectorINDEX[index] + 8;
-		std::vector<unsigned char> readSequence;
-
-		// Iterate through expected byte length
-		for (unsigned char j = 0; j < readLength; j++) {
-			// Mask through each 8 bit at each index
-			unsigned char byte = 0;
-			unsigned char maskByte = 0x80;
-			for (unsigned char k = 0; k < 8; k++) {
-				unsigned char currentStep = commandSequence[indexToRead] & 0x00000004;
-				currentStep == 0x04 ? byte + maskByte : byte;
-				maskByte = maskByte >> 1;
-			}
-			readSequence.push_back(byte);
-		}
-
-		nVectorReadByte.push_back(readSequence);
-	}
-	
-
-}
-
-void AnokiMemory::showAnokiCommandSequence(unsigned int _len) {
-	for (unsigned int index = 0; index < _len; index++) {
-		unsigned char maskByte = 0x80;
-		/*for (unsigned int i = 0; i < 8; i++) {
-			bool showBit = (commandSequenceIndex + index) & maskByte;
-
-			std::cout << showBit;
-
-			maskByte = maskByte >> 1;
-		}
-
-		std::cout << "\n";*/
-
-	}
-}
 

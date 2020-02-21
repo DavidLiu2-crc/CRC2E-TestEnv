@@ -7,6 +7,9 @@
 #include <chrono>
 #include <bitset>
 
+// TODO : Add define function to quickly stop if error status returned by GTDIO API
+
+
 // --- Defines MarvinCommand as C++ class with function and 
 // properties of the Marvin GX5292 DIO command set
 class MarvinCommand {
@@ -18,29 +21,6 @@ class MarvinCommand {
 // prefix _[variablename] means an external value that is passed
 public:
 	// ---- Define public attributes ------------------------------------------------------------
-	SHORT nSlotNum;			// Value of slot number in chassis; 0x103 for PXI chassis
-	SHORT nInterfaceType;	// Value of interface type; 0:TTL, 1:LVDS
-	SHORT nExpectedBoard;	// Value of expected board type; 0x70 for GX5292
-	SHORT nOperatingMode;	// Value of the operating mode; 0:Default, 1:Real-Time Compare
-	SHORT nWidth;			// Value of the channel width; 0:32 bit, 1:16 bit, 2:8 bit, 3:4 bit, 4:2 bit, 5:1 bit
-		
-	SHORT nHandle;		// Pointer of the card handle
-	SHORT nFileHandle;	// Pointer of the DIO file handle
-	SHORT nBoardType;	// Pointer of the board type seen by chassis
-	SHORT nDensity;		// Pointer of the memory bank density
-	SHORT nBanks;		// Pointer of the number of memory banks
-
-	SHORT nStatus;			// Pointer of the error status value
-	DWORD nBoardFrequency;	// Pointer of the card board frequency
-
-	// TODO: Change memory and controller to heap memory
-	DWORD dwSize = 0;	// Defines number of steps
-	DWORD* dwMemory;	// Defines the pointer to data memory
-	DWORD* dwControl;	// Defines the pointer to control memory
-
-	//DWORD dwMemory[4096] = { 0 };	// Defines the data memory
-	//DWORD dwControl[4096] = { 0 };	// Defines the controller memory
-	
 	CHAR szFileNameInput[128];	// Defines the name of the input file
 	CHAR szFileNameOutput[128];	// Defines the name of the output file
 
@@ -92,6 +72,37 @@ public:
 	// Show the memory from starting index to end
 	void ShowMemory(DWORD* _memory, DWORD posStart, DWORD posEnd);
 
+	
+
+		
+
+private:
+	SHORT nSlotNum;			// Value of slot number in chassis; 0x103 for PXI chassis
+	SHORT nInterfaceType;	// Value of interface type; 0:TTL, 1:LVDS
+	SHORT nExpectedBoard;	// Value of expected board type; 0x70 for GX5292
+	SHORT nOperatingMode;	// Value of the operating mode; 0:Default, 1:Real-Time Compare
+	SHORT nWidth;			// Value of the channel width; 0:32 bit, 1:16 bit, 2:8 bit, 3:4 bit, 4:2 bit, 5:1 bit
+
+	SHORT nHandle;		// Pointer of the card handle
+	SHORT nFileHandle;	// Pointer of the DIO file handle
+	SHORT nBoardType;	// Pointer of the board type seen by chassis
+	SHORT nDensity;		// Pointer of the memory bank density
+	SHORT nBanks;		// Pointer of the number of memory banks
+
+	SHORT nStatus;			// Pointer of the error status value
+	DWORD nBoardFrequency;	// Pointer of the card board frequency
+
+	// TODO: Add std::vector to hold many vector ascii references
+	DWORD dwSize = 0;	// Defines number of steps
+	DWORD dwMemoryIndex = 0;		// Defines the memory index
+	DWORD* dwMemory;	// Defines the pointer to data memory
+	DWORD* dwControl;	// Defines the pointer to control memory
+
+	//DWORD dwMemory[4096] = { 0 };	// Defines the data memory
+	//DWORD dwControl[4096] = { 0 };	// Defines the controller memory
+
+	void CheckStatus(SHORT nStatus);
+
 	// Simple Set ARM state
 	void ctrlArm();
 	// Simple Set HALT state
@@ -100,11 +111,4 @@ public:
 	void ctrlPause();
 	// Simple Set TRIG state
 	void ctrlTrig();
-
-		
-
-private:
-	DWORD dwMemoryIndex = 0;		// Defines the memory index
-
-	void CheckStatus(SHORT nStatus);
 };

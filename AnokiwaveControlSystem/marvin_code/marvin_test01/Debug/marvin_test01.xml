@@ -52,21 +52,6 @@ readFromCSV( filePath );
 </code>
             </example>
         </member>
-        <member name="T:AnokiObj">
-	File name: AnokiCommand.h
-	
-	Summary: User defined class that returns a AnokiObj object that contains command control information
-			 referenced in Anokiwave ECCN: 5E991
-
-	Author: David Liu - david.liu2@canada.ca
-	PandA - MC2
-
-	Description: Simply initialize this class, calling set_ functions to set the values of parameters, and call cmd_
-				 to obtain the AnokiObj that contains the command information. Currently allows writing command byte,
-				 will attempt to implement read command byte capabilities later.
-
-
-</member>
         <member name="M:AnokiCommand.cmd_StatusDetailRequest">
             <summary>
 Sends the command to return the summary detail
@@ -161,5 +146,32 @@ Sets the object attributes of to appropriate values and calls convertSeqToASCII 
             <param name="_readLength">Counter for number of bytes to expect to read</param>
             <param name="_log"> std::string containing function called information (readable format)</param>
         </member>
+        <member name="M:__std_swap_ranges_trivially_swappable_noalias(System.Void*,System.Void*,System.Void*)">
+	AnokiObj.h
+	Purpose: User-defined object that contains information about Anokiwave Command
+	
+	See also document: ECCN: 5E991 - NLR : Table 4.1 page 8
+
+
+
+	File name: AnokiCommand.h
+	
+	Summary: User defined class that returns a AnokiObj object that contains command control information
+			 referenced in Anokiwave ECCN: 5E991
+
+	Author: David Liu - david.liu2@canada.ca - MC2 2020 COOP
+
+	Description: Simply initialize this class, calling set_ functions to set the values of parameters, and call cmd_
+				 to obtain the AnokiObj that contains the command information. Currently allows writing command byte,
+				 will attempt to implement read command byte capabilities later.
+
+
+	AnokiObj.h
+	Purpose: User-defined object that contains information about Anokiwave Command
+	
+	See also document: ECCN: 5E991 - NLR : Table 4.1 page 8
+
+
+</member>
     </members>
 </doc>
