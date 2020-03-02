@@ -1,0 +1,6 @@
+﻿  MarvinCommand.cpp
+C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\MarvinCommand.h(4,10): fatal error C1083: Cannot open include file: 'GTDIO.h': No such file or directory
+  marvin_test01.cpp
+C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\AnokiMemory.h(66,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\AnokiMemory.h(70,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\MarvinCommand.h(4,10): fatal error C1083: Cannot open include file: 'GTDIO.h': No such file or directory

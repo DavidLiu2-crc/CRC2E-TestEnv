@@ -1,0 +1,6 @@
+﻿  AnokiClass.cpp
+C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\LVDSControlSolution\LVDSControlSolution\data\include\AnokiClass.h(10,66): warning C4275: non dll-interface class 'core::AnokiClass' used as base for dll-interface class 'core::AnokiClassImp'
+C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\LVDSControlSolution\LVDSControlSolution\LVDSControlSolution.h(25): message : see declaration of 'core::AnokiClass'
+C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\LVDSControlSolution\LVDSControlSolution\data\include\AnokiClass.h(10): message : see declaration of 'core::AnokiClassImp'
+     Creating library C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\LVDSControlSolution\LVDSControlSolution\bin\LVDSControlSolution.lib and object C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\LVDSControlSolution\LVDSControlSolution\bin\LVDSControlSolution.exp
+  LVDSControlSolution.vcxproj -> C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\LVDSControlSolution\LVDSControlSolution\bin\LVDSControlSolution.dll

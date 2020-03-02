@@ -15,47 +15,48 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="data\src\AnokiCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="data\src\AnokiObj.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="marvin_test01.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AnokiCommand.cpp">
+    <ClCompile Include="data\src\AnokiAPI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MarvinCommand.cpp">
+    <ClCompile Include="data\src\MarvinAPI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AnokiMemory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AnokiObj.cpp">
+    <ClCompile Include="data\src\VisaAPI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\..\GTDio32.lib">
+    <ClInclude Include="resource.h">
       <Filter>Resource Files</Filter>
-    </Library>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="GTDIO.h">
+    </ClInclude>
+    <ClInclude Include="data\include\AnokiCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AnokiCommand.h">
+    <ClInclude Include="data\include\AnokiObj.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="marvin_test01.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MarvinCommand.h">
+    <ClInclude Include="data\include\GTDIO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AnokiMemory.h">
+    <ClInclude Include="data\include\AnokiAPI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AnokiObj.h">
+    <ClInclude Include="data\include\MarvinAPI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="data\include\VisaAPI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -66,5 +67,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="deps\GTDIO\GTDio32.lib" />
+    <Library Include="deps\NI VISA\lib\visa32.lib" />
   </ItemGroup>
 </Project>
