@@ -1,0 +1,1105 @@
+/******************************************************************************
+ *                                                                         
+ * Copyright Keysight Technologies 2012-2019
+ *
+ *****************************************************************************/
+
+#ifndef __AGXSANBASIC_HEADER
+#define __AGXSANBASIC_HEADER
+
+#include <ivivisatype.h>
+
+#if defined(__cplusplus) || defined(__cplusplus__)
+extern "C" {
+#endif
+
+/**************************************************************************** 
+ *---------------------------- Attribute Defines ---------------------------* 
+ ****************************************************************************/
+#ifndef IVI_ATTR_BASE
+#define IVI_ATTR_BASE                 1000000
+#endif
+
+#ifndef IVI_INHERENT_ATTR_BASE		        
+#define IVI_INHERENT_ATTR_BASE        (IVI_ATTR_BASE +  50000)   /* base for inherent capability attributes */
+#endif
+
+#ifndef IVI_CLASS_ATTR_BASE           
+#define IVI_CLASS_ATTR_BASE           (IVI_ATTR_BASE + 250000)   /* base for IVI-defined class attributes */
+#endif
+
+#ifndef IVI_LXISYNC_ATTR_BASE         
+#define IVI_LXISYNC_ATTR_BASE         (IVI_ATTR_BASE + 950000)   /* base for IviLxiSync attributes */
+#endif
+
+#ifndef IVI_SPECIFIC_ATTR_BASE        
+#define IVI_SPECIFIC_ATTR_BASE        (IVI_ATTR_BASE + 150000)   /* base for attributes of specific drivers */
+#endif
+
+
+/*===== IVI Inherent Instrument Attributes ==============================*/    
+
+/*- Driver Identification */
+
+#define AGXSANBASIC_ATTR_SPECIFIC_DRIVER_DESCRIPTION              (IVI_INHERENT_ATTR_BASE + 514L)  /* ViString, read-only */
+#define AGXSANBASIC_ATTR_SPECIFIC_DRIVER_PREFIX                   (IVI_INHERENT_ATTR_BASE + 302L)  /* ViString, read-only */
+#define AGXSANBASIC_ATTR_SPECIFIC_DRIVER_VENDOR                   (IVI_INHERENT_ATTR_BASE + 513L)  /* ViString, read-only */
+#define AGXSANBASIC_ATTR_SPECIFIC_DRIVER_REVISION                 (IVI_INHERENT_ATTR_BASE + 551L)  /* ViString, read-only */
+#define AGXSANBASIC_ATTR_SPECIFIC_DRIVER_CLASS_SPEC_MAJOR_VERSION (IVI_INHERENT_ATTR_BASE + 515L)  /* ViInt32, read-only */
+#define AGXSANBASIC_ATTR_SPECIFIC_DRIVER_CLASS_SPEC_MINOR_VERSION (IVI_INHERENT_ATTR_BASE + 516L)  /* ViInt32, read-only */
+
+/*- User Options */
+
+#define AGXSANBASIC_ATTR_RANGE_CHECK                        (IVI_INHERENT_ATTR_BASE + 2L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_QUERY_INSTRUMENT_STATUS            (IVI_INHERENT_ATTR_BASE + 3L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_CACHE                              (IVI_INHERENT_ATTR_BASE + 4L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_SIMULATE                           (IVI_INHERENT_ATTR_BASE + 5L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_RECORD_COERCIONS                   (IVI_INHERENT_ATTR_BASE + 6L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_INTERCHANGE_CHECK                  (IVI_INHERENT_ATTR_BASE + 21L)  /* ViBoolean, read-write */
+
+/*- Advanced Session Information */
+
+#define AGXSANBASIC_ATTR_LOGICAL_NAME                       (IVI_INHERENT_ATTR_BASE + 305L)  /* ViString, read-only */
+#define AGXSANBASIC_ATTR_IO_RESOURCE_DESCRIPTOR             (IVI_INHERENT_ATTR_BASE + 304L)  /* ViString, read-only */
+#define AGXSANBASIC_ATTR_DRIVER_SETUP                       (IVI_INHERENT_ATTR_BASE + 7L)  /* ViString, read-only */
+
+/*- Driver Capabilities */
+
+#define AGXSANBASIC_ATTR_GROUP_CAPABILITIES                 (IVI_INHERENT_ATTR_BASE + 401L)  /* ViString, read-only */
+#define AGXSANBASIC_ATTR_SUPPORTED_INSTRUMENT_MODELS        (IVI_INHERENT_ATTR_BASE + 327L)  /* ViString, read-only */
+
+/*- Instrument Identification */
+
+#define AGXSANBASIC_ATTR_INSTRUMENT_FIRMWARE_REVISION       (IVI_INHERENT_ATTR_BASE + 510L)  /* ViString, read-only */
+#define AGXSANBASIC_ATTR_INSTRUMENT_MANUFACTURER            (IVI_INHERENT_ATTR_BASE + 511L)  /* ViString, read-only */
+#define AGXSANBASIC_ATTR_INSTRUMENT_MODEL                   (IVI_INHERENT_ATTR_BASE + 512L)  /* ViString, read-only */
+
+
+/*===== Instrument-Specific Attributes =====================================*/
+
+/*- Frequency */
+
+#define AGXSANBASIC_ATTR_FREQUENCY_CENTER                   (IVI_SPECIFIC_ATTR_BASE + 1L)  /* ViReal64, read-write */
+
+/*- IF */
+
+#define AGXSANBASIC_ATTR_FREQUENCY_IQ_CENTER                (IVI_SPECIFIC_ATTR_BASE + 130L)  /* ViReal64, read-write */
+
+/*- RF */
+
+#define AGXSANBASIC_ATTR_FREQUENCY_RF_CENTER                (IVI_SPECIFIC_ATTR_BASE + 131L)  /* ViReal64, read-write */
+
+/*- Input */
+
+#define AGXSANBASIC_ATTR_INPUT_PORT                         (IVI_SPECIFIC_ATTR_BASE + 2L)  /* ViInt32, read-write */
+
+/*- RF */
+
+#define AGXSANBASIC_ATTR_RF_ATTENUATION                     (IVI_SPECIFIC_ATTR_BASE + 3L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_RF_ATTENUATION_AUTO_ENABLED        (IVI_SPECIFIC_ATTR_BASE + 113L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_RF_EXTERNAL_GAIN                   (IVI_SPECIFIC_ATTR_BASE + 138L)  /* ViReal64, read-write */
+
+/*- IQ */
+
+#define AGXSANBASIC_ATTR_INPUT_IQ_I_OFFSET                  (IVI_SPECIFIC_ATTR_BASE + 220L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_INPUT_IQ_Q_OFFSET                  (IVI_SPECIFIC_ATTR_BASE + 221L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_INPUT_IQ_IMPEDANCE                 (IVI_SPECIFIC_ATTR_BASE + 222L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_INPUT_IQ_I_IMPEDANCE               (IVI_SPECIFIC_ATTR_BASE + 223L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_INPUT_IQ_I_DIFFERENTIAL_ENABLED    (IVI_SPECIFIC_ATTR_BASE + 224L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_INPUT_IQ_Q_DIFFERENTIAL_ENABLED    (IVI_SPECIFIC_ATTR_BASE + 225L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_INPUT_IQ_Q_IMPEDANCE               (IVI_SPECIFIC_ATTR_BASE + 226L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_INPUT_IQ_REFERENCE_IMPEDANCE       (IVI_SPECIFIC_ATTR_BASE + 227L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_INPUT_IQ_I_COUPLING                (IVI_SPECIFIC_ATTR_BASE + 228L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_INPUT_IQ_Q_COUPLING                (IVI_SPECIFIC_ATTR_BASE + 229L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_INPUT_IQ_COUPLING                  (IVI_SPECIFIC_ATTR_BASE + 235L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_INPUT_IQ_MIRROR_ENABLED            (IVI_SPECIFIC_ATTR_BASE + 236L)  /* ViBoolean, read-write */
+
+/*- Power */
+
+#define AGXSANBASIC_ATTR_IQ_POWER_MIRRORING_ENABLED         (IVI_SPECIFIC_ATTR_BASE + 137L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_IQ_POWER_I_MAX                     (IVI_SPECIFIC_ATTR_BASE + 31L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_IQ_POWER_Q_MAX                     (IVI_SPECIFIC_ATTR_BASE + 133L)  /* ViReal64, read-write */
+
+/*- Voltage */
+
+#define AGXSANBASIC_ATTR_IQ_VOLTAGE_I_MAX                   (IVI_SPECIFIC_ATTR_BASE + 42L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_IQ_VOLTAGE_Q_MAX                   (IVI_SPECIFIC_ATTR_BASE + 134L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_IQ_VOLTAGE_MIRRORING_ENABLED       (IVI_SPECIFIC_ATTR_BASE + 136L)  /* ViBoolean, read-write */
+
+/*- IF */
+
+#define AGXSANBASIC_ATTR_INPUT_IF_PATH                      (IVI_SPECIFIC_ATTR_BASE + 114L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_INPUT_IF_PATH_AUTO_ENABLED         (IVI_SPECIFIC_ATTR_BASE + 115L)  /* ViBoolean, read-write */
+
+/*- Spectrum */
+
+#define AGXSANBASIC_ATTR_SPECTRUM_FREQUENCY_SPAN                   (IVI_SPECIFIC_ATTR_BASE + 69L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_IF_GAIN                          (IVI_SPECIFIC_ATTR_BASE + 95L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_TRIGGER_SOURCE                   (IVI_SPECIFIC_ATTR_BASE + 111L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_SAMPLE_RATE                      (IVI_SPECIFIC_ATTR_BASE + 116L)  /* ViReal64, read-only */
+#define AGXSANBASIC_ATTR_SPECTRUM_IQ_DELTA_ENABLED                 (IVI_SPECIFIC_ATTR_BASE + 148L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_IF_GAIN_AUTO_ENABLED             (IVI_SPECIFIC_ATTR_BASE + 237L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_LO_MIXING_MODE_ENABLED           (IVI_SPECIFIC_ATTR_BASE + 247L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_FREQUENCY_SYNTHESIS_STATE        (IVI_SPECIFIC_ATTR_BASE + 251L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_ADC_DITHER_AUTO_ENABLED          (IVI_SPECIFIC_ATTR_BASE + 254L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_ADC_DITHER_ENABLED               (IVI_SPECIFIC_ATTR_BASE + 255L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_IF_GAIN_OFFSET                   (IVI_SPECIFIC_ATTR_BASE + 256L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_TRACE_ENABLED                    (IVI_SPECIFIC_ATTR_BASE + 257L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_FREQUENCY_SYNTHESIS_AUTO_ENABLED (IVI_SPECIFIC_ATTR_BASE + 263L)  /* ViBoolean, read-write */
+
+/*- Average */
+
+#define AGXSANBASIC_ATTR_SPECTRUM_AVERAGE_COUNT                           (IVI_SPECIFIC_ATTR_BASE + 6L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_AVERAGE_ENABLED                         (IVI_SPECIFIC_ATTR_BASE + 7L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_AVERAGE_MODE                            (IVI_SPECIFIC_ATTR_BASE + 9L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_AVERAGE_TYPE                            (IVI_SPECIFIC_ATTR_BASE + 10L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_AVERAGE_TIME_AVERAGE_COUNT              (IVI_SPECIFIC_ATTR_BASE + 240L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_AVERAGE_TIME_AVERAGE_COUNT_AUTO_ENABLED (IVI_SPECIFIC_ATTR_BASE + 262L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_AVERAGE_TYPE_AUTO_ENABLED               (IVI_SPECIFIC_ATTR_BASE + 270L)  /* ViBoolean, read-write */
+
+/*- Bandwidth */
+
+#define AGXSANBASIC_ATTR_SPECTRUM_BANDWIDTH_ACQUISITION              (IVI_SPECIFIC_ATTR_BASE + 11L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_BANDWIDTH_ACQUISITION_AUTO_ENABLED (IVI_SPECIFIC_ATTR_BASE + 12L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_BANDWIDTH_ACQUISITION_SHAPE        (IVI_SPECIFIC_ATTR_BASE + 13L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_BANDWIDTH_RESOLUTION               (IVI_SPECIFIC_ATTR_BASE + 14L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_BANDWIDTH_RESOLUTION_AUTO_ENABLED  (IVI_SPECIFIC_ATTR_BASE + 15L)  /* ViBoolean, read-write */
+
+/*- Marker */
+
+#define AGXSANBASIC_ATTR_SPECTRUM_MARKER_ACTIVE_MARKER       (IVI_SPECIFIC_ATTR_BASE + 45L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_MARKER_AMPLITUDE           (IVI_SPECIFIC_ATTR_BASE + 46L)  /* ViReal64, read-only */
+#define AGXSANBASIC_ATTR_SPECTRUM_MARKER_COUNT               (IVI_SPECIFIC_ATTR_BASE + 47L)  /* ViInt32, read-only */
+#define AGXSANBASIC_ATTR_SPECTRUM_MARKER_ENABLED             (IVI_SPECIFIC_ATTR_BASE + 48L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_MARKER_FUNCTION            (IVI_SPECIFIC_ATTR_BASE + 49L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_MARKER_POSITION            (IVI_SPECIFIC_ATTR_BASE + 51L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_MARKER_TRACE               (IVI_SPECIFIC_ATTR_BASE + 52L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_MARKER_TYPE                (IVI_SPECIFIC_ATTR_BASE + 53L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_MARKER_DELTA_REFERENCE     (IVI_SPECIFIC_ATTR_BASE + 258L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_MARKER_FUNCTION_BAND_LEFT  (IVI_SPECIFIC_ATTR_BASE + 259L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_MARKER_FUNCTION_BAND_RIGHT (IVI_SPECIFIC_ATTR_BASE + 260L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_MARKER_FUNCTION_BAND_SPAN  (IVI_SPECIFIC_ATTR_BASE + 261L)  /* ViReal64, read-write */
+
+/*- Peak */
+
+#define AGXSANBASIC_ATTR_SPECTRUM_MARKER_PEAK_THRESHOLD         (IVI_SPECIFIC_ATTR_BASE + 139L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_MARKER_PEAK_THRESHOLD_ENABLED (IVI_SPECIFIC_ATTR_BASE + 140L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_MARKER_PEAK_EXCURSION         (IVI_SPECIFIC_ATTR_BASE + 141L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_MARKER_PEAK_EXCURSION_ENABLED (IVI_SPECIFIC_ATTR_BASE + 142L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_MARKER_PEAK_SEARCH_MODE       (IVI_SPECIFIC_ATTR_BASE + 143L)  /* ViInt32, read-write */
+
+/*- FFT */
+
+#define AGXSANBASIC_ATTR_SPECTRUM_FFT_LENGTH                (IVI_SPECIFIC_ATTR_BASE + 63L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_FFT_LENGTH_AUTO           (IVI_SPECIFIC_ATTR_BASE + 64L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_FFT_RBW_POINTS            (IVI_SPECIFIC_ATTR_BASE + 65L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_FFT_WINDOW                (IVI_SPECIFIC_ATTR_BASE + 66L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_FFT_WINDOW_LENGTH         (IVI_SPECIFIC_ATTR_BASE + 68L)  /* ViInt32, read-write */
+
+/*- Filter */
+
+#define AGXSANBASIC_ATTR_SPECTRUM_FILTER_ALPHA                                    (IVI_SPECIFIC_ATTR_BASE + 97L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_FILTER_BANDWIDTH                                (IVI_SPECIFIC_ATTR_BASE + 98L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_FILTER_BANDWIDTH_AUTO_ENABLED                   (IVI_SPECIFIC_ATTR_BASE + 100L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_FILTER_ANALOG_ANTI_ALIASING_FILTER_TYPE         (IVI_SPECIFIC_ATTR_BASE + 241L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_FILTER_ANALOG_ANTI_ALIASING_FILTER_AUTO_ENABLED (IVI_SPECIFIC_ATTR_BASE + 242L)  /* ViBoolean, read-write */
+
+/*- FastCapture */
+
+#define AGXSANBASIC_ATTR_SPECTRUM_FAST_CAPTURE_LENGTH       (IVI_SPECIFIC_ATTR_BASE + 118L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_FAST_CAPTURE_WORD_LENGTH  (IVI_SPECIFIC_ATTR_BASE + 119L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_FAST_CAPTURE_BLOCK_SIZE   (IVI_SPECIFIC_ATTR_BASE + 120L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_FAST_CAPTURE_POINTER      (IVI_SPECIFIC_ATTR_BASE + 121L)  /* ViInt32, read-write */
+
+/*- Display */
+
+#define AGXSANBASIC_ATTR_SPECTRUM_DISPLAY_TEXT              (IVI_SPECIFIC_ATTR_BASE + 157L)  /* ViString, read-write */
+
+/*- WindowX */
+
+#define AGXSANBASIC_ATTR_SPECTRUM_DISPLAY_WINDOW_X_AUTO_SCALE_ENABLED (IVI_SPECIFIC_ATTR_BASE + 149L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_DISPLAY_WINDOW_X_SCALE              (IVI_SPECIFIC_ATTR_BASE + 150L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_DISPLAY_WINDOW_X_REFERENCE          (IVI_SPECIFIC_ATTR_BASE + 151L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_DISPLAY_WINDOW_X_REF_POSITION       (IVI_SPECIFIC_ATTR_BASE + 152L)  /* ViInt32, read-write */
+
+/*- WindowY */
+
+#define AGXSANBASIC_ATTR_SPECTRUM_DISPLAY_WINDOW_Y_AUTO_SCALE_ENABLED2 (IVI_SPECIFIC_ATTR_BASE + 153L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_DISPLAY_WINDOW_Y_REFERENCE           (IVI_SPECIFIC_ATTR_BASE + 154L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_DISPLAY_WINDOW_Y_SCALE               (IVI_SPECIFIC_ATTR_BASE + 155L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_SPECTRUM_DISPLAY_WINDOW_Y_REF_POSITION2       (IVI_SPECIFIC_ATTR_BASE + 156L)  /* ViInt32, read-write */
+
+/*- Trigger */
+
+#define AGXSANBASIC_ATTR_TRIGGER_HOLDOFF                       (IVI_SPECIFIC_ATTR_BASE + 24L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_SWEEP_MODE_CONTINUOUS_ENABLED (IVI_SPECIFIC_ATTR_BASE + 77L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_HOLDOFF_TYPE                  (IVI_SPECIFIC_ATTR_BASE + 202L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_HOLDOFF_ENABLED               (IVI_SPECIFIC_ATTR_BASE + 203L)  /* ViBoolean, read-write */
+
+/*- External */
+
+#define AGXSANBASIC_ATTR_TRIGGER_EXTERNAL_DELAY             (IVI_SPECIFIC_ATTR_BASE + 16L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_EXTERNAL_LEVEL             (IVI_SPECIFIC_ATTR_BASE + 17L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_EXTERNAL_SLOPE             (IVI_SPECIFIC_ATTR_BASE + 18L)  /* ViInt32, read-write */
+
+/*- External2 */
+
+#define AGXSANBASIC_ATTR_TRIGGER_EXTERNAL2_DELAY            (IVI_SPECIFIC_ATTR_BASE + 19L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_EXTERNAL2_LEVEL            (IVI_SPECIFIC_ATTR_BASE + 20L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_EXTERNAL2_SLOPE            (IVI_SPECIFIC_ATTR_BASE + 21L)  /* ViInt32, read-write */
+
+/*- Frame */
+
+#define AGXSANBASIC_ATTR_TRIGGER_FRAME_PERIOD               (IVI_SPECIFIC_ATTR_BASE + 22L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_FRAME_SYNC_SOURCE          (IVI_SPECIFIC_ATTR_BASE + 23L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_FRAME_DELAY                (IVI_SPECIFIC_ATTR_BASE + 176L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_FRAME_DELAY_ENABLED        (IVI_SPECIFIC_ATTR_BASE + 177L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_FRAME_OFFSET               (IVI_SPECIFIC_ATTR_BASE + 178L)  /* ViReal64, read-write */
+
+/*- IF */
+
+#define AGXSANBASIC_ATTR_TRIGGER_IF_DELAY                   (IVI_SPECIFIC_ATTR_BASE + 25L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_IF_LEVEL                   (IVI_SPECIFIC_ATTR_BASE + 26L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_IF_SLOPE                   (IVI_SPECIFIC_ATTR_BASE + 27L)  /* ViInt32, read-write */
+
+/*- RFBurst */
+
+#define AGXSANBASIC_ATTR_TRIGGER_RF_BURST_DELAY             (IVI_SPECIFIC_ATTR_BASE + 28L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_RF_BURST_PEAK_LEVEL        (IVI_SPECIFIC_ATTR_BASE + 29L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_RF_BURST_SLOPE             (IVI_SPECIFIC_ATTR_BASE + 76L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_LEVEL_ABSOLUTE             (IVI_SPECIFIC_ATTR_BASE + 199L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_LEVEL_TYPE                 (IVI_SPECIFIC_ATTR_BASE + 200L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_DELAY_ENABLED              (IVI_SPECIFIC_ATTR_BASE + 201L)  /* ViBoolean, read-write */
+
+/*- Auto */
+
+#define AGXSANBASIC_ATTR_TRIGGER_AUTO_ENABLED               (IVI_SPECIFIC_ATTR_BASE + 73L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_AUTO_TIME                  (IVI_SPECIFIC_ATTR_BASE + 74L)  /* ViReal64, read-write */
+
+/*- IDemodulated */
+
+#define AGXSANBASIC_ATTR_TRIGGER_IDEMODULATED_DELAY         (IVI_SPECIFIC_ATTR_BASE + 179L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_IDEMODULATED_DELAY_ENABLED (IVI_SPECIFIC_ATTR_BASE + 180L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_IDEMODULATED_LEVEL         (IVI_SPECIFIC_ATTR_BASE + 181L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_IDEMODULATED_SLOPE         (IVI_SPECIFIC_ATTR_BASE + 182L)  /* ViInt32, read-write */
+
+/*- IQMagnitude */
+
+#define AGXSANBASIC_ATTR_TRIGGER_IQMAGNITUDE_DELAY          (IVI_SPECIFIC_ATTR_BASE + 185L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_IQMAGNITUDE_DELAY_ENABLED  (IVI_SPECIFIC_ATTR_BASE + 186L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_IQMAGNITUDE_LEVEL          (IVI_SPECIFIC_ATTR_BASE + 187L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_IQMAGNITUDE_SLOPE          (IVI_SPECIFIC_ATTR_BASE + 188L)  /* ViInt32, read-write */
+
+/*- InputI */
+
+#define AGXSANBASIC_ATTR_TRIGGER_INPUTI_DELAY               (IVI_SPECIFIC_ATTR_BASE + 189L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_INPUTI_DELAY_ENABLED       (IVI_SPECIFIC_ATTR_BASE + 190L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_INPUTI_LEVEL               (IVI_SPECIFIC_ATTR_BASE + 191L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_INPUTI_SLOPE               (IVI_SPECIFIC_ATTR_BASE + 192L)  /* ViInt32, read-write */
+
+/*- InputQ */
+
+#define AGXSANBASIC_ATTR_TRIGGER_INPUTQ_DELAY               (IVI_SPECIFIC_ATTR_BASE + 193L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_INPUTQ_LEVEL               (IVI_SPECIFIC_ATTR_BASE + 194L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_INPUTQ_SLOPE               (IVI_SPECIFIC_ATTR_BASE + 195L)  /* ViInt32, read-write */
+
+/*- QDemodulated */
+
+#define AGXSANBASIC_ATTR_TRIGGER_QDEMODULATED_DELAY         (IVI_SPECIFIC_ATTR_BASE + 196L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_QDEMODULATED_LEVEL         (IVI_SPECIFIC_ATTR_BASE + 197L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_QDEMODULATED_SLOPE         (IVI_SPECIFIC_ATTR_BASE + 198L)  /* ViInt32, read-write */
+
+/*- Line */
+
+#define AGXSANBASIC_ATTR_TRIGGER_LINE_DELAY                 (IVI_SPECIFIC_ATTR_BASE + 204L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_LINE_SLOPE                 (IVI_SPECIFIC_ATTR_BASE + 205L)  /* ViInt32, read-write */
+
+/*- AIQMagnitude */
+
+#define AGXSANBASIC_ATTR_TRIGGER_AIQMAGNITUDE_BANDWIDTH        (IVI_SPECIFIC_ATTR_BASE + 206L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_AIQMAGNITUDE_CENTRE_FREQUENCY (IVI_SPECIFIC_ATTR_BASE + 207L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_AIQMAGNITUDE_DELAY            (IVI_SPECIFIC_ATTR_BASE + 208L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_AIQMAGNITUDE_LEVEL            (IVI_SPECIFIC_ATTR_BASE + 209L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_AIQMAGNITUDE_SLOPE            (IVI_SPECIFIC_ATTR_BASE + 210L)  /* ViInt32, read-write */
+
+/*- External3 */
+
+#define AGXSANBASIC_ATTR_TRIGGER_EXTERNAL3_DELAY                                (IVI_SPECIFIC_ATTR_BASE + 213L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_EXTERNAL3_LEVEL                                (IVI_SPECIFIC_ATTR_BASE + 214L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_EXTERNAL3_SLOPE                                (IVI_SPECIFIC_ATTR_BASE + 215L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_EXTERNAL3_ZERO_SPAN_DELAY_COMPENSATION_ENABLED (IVI_SPECIFIC_ATTR_BASE + 216L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_EXTERNAL3_DELAY_ENABLED                        (IVI_SPECIFIC_ATTR_BASE + 218L)  /* ViBoolean, read-write */
+
+/*- External2Ex */
+
+#define AGXSANBASIC_ATTR_TRIGGER_EXTERNAL2EX_DELAY_ENABLED                        (IVI_SPECIFIC_ATTR_BASE + 264L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_EXTERNAL2EX_ZERO_SPAN_DELAY_COMPENSATION_ENABLED (IVI_SPECIFIC_ATTR_BASE + 265L)  /* ViBoolean, read-write */
+
+/*- ExternalEx */
+
+#define AGXSANBASIC_ATTR_TRIGGER_EXTERNALEX_DELAY_ENABLED                        (IVI_SPECIFIC_ATTR_BASE + 266L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_TRIGGER_EXTERNALEX_ZERO_SPAN_DELAY_COMPENSATION_ENABLED (IVI_SPECIFIC_ATTR_BASE + 267L)  /* ViBoolean, read-write */
+
+/*- Waveform */
+
+#define AGXSANBASIC_ATTR_WAVEFORM_APERTURE                               (IVI_SPECIFIC_ATTR_BASE + 33L)  /* ViReal64, read-only */
+#define AGXSANBASIC_ATTR_WAVEFORM_SWEEP_TIME                             (IVI_SPECIFIC_ATTR_BASE + 40L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_IF_GAIN                                (IVI_SPECIFIC_ATTR_BASE + 96L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_TRIGGER_SOURCE                         (IVI_SPECIFIC_ATTR_BASE + 112L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_SAMPLE_RATE                            (IVI_SPECIFIC_ATTR_BASE + 117L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_ADC_DITHER_AUTO_ENABLED                (IVI_SPECIFIC_ATTR_BASE + 238L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_IF_GAIN_OFFSET                         (IVI_SPECIFIC_ATTR_BASE + 239L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_FREQUENCY_SYNTHESIS_STATE              (IVI_SPECIFIC_ATTR_BASE + 245L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_FREQUENCY_SYNTHESIS_STATE_AUTO_ENABLED (IVI_SPECIFIC_ATTR_BASE + 250L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_LO_MIXING_TYPE                         (IVI_SPECIFIC_ATTR_BASE + 268L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_ADC_DITHER_ENABLED                     (IVI_SPECIFIC_ATTR_BASE + 269L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_IF_GAIN_AUTO_ENABLED                   (IVI_SPECIFIC_ATTR_BASE + 271L)  /* ViBoolean, read-write */
+
+/*- Average */
+
+#define AGXSANBASIC_ATTR_WAVEFORM_AVEREAGE_COUNT                          (IVI_SPECIFIC_ATTR_BASE + 34L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_AVEREAGE_ENABLED                        (IVI_SPECIFIC_ATTR_BASE + 35L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_AVEREAGE_MODE                           (IVI_SPECIFIC_ATTR_BASE + 36L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_AVERAGE_TYPE                            (IVI_SPECIFIC_ATTR_BASE + 37L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_AVERAGE_TIME_AVERAGE_COUNT_AUTO_ENABLED (IVI_SPECIFIC_ATTR_BASE + 252L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_AVEREAGE_TYPE_AUTO_ENABLED              (IVI_SPECIFIC_ATTR_BASE + 253L)  /* ViBoolean, read-write */
+
+/*- Bandwidth */
+
+#define AGXSANBASIC_ATTR_WAVEFORM_BANDWIDTH_RESOLUTION      (IVI_SPECIFIC_ATTR_BASE + 38L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_BANDWIDTH_SHAPE           (IVI_SPECIFIC_ATTR_BASE + 39L)  /* ViInt32, read-write */
+
+/*- Marker */
+
+#define AGXSANBASIC_ATTR_WAVEFORM_MARKER_ACTIVE_MARKER      (IVI_SPECIFIC_ATTR_BASE + 85L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_MARKER_AMPLITUDE          (IVI_SPECIFIC_ATTR_BASE + 86L)  /* ViReal64, read-only */
+#define AGXSANBASIC_ATTR_WAVEFORM_MARKER_COUNT              (IVI_SPECIFIC_ATTR_BASE + 87L)  /* ViInt32, read-only */
+#define AGXSANBASIC_ATTR_WAVEFORM_MARKER_ENABLED            (IVI_SPECIFIC_ATTR_BASE + 88L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_MARKER_FUNCTION           (IVI_SPECIFIC_ATTR_BASE + 89L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_MARKER_POSITION           (IVI_SPECIFIC_ATTR_BASE + 91L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_MARKER_TRACE              (IVI_SPECIFIC_ATTR_BASE + 92L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_MARKER_TYPE               (IVI_SPECIFIC_ATTR_BASE + 93L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_DELTA_REFERENCE                    (IVI_SPECIFIC_ATTR_BASE + 230L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_FUNCTION_BAND_LEFT                 (IVI_SPECIFIC_ATTR_BASE + 231L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_FUNCTION_BAND_RIGHT                (IVI_SPECIFIC_ATTR_BASE + 232L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_FUNCTION_BAND_SPAN                 (IVI_SPECIFIC_ATTR_BASE + 233L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_COUPLED_ENABLED                    (IVI_SPECIFIC_ATTR_BASE + 234L)  /* ViBoolean, read-write */
+
+/*- Filter */
+
+#define AGXSANBASIC_ATTR_WAVEFORM_FILTER_ALPHA                                    (IVI_SPECIFIC_ATTR_BASE + 101L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_FILTER_BANDWIDTH                                (IVI_SPECIFIC_ATTR_BASE + 102L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_FILTER_BANDWIDTH_AUTO_ENABLED                   (IVI_SPECIFIC_ATTR_BASE + 103L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_FILTER_ANALOG_ANTI_ALIASING_FILTER_TYPE         (IVI_SPECIFIC_ATTR_BASE + 243L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_FILTER_ANALOG_ANTI_ALIASING_FILTER_AUTO_ENABLED (IVI_SPECIFIC_ATTR_BASE + 244L)  /* ViBoolean, read-write */
+
+/*- FastCapture */
+
+#define AGXSANBASIC_ATTR_WAVEFORM_FAST_CAPTURE_BLOCK_SIZE   (IVI_SPECIFIC_ATTR_BASE + 144L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_FAST_CAPTURE_LENGTH       (IVI_SPECIFIC_ATTR_BASE + 145L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_FAST_CAPTURE_POINTER      (IVI_SPECIFIC_ATTR_BASE + 146L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_FAST_CAPTURE_WORD_LENGTH  (IVI_SPECIFIC_ATTR_BASE + 147L)  /* ViInt32, read-write */
+
+/*- Display */
+
+#define AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_VIEW              (IVI_SPECIFIC_ATTR_BASE + 158L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_VIEW_SELECTION    (IVI_SPECIFIC_ATTR_BASE + 159L)  /* ViInt32, read-write */
+
+/*- WindowX */
+
+#define AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_WINDOW_X_AUTO_SCALE_ENABLED (IVI_SPECIFIC_ATTR_BASE + 160L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_WINDOW_X_SCALE              (IVI_SPECIFIC_ATTR_BASE + 161L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_WINDOW_X_REFERENCE          (IVI_SPECIFIC_ATTR_BASE + 162L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_WINDOW_X_REF_POSITION       (IVI_SPECIFIC_ATTR_BASE + 163L)  /* ViInt32, read-write */
+
+/*- WindowY */
+
+#define AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_WINDOW_Y_AUTO_SCALE_ENABLED (IVI_SPECIFIC_ATTR_BASE + 164L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_WINDOW_Y_SCALE              (IVI_SPECIFIC_ATTR_BASE + 165L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_WINDOW_Y_REFERENCE          (IVI_SPECIFIC_ATTR_BASE + 166L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_WINDOW_Y_REF_POSITION       (IVI_SPECIFIC_ATTR_BASE + 167L)  /* ViInt32, read-write */
+
+/*- WindowX */
+
+#define AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_IQWAVEFORM_VIEW_WINDOW_X_REFERENCE          (IVI_SPECIFIC_ATTR_BASE + 168L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_IQWAVEFORM_VIEW_WINDOW_X_AUTO_SCALE_ENABLED (IVI_SPECIFIC_ATTR_BASE + 169L)  /* ViBoolean, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_IQWAVEFORM_VIEW_WINDOW_X_REF_POSITION       (IVI_SPECIFIC_ATTR_BASE + 170L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_IQWAVEFORM_VIEW_WINDOW_X_SCALE              (IVI_SPECIFIC_ATTR_BASE + 171L)  /* ViReal64, read-write */
+
+/*- WindowY */
+
+#define AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_IQWAVEFORM_VIEW_WINDOW_Y_SCALE              (IVI_SPECIFIC_ATTR_BASE + 172L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_IQWAVEFORM_VIEW_WINDOW_Y_REFERENCE          (IVI_SPECIFIC_ATTR_BASE + 173L)  /* ViReal64, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_IQWAVEFORM_VIEW_WINDOW_Y_REF_POSITION       (IVI_SPECIFIC_ATTR_BASE + 174L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_IQWAVEFORM_VIEW_WINDOW_Y_AUTO_SCALE_ENABLED (IVI_SPECIFIC_ATTR_BASE + 175L)  /* ViBoolean, read-write */
+
+/*- System */
+
+#define AGXSANBASIC_ATTR_SYSTEM_IO_TIMEOUT                  (IVI_SPECIFIC_ATTR_BASE + 272L)  /* ViInt32, read-write */
+#define AGXSANBASIC_ATTR_SYSTEM_SERIAL_NUMBER               (IVI_SPECIFIC_ATTR_BASE + 273L)  /* ViString, read-only */
+#define AGXSANBASIC_ATTR_SYSTEM_TRACE_ENABLED               (IVI_SPECIFIC_ATTR_BASE + 274L)  /* ViBoolean, read-write */
+
+
+/**************************************************************************** 
+ *------------------------ Attribute Value Defines -------------------------* 
+ ****************************************************************************/
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_SPECTRUM_AVERAGE_MODE
+	attribute AGXSANBASIC_ATTR_WAVEFORM_AVEREAGE_MODE */
+
+#define AGXSANBASIC_VAL_BASIC_AVERAGING_MODE_EXPONENTIAL    0
+#define AGXSANBASIC_VAL_BASIC_AVERAGING_MODE_REPEAT         1
+
+/*- Defined values for 
+	parameter Method in function AgXSAnBasic_SpectrumTraceCompress
+	parameter Method in function AgXSAnBasic_WaveformTraceCompress */
+
+#define AGXSANBASIC_VAL_BASIC_TRACE_COMPRESS_METHOD_BLOCK     0
+#define AGXSANBASIC_VAL_BASIC_TRACE_COMPRESS_METHOD_CFIT      1
+#define AGXSANBASIC_VAL_BASIC_TRACE_COMPRESS_METHOD_MAXIMUM   2
+#define AGXSANBASIC_VAL_BASIC_TRACE_COMPRESS_METHOD_MEAN      3
+#define AGXSANBASIC_VAL_BASIC_TRACE_COMPRESS_METHOD_MINIMUM   4
+#define AGXSANBASIC_VAL_BASIC_TRACE_COMPRESS_METHOD_RMS       5
+#define AGXSANBASIC_VAL_BASIC_TRACE_COMPRESS_METHOD_SAMPLE    6
+#define AGXSANBASIC_VAL_BASIC_TRACE_COMPRESS_METHOD_DEVIATION 7
+
+/*- Defined values for 
+	parameter Sort in function AgXSAnBasic_SpectrumTracePeaks
+	parameter Sort in function AgXSAnBasic_WaveformTracePeaks */
+
+#define AGXSANBASIC_VAL_BASIC_TRACE_SORT_AMPLITUDE          0
+#define AGXSANBASIC_VAL_BASIC_TRACE_SORT_FREQUENCY          1
+#define AGXSANBASIC_VAL_BASIC_TRACE_SORT_TIME               2
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_INPUT_PORT */
+
+#define AGXSANBASIC_VAL_BASIC_INPUT_PORT_RF                  3
+#define AGXSANBASIC_VAL_BASIC_INPUT_PORT_IF_ALIGN            4
+#define AGXSANBASIC_VAL_BASIC_INPUT_PORT_AMPLITUDE_REFERENCE 5
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_SPECTRUM_MARKER_FUNCTION
+	attribute AGXSANBASIC_ATTR_WAVEFORM_MARKER_FUNCTION */
+
+#define AGXSANBASIC_VAL_BASIC_MARKER_FUNCTION_BAND_POWER    0
+#define AGXSANBASIC_VAL_MARKER_FUNCTION_NOISE               1
+#define AGXSANBASIC_VAL_BASIC_MARKER_FUNCTION_OFF           2
+#define AGXSANBASIC_VAL_MARKER_FUNCTION_BAND_DENSITY        3
+
+/*- Defined values for 
+	parameter SearchType in function AgXSAnBasic_SpectrumMarkerSearch
+	parameter SearchType in function AgXSAnBasic_WaveformMarkerSearch */
+
+#define AGXSANBASIC_VAL_BASIC_MARKER_SEARCH_TYPE_MAX        0
+#define AGXSANBASIC_VAL_BASIC_MARKER_SEARCH_TYPE_MIN        1
+#define AGXSANBASIC_VAL_MARKER_SEARCH_TYPE_NEXT_PEAK        3
+#define AGXSANBASIC_VAL_MARKER_SEARCH_TYPE_NEXT_PEAK_LEFT   2
+#define AGXSANBASIC_VAL_MARKER_SEARCH_TYPE_NEXT_PEAK_RIGHT  4
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_SPECTRUM_MARKER_TYPE
+	attribute AGXSANBASIC_ATTR_WAVEFORM_MARKER_TYPE */
+
+#define AGXSANBASIC_VAL_BASIC_MARKER_TYPE_POSITION          0
+#define AGXSANBASIC_VAL_BASIC_MARKER_TYPE_DELTA             1
+#define AGXSANBASIC_VAL_BASIC_MARKER_TYPE_OFF               2
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_SPECTRUM_AVERAGE_TYPE */
+
+#define AGXSANBASIC_VAL_BASIC_SPECTRUM_AVERAGE_TYPE_MAX     0
+#define AGXSANBASIC_VAL_BASIC_SPECTRUM_AVERAGE_TYPE_MIN     1
+#define AGXSANBASIC_VAL_BASIC_SPECTRUM_AVERAGE_TYPE_RMS     2
+#define AGXSANBASIC_VAL_BASIC_SPECTRUM_AVERAGE_TYPE_SCALAR  3
+#define AGXSANBASIC_VAL_BASIC_SPECTRUM_AVERAGE_TYPE_LOG     4
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_SPECTRUM_FFT_WINDOW */
+
+#define AGXSANBASIC_VAL_BASIC_SPECTRUM_FFT_WINDOW_TYPE_BH4_TAP  0
+#define AGXSANBASIC_VAL_BASIC_SPECTRUM_FFT_WINDOW_TYPE_BLACKMAN 1
+#define AGXSANBASIC_VAL_BASIC_SPECTRUM_FFT_WINDOW_TYPE_FLATTOP  2
+#define AGXSANBASIC_VAL_BASIC_SPECTRUM_FFT_WINDOW_TYPE_GAUSSIAN 3
+#define AGXSANBASIC_VAL_BASIC_SPECTRUM_FFT_WINDOW_TYPE_HAMMING  4
+#define AGXSANBASIC_VAL_BASIC_SPECTRUM_FFT_WINDOW_TYPE_HANNING  5
+#define AGXSANBASIC_VAL_BASIC_SPECTRUM_FFT_WINDOW_TYPE_KB70     6
+#define AGXSANBASIC_VAL_BASIC_SPECTRUM_FFT_WINDOW_TYPE_KB90     7
+#define AGXSANBASIC_VAL_BASIC_SPECTRUM_FFT_WINDOW_TYPE_KB110    8
+#define AGXSANBASIC_VAL_BASIC_SPECTRUM_FFT_WINDOW_TYPE_UNIFORM  9
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_SPECTRUM_MARKER_TRACE
+	parameter Trace in function AgXSAnBasic_SpectrumMarkerConfigureEnabled */
+
+#define AGXSANBASIC_VAL_BASIC_SPECTRUM_TRACE_IQ               0
+#define AGXSANBASIC_VAL_BASIC_SPECTRUM_TRACE_SPECTRUM         1
+#define AGXSANBASIC_VAL_BASIC_SPECTRUM_TRACE_AVERAGE_SPECTRUM 2
+#define AGXSANBASIC_VAL_SPECTRUM_TRACEI                       3
+#define AGXSANBASIC_VAL_SPECTRUM_TRACEQ                       4
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_TRIGGER_EXTERNAL_SLOPE
+	attribute AGXSANBASIC_ATTR_TRIGGER_EXTERNAL2_SLOPE
+	attribute AGXSANBASIC_ATTR_TRIGGER_IF_SLOPE
+	attribute AGXSANBASIC_ATTR_TRIGGER_RF_BURST_SLOPE
+	attribute AGXSANBASIC_ATTR_TRIGGER_EXTERNAL3_SLOPE */
+
+#define AGXSANBASIC_VAL_BASIC_TRIGGER_SLOPE_POSITIVE        0
+#define AGXSANBASIC_VAL_BASIC_TRIGGER_SLOPE_NEGATIVE        1
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_TRIGGER_FRAME_SYNC_SOURCE */
+
+#define AGXSANBASIC_VAL_BASIC_TRIGGER_FRAME_SYNC_SOURCE_EXTERNAL_FRONT 0
+#define AGXSANBASIC_VAL_TRIGGER_FRAME_SYNC_SOURCE_EXTERNAL2            1
+#define AGXSANBASIC_VAL_TRIGGER_FRAME_SYNC_SOURCERF_BURST              3
+#define AGXSANBASIC_VAL_BASIC_TRIGGER_FRAME_SYNC_SOURCE_OFF            2
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_WAVEFORM_AVERAGE_TYPE */
+
+#define AGXSANBASIC_VAL_BASIC_WAVEFORM_AVERAGE_TYPE_MAX     0
+#define AGXSANBASIC_VAL_BASIC_WAVEFORM_AVERAGE_TYPE_MIN     1
+#define AGXSANBASIC_VAL_BASIC_WAVEFORM_AVERAGE_TYPE_RMS     2
+#define AGXSANBASIC_VAL_BASIC_WAVEFORM_AVERAGE_TYPE_MAX_MIN 3
+#define AGXSANBASIC_VAL_BASIC_WAVEFORM_AVERAGE_TYPE_LOG     4
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_WAVEFORM_MARKER_TRACE
+	parameter Trace in function AgXSAnBasic_WaveformMarkerConfigureEnabled */
+
+#define AGXSANBASIC_VAL_BASIC_WAVEFORM_TRACE_RF_ENVELOPE    0
+#define AGXSANBASIC_VAL_BASIC_WAVEFORM_TRACE_IQ             1
+#define AGXSANBASIC_VAL_WAVEFORM_TRACEI                     2
+#define AGXSANBASIC_VAL_WAVEFORM_TRACEQ                     3
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_SPECTRUM_TRIGGER_SOURCE
+	attribute AGXSANBASIC_ATTR_WAVEFORM_TRIGGER_SOURCE */
+
+#define AGXSANBASIC_VAL_BASIC_TRIGGER_SOURCE_EXTERNAL_FRONT    0
+#define AGXSANBASIC_VAL_BASIC_TRIGGER_SOURCE_EXTERNAL_REAR     1
+#define AGXSANBASIC_VAL_BASIC_TRIGGER_SOURCE_FRAME             2
+#define AGXSANBASIC_VAL_BASIC_TRIGGER_SOURCE_IF                3
+#define AGXSANBASIC_VAL_BASIC_TRIGGER_SOURCE_IMMEDIATE         4
+#define AGXSANBASIC_VAL_BASIC_TRIGGER_SOURCE_LINE              5
+#define AGXSANBASIC_VAL_BASIC_TRIGGER_SOURCE_RF_BURST          6
+#define AGXSANBASIC_VAL_BASIC_TRIGGER_SOURCE_LXI_LAN_TRIGGER   7
+#define AGXSANBASIC_VAL_BASIC_TRIGGER_SOURCE_LXI_ALARM_TRIGGER 8
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_SPECTRUM_IF_GAIN
+	attribute AGXSANBASIC_ATTR_WAVEFORM_IF_GAIN */
+
+#define AGXSANBASIC_VAL_IF_GAIN_AUTO_RANGE                  0
+#define AGXSANBASIC_VAL_IF_GAIN_LOW                         1
+#define AGXSANBASIC_VAL_IF_GAIN_HIGH                        2
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_SPECTRUM_BANDWIDTH_ACQUISITION_SHAPE
+	attribute AGXSANBASIC_ATTR_WAVEFORM_BANDWIDTH_SHAPE */
+
+#define AGXSANBASIC_VAL_BANDWIDTH_SHAPE_GAUSSIAN            0
+#define AGXSANBASIC_VAL_BANDWIDTH_SHAPE_FLATTOP             1
+#define AGXSANBASIC_VAL_BANDWIDTH_SHAPE_SHORT_NYQUIST       2
+#define AGXSANBASIC_VAL_BANDWIDTH_SHAPE_ROOT_SHORT_NYQUIST  3
+#define AGXSANBASIC_VAL_BANDWIDTH_SHAPE_RAISED_COSINE       4
+#define AGXSANBASIC_VAL_BANDWIDTH_SHAPE_ROOT_RAISED_COSINE  5
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_INPUT_IF_PATH */
+
+#define AGXSANBASIC_VAL_INPUTIF_PATH10M_HZ                  0
+#define AGXSANBASIC_VAL_INPUTIF_PATH25M_HZ                  1
+#define AGXSANBASIC_VAL_INPUTIF_PATH40M_HZ                  2
+#define AGXSANBASIC_VAL_INPUTIF_PATH140M_HZ                 3
+#define AGXSANBASIC_VAL_INPUTIF_PATH160M_HZ                 4
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_SPECTRUM_FAST_CAPTURE_WORD_LENGTH
+	attribute AGXSANBASIC_ATTR_WAVEFORM_FAST_CAPTURE_WORD_LENGTH */
+
+#define AGXSANBASIC_VAL_FAST_CAPTURE_WORD_LENGTH_AUTO       0
+#define AGXSANBASIC_VAL_FAST_CAPTURE_WORD_LENGTH_BIT32      1
+#define AGXSANBASIC_VAL_FAST_CAPTURE_WORD_LENGTH_BIT64      2
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_SPECTRUM_MARKER_PEAK_SEARCH_MODE */
+
+#define AGXSANBASIC_VAL_MARKER_PEAK_SEARCH_MODE_MAXIMUM     0
+#define AGXSANBASIC_VAL_MARKER_PEAK_SEARCH_MODE_PARAMETER   1
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_SPECTRUM_DISPLAY_WINDOW_X_REF_POSITION
+	attribute AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_WINDOW_X_REF_POSITION
+	attribute AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_IQWAVEFORM_VIEW_WINDOW_X_REF_POSITION */
+
+#define AGXSANBASIC_VAL_DISPLAY_WINDOWX_REF_POSITION_LEFT   0
+#define AGXSANBASIC_VAL_DISPLAY_WINDOWX_REF_POSITION_CENTER 1
+#define AGXSANBASIC_VAL_DISPLAY_WINDOWX_REF_POSITION_RIGHT  2
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_SPECTRUM_DISPLAY_WINDOW_Y_REF_POSITION2
+	attribute AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_WINDOW_Y_REF_POSITION
+	attribute AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_IQWAVEFORM_VIEW_WINDOW_Y_REF_POSITION */
+
+#define AGXSANBASIC_VAL_DISPLAY_WINDOWY_REF_POSITION_TOP    0
+#define AGXSANBASIC_VAL_DISPLAY_WINDOWY_REF_POSITION_CENTER 1
+#define AGXSANBASIC_VAL_DISPLAY_WINDOWY_REF_POSITION_BOTTOM 2
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_VIEW_SELECTION */
+
+#define AGXSANBASIC_VAL_WAVEFORM_TRACE_TYPERF_ENVELOPE      0
+#define AGXSANBASIC_VAL_WAVEFORM_TRACE_TYPEIQ               1
+#define AGXSANBASIC_VAL_WAVEFORM_TRACE_TYPEI                2
+#define AGXSANBASIC_VAL_WAVEFORM_TRACE_TYPEQ                3
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_TRIGGER_IDEMODULATED_SLOPE
+	attribute AGXSANBASIC_ATTR_TRIGGER_QDEMODULATED_SLOPE */
+
+#define AGXSANBASIC_VAL_TRIGGERQ_DEMODULATED_TRIGGER_POLARITY_POSITIVE 0
+#define AGXSANBASIC_VAL_TRIGGERQ_DEMODULATED_TRIGGER_POLARITY_NEGATIVE 1
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_TRIGGER_HOLDOFF_TYPE */
+
+#define AGXSANBASIC_VAL_TRIGGER_HOLD_OFF_TYPE_NORMAL        0
+#define AGXSANBASIC_VAL_TRIGGER_HOLD_OFF_TYPE_ABOVE         1
+#define AGXSANBASIC_VAL_TRIGGER_HOLD_OFF_TYPE_BELOW         2
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_TRIGGER_IQMAGNITUDE_SLOPE */
+
+#define AGXSANBASIC_VAL_TRIGGERIQ_MAGNITUDE_TRIGGER_POLARITY_POSITIVE 0
+#define AGXSANBASIC_VAL_TRIGGERIQ_MAGNITUDE_TRIGGER_POLARITY_NEGATIVE 1
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_TRIGGER_INPUTI_SLOPE */
+
+#define AGXSANBASIC_VAL_TRIGGER_INPUTI_TRIGGER_POLARITY_POSITIVE 0
+#define AGXSANBASIC_VAL_TRIGGER_INPUTI_TRIGGER_POLARITY_NEGATIVE 1
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_TRIGGER_INPUTQ_SLOPE */
+
+#define AGXSANBASIC_VAL_TRIGGER_INPUTQ_TRIGGER_POLARITY_POSITIVE 0
+#define AGXSANBASIC_VAL_TRIGGER_INPUTQ_TRIGGER_POLARITY_NEGATIVE 1
+
+/*- Defined values for */
+
+#define AGXSANBASIC_VAL_TRIGGERQ_MAGNITUDE_TRIGGER_POLARITY_POSITIVE 0
+#define AGXSANBASIC_VAL_TRIGGERQ_MAGNITUDE_TRIGGER_POLARITY_NEGATIVE 1
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_TRIGGER_LEVEL_TYPE */
+
+#define AGXSANBASIC_VAL_TRIGGERRF_BURST_LEVEL_TYPE_ABSOLUTE 0
+#define AGXSANBASIC_VAL_TRIGGERRF_BURST_LEVEL_TYPE_RELATIVE 1
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_TRIGGER_LINE_SLOPE
+	parameter Polarity in function AgXSAnBasic_TriggerSetOutputPolarity
+	parameter Val in function AgXSAnBasic_TriggerGetOutputPolarity */
+
+#define AGXSANBASIC_VAL_POLARITY_POSITIVE                   0
+#define AGXSANBASIC_VAL_POLARITY_NEGATIVE                   1
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_TRIGGER_AIQMAGNITUDE_SLOPE */
+
+#define AGXSANBASIC_VAL_TRIGGERAIQ_MAGNITUDE_TRIGGER_POLARITY_POSITIVE 0
+#define AGXSANBASIC_VAL_TRIGGERAIQ_MAGNITUDE_TRIGGER_POLARITY_NEGATIVE 1
+
+/*- Defined values for 
+	parameter TriggerType in function AgXSAnBasic_TriggerSetOutput
+	parameter Val in function AgXSAnBasic_TriggerGetOutput */
+
+#define AGXSANBASIC_VAL_TRIGGER_OUTPUTHSWP                  0
+#define AGXSANBASIC_VAL_TRIGGER_OUTPUT_MEASURING            1
+#define AGXSANBASIC_VAL_TRIGGER_OUTPUT_MAIN                 2
+#define AGXSANBASIC_VAL_TRIGGER_OUTPUT_GATE                 3
+#define AGXSANBASIC_VAL_TRIGGER_OUTPUTG_TRIGGER             4
+#define AGXSANBASIC_VAL_TRIGGER_OUTPUTO_EVEN                5
+#define AGXSANBASIC_VAL_TRIGGER_OUTPUTS_SWEEP               6
+#define AGXSANBASIC_VAL_TRIGGER_OUTPUTS_SETTLED             7
+#define AGXSANBASIC_VAL_TRIGGER_OUTPUTS1_MARKER             8
+#define AGXSANBASIC_VAL_TRIGGER_OUTPUTS2_MARKER             9
+#define AGXSANBASIC_VAL_TRIGGER_OUTPUTS3_MARKER             10
+#define AGXSANBASIC_VAL_TRIGGER_OUTPUTS4_MARKER             11
+#define AGXSANBASIC_VAL_TRIGGER_OUTPUT_OFF                  12
+#define AGXSANBASIC_VAL_TRIGGER_OUTPUTS_POINT               13
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_INPUT_IQ_IMPEDANCE */
+
+#define AGXSANBASIC_VAL_INPUTIQ_IMPEDANCE_TYPE_BALANCE1_MEGA_OHM    0
+#define AGXSANBASIC_VAL_INPUTIQ_IMPEDANCE_TYPE_BALANCE50_OHM        1
+#define AGXSANBASIC_VAL_INPUTIQ_IMPEDANCE_TYPE_UN_BALANCE1_MEGA_OHM 2
+#define AGXSANBASIC_VAL_INPUTIQ_IMPEDANCE_TYPE_UN_BALANCE50_OHM     3
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_INPUT_IQ_I_IMPEDANCE
+	attribute AGXSANBASIC_ATTR_INPUT_IQ_Q_IMPEDANCE */
+
+#define AGXSANBASIC_VAL_INPUT_IMPEDANCE_TYPE_HIGH           0
+#define AGXSANBASIC_VAL_INPUT_IMPEDANCE_TYPE_LOW            1
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_INPUT_IQ_I_COUPLING
+	attribute AGXSANBASIC_ATTR_INPUT_IQ_Q_COUPLING */
+
+#define AGXSANBASIC_VAL_INPUTIQ_COUPLINGDC                  0
+#define AGXSANBASIC_VAL_INPUTIQ_COUPLINGLFR1                1
+#define AGXSANBASIC_VAL_INPUTIQ_COUPLINGLFR2                2
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_INPUT_IQ_COUPLING */
+
+#define AGXSANBASIC_VAL_INPUT_COUPLINGAC                    0
+#define AGXSANBASIC_VAL_INPUT_COUPLINGDC                    1
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_SPECTRUM_FILTER_ANALOG_ANTI_ALIASING_FILTER_TYPE */
+
+#define AGXSANBASIC_VAL_SPECTRUM_ANALOG_ANTI_ALIASING_FILTER_TYPEF36 0
+#define AGXSANBASIC_VAL_SPECTRUM_ANALOG_ANTI_ALIASING_FILTER_TYPEF80 1
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_WAVEFORM_FILTER_ANALOG_ANTI_ALIASING_FILTER_TYPE */
+
+#define AGXSANBASIC_VAL_WAVEFORM_ANTI_ALIASING_FILTER_TYPEF36 0
+#define AGXSANBASIC_VAL_WAVEFORM_ANTI_ALIASING_FILTER_TYPEF80 1
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_WAVEFORM_FREQUENCY_SYNTHESIS_STATE */
+
+#define AGXSANBASIC_VAL_WAVEFORM_FREQUENCY_SYNTHESIS_STATE1 0
+#define AGXSANBASIC_VAL_WAVEFORM_FREQUENCY_SYNTHESIS_STATE2 1
+#define AGXSANBASIC_VAL_WAVEFORM_FREQUENCY_SYNTHESIS_STATE3 2
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_SPECTRUM_LO_MIXING_MODE_ENABLED */
+
+#define AGXSANBASIC_VAL_SPECTRUMLO_MIXING_MODE_NORMAL       0
+#define AGXSANBASIC_VAL_SPECTRUMLO_MIXING_MODE_ALTERNATE    1
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_WAVEFORM_LO_MIXING_TYPE */
+
+#define AGXSANBASIC_VAL_WAVEFORMLO_MIXING_MODE_NORMAL       0
+#define AGXSANBASIC_VAL_WAVEFORMLO_MIXING_MODE_ALTERNATE    1
+
+/*- Defined values for 
+	attribute AGXSANBASIC_ATTR_SPECTRUM_FREQUENCY_SYNTHESIS_STATE */
+
+#define AGXSANBASIC_VAL_SPECTRUM_FREQUENCY_SYNTHESIS_STATE1 0
+#define AGXSANBASIC_VAL_SPECTRUM_FREQUENCY_SYNTHESIS_STATE2 1
+#define AGXSANBASIC_VAL_SPECTRUM_FREQUENCY_SYNTHESIS_STATE3 2
+#define AGXSANBASIC_VAL_SPECTRUM_FREQUENCY_SYNTHESIS_STATE4 3
+#define AGXSANBASIC_VAL_SPECTRUM_FREQUENCY_SYNTHESIS_STATE5 4
+
+/*- Defined values for 
+	parameter Register in function AgXSAnBasic_StatusGetRegister
+	parameter Register in function AgXSAnBasic_StatusSetRegister */
+
+#define AGXSANBASIC_VAL_STATUS_REGISTER_STANDARD_EVENT                                                11
+#define AGXSANBASIC_VAL_STATUS_REGISTER_STANDARD_EVENT_ENABLE                                         12
+#define AGXSANBASIC_VAL_STATUS_REGISTER_STATUS_BYTE                                                   13
+#define AGXSANBASIC_VAL_STATUS_REGISTER_SERVICE_REQUEST_ENABLE                                        10
+#define AGXSANBASIC_VAL_STATUS_REGISTER_OPERATION_CONDITION                                           0
+#define AGXSANBASIC_VAL_STATUS_REGISTER_OPERATION_EVENT                                               2
+#define AGXSANBASIC_VAL_STATUS_REGISTER_OPERATION_NEGATIVE_TRANSITION                                 3
+#define AGXSANBASIC_VAL_STATUS_REGISTER_OPERATION_POSITIVE_TRANSITION                                 4
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_CONDITION                                        5
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_EVENT                                            7
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_NEGATIVE_TRANSITION                              8
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_POSITIVE_TRANSITION                              9
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_ENABLE                                           6
+#define AGXSANBASIC_VAL_STATUS_REGISTER_OPERATION_ENABLE                                              1
+#define AGXSANBASIC_VAL_STATUS_REGISTER_OPERATION_INSTRUMENT_CONDITION                                14
+#define AGXSANBASIC_VAL_STATUS_REGISTER_OPERATION_INSTRUMENT_ENABLE                                   15
+#define AGXSANBASIC_VAL_STATUS_REGISTER_OPERATION_INSTRUMENT_EVENT                                    16
+#define AGXSANBASIC_VAL_STATUS_REGISTER_OPERATION_INSTRUMENT_NEGATIVE_TRANSITION                      17
+#define AGXSANBASIC_VAL_STATUS_REGISTER_OPERATION_INSTRUMENT_POSITIVE_TRANSITION                      18
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_CALIBRATION_CONDITION                            19
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_CALIBRATION_ENABLE                               20
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_CALIBRATION_EVENT                                21
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_CALIBRATION_EXTENDED_FAILURE_CONDITION           22
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_CALIBRATION_EXTENDED_FAILURE_ENABLE              23
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_CALIBRATION_EXTENDED_FAILURE_EVENT               24
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_CALIBRATION_EXTENDED_FAILURE_NEGATIVE_TRANSITION 25
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_CALIBRATION_EXTENDED_FAILURE_POSITIVE_TRANSITION 26
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_CALIBRATION_EXTENDED_NEEDED_CONDITION            27
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_CALIBRATION_EXTENDED_NEEDED_ENABLE               28
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_CALIBRATION_EXTENDED_NEEDED_EVENT                29
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_CALIBRATION_EXTENDED_NEEDED_NEGATIVE_TRANSITION  30
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_CALIBRATION_EXTENDED_NEEDED_POSITIVE_TRANSITION  31
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_CALIBRATION_NEGATIVE_TRANSITION                  32
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_CALIBRATION_POSITIVE_TRANSITION                  33
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_CALIBRATION_SKIPPED_CONDITION                    34
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_CALIBRATION_SKIPPED_ENABLE                       35
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_CALIBRATION_SKIPPED_EVENT                        36
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_CALIBRATION_SKIPPED_NEGATIVE_TRANSITION          37
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_CALIBRATION_SKIPPED_POSITIVE_TRANSITION          38
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_FREQUENCY_CONDITION                              39
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_FREQUENCY_ENABLE                                 40
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_FREQUENCY_EVENT                                  41
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_FREQUENCY_NEGATIVE_TRANSITION                    42
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_FREQUENCY_POSITIVE_TRANSITION                    43
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_INTEGRITY_CONDITION                              44
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_INTEGRITY_ENABLE                                 45
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_INTEGRITY_EVENT                                  46
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_INTEGRITY_NEGATIVE_TRANSITION                    47
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_INTEGRITY_POSITIVE_TRANSITION                    48
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_INTEGRITY_SIGNAL_CONDITION                       49
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_INTEGRITY_SIGNAL_ENABLE                          50
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_INTEGRITY_SIGNAL_EVENT                           51
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_INTEGRITY_SIGNAL_NEGATIVE_TRANSITION             52
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_INTEGRITY_SIGNAL_POSITIVE_TRANSITION             53
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_INTEGRITY_UN_CALIBRATED_CONDITION                54
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_INTEGRITY_UN_CALIBRATED_ENABLE                   55
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_INTEGRITY_UN_CALIBRATED_EVENT                    56
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_INTEGRITY_UN_CALIBRATED_NEGATIVE_TRANSITION      57
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_INTEGRITY_UN_CALIBRATED_POSITIVE_TRANSITION      58
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_POWER_CONDITION                                  59
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_POWER_ENABLE                                     60
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_POWER_EVENT                                      61
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_POWER_NEGATIVE_TRANSITION                        62
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_POWER_POSITIVE_TRANSITION                        63
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_TEMPERATURE_CONDITION                            64
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_TEMPERATURE_ENABLE                               65
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_TEMPERATURE_EVENT                                66
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_TEMPERATURE_NEGATIVE_TRANSITION                  67
+#define AGXSANBASIC_VAL_STATUS_REGISTER_QUESTIONABLE_TEMPERATURE_POSITIVE_TRANSITION                  68
+
+
+/**************************************************************************** 
+ *---------------- Instrument Driver Function Declarations -----------------* 
+ ****************************************************************************/
+
+/*- AgXSAnBasic */
+
+ViStatus _VI_FUNC AgXSAnBasic_init(ViRsrc ResourceName, ViBoolean IdQuery, ViBoolean Reset, ViSession* Vi);
+ViStatus _VI_FUNC AgXSAnBasic_close(ViSession Vi);
+ViStatus _VI_FUNC AgXSAnBasic_InitWithOptions(ViRsrc ResourceName, ViBoolean IdQuery, ViBoolean Reset, ViConstString OptionsString, ViSession* Vi);
+
+/*- Utility */
+
+ViStatus _VI_FUNC AgXSAnBasic_revision_query(ViSession Vi, ViChar DriverRev[], ViChar InstrRev[]);
+ViStatus _VI_FUNC AgXSAnBasic_error_message(ViSession Vi, ViStatus ErrorCode, ViChar ErrorMessage[]);
+ViStatus _VI_FUNC AgXSAnBasic_GetError(ViSession Vi, ViStatus* ErrorCode, ViInt32 ErrorDescriptionBufferSize, ViChar ErrorDescription[]);
+ViStatus _VI_FUNC AgXSAnBasic_ClearError(ViSession Vi);
+ViStatus _VI_FUNC AgXSAnBasic_GetNextCoercionRecord(ViSession Vi, ViInt32 CoercionRecordBufferSize, ViChar CoercionRecord[]);
+ViStatus _VI_FUNC AgXSAnBasic_InvalidateAllAttributes(ViSession Vi);
+ViStatus _VI_FUNC AgXSAnBasic_Disable(ViSession Vi);
+ViStatus _VI_FUNC AgXSAnBasic_error_query(ViSession Vi, ViInt32* ErrorCode, ViChar ErrorMessage[]);
+ViStatus _VI_FUNC AgXSAnBasic_LockSession(ViSession Vi, ViBoolean* CallerHasLock);
+ViStatus _VI_FUNC AgXSAnBasic_reset(ViSession Vi);
+ViStatus _VI_FUNC AgXSAnBasic_ResetWithDefaults(ViSession Vi);
+ViStatus _VI_FUNC AgXSAnBasic_self_test(ViSession Vi, ViInt16* TestResult, ViChar TestMessage[]);
+ViStatus _VI_FUNC AgXSAnBasic_UnlockSession(ViSession Vi, ViBoolean* CallerHasLock);
+
+/*- Attribute Accessors */
+
+ViStatus _VI_FUNC AgXSAnBasic_GetAttributeViInt32(ViSession Vi, ViConstString RepCapIdentifier, ViAttr AttributeID, ViInt32* AttributeValue);
+ViStatus _VI_FUNC AgXSAnBasic_GetAttributeViReal64(ViSession Vi, ViConstString RepCapIdentifier, ViAttr AttributeID, ViReal64* AttributeValue);
+ViStatus _VI_FUNC AgXSAnBasic_GetAttributeViBoolean(ViSession Vi, ViConstString RepCapIdentifier, ViAttr AttributeID, ViBoolean* AttributeValue);
+ViStatus _VI_FUNC AgXSAnBasic_GetAttributeViSession(ViSession Vi, ViConstString RepCapIdentifier, ViAttr AttributeID, ViSession* AttributeValue);
+ViStatus _VI_FUNC AgXSAnBasic_GetAttributeViString(ViSession Vi, ViConstString RepCapIdentifier, ViAttr AttributeID, ViInt32 AttributeValueBufferSize, ViChar AttributeValue[]);
+ViStatus _VI_FUNC AgXSAnBasic_SetAttributeViInt32(ViSession Vi, ViConstString RepCapIdentifier, ViAttr AttributeID, ViInt32 AttributeValue);
+ViStatus _VI_FUNC AgXSAnBasic_SetAttributeViReal64(ViSession Vi, ViConstString RepCapIdentifier, ViAttr AttributeID, ViReal64 AttributeValue);
+ViStatus _VI_FUNC AgXSAnBasic_SetAttributeViBoolean(ViSession Vi, ViConstString RepCapIdentifier, ViAttr AttributeID, ViBoolean AttributeValue);
+ViStatus _VI_FUNC AgXSAnBasic_SetAttributeViSession(ViSession Vi, ViConstString RepCapIdentifier, ViAttr AttributeID, ViSession AttributeValue);
+ViStatus _VI_FUNC AgXSAnBasic_SetAttributeViString(ViSession Vi, ViConstString RepCapIdentifier, ViAttr AttributeID, ViConstString AttributeValue);
+
+/*- Spectrum */
+
+ViStatus _VI_FUNC AgXSAnBasic_SpectrumConfigure(ViSession Vi);
+
+/*- Marker */
+
+ViStatus _VI_FUNC AgXSAnBasic_SpectrumMarkerConfigureEnabled(ViSession Vi, ViBoolean Enabled, ViInt32 Trace);
+ViStatus _VI_FUNC AgXSAnBasic_SpectrumMarkerDisableAll(ViSession Vi);
+ViStatus _VI_FUNC AgXSAnBasic_SpectrumMarkerQuery(ViSession Vi, ViReal64* pPosition, ViReal64* pAmplitude);
+ViStatus _VI_FUNC AgXSAnBasic_SpectrumMarkerSearch(ViSession Vi, ViInt32 SearchType);
+
+/*- Trace */
+
+ViStatus _VI_FUNC AgXSAnBasic_SpectrumTraceAbort(ViSession Vi);
+ViStatus _VI_FUNC AgXSAnBasic_SpectrumTraceInitiate(ViSession Vi);
+ViStatus _VI_FUNC AgXSAnBasic_SpectrumTraceCompress(ViSession Vi, ViConstString SpectrumTrace, ViInt32 Method, ViReal64 StartOffset, ViReal64 Length, ViReal64 RepeatOffset, ViInt32 RepeatLimit, ViInt32 ValBufferSize, ViReal64 Val[], ViInt32* ValActualSize);
+ViStatus _VI_FUNC AgXSAnBasic_SpectrumTraceFetch(ViSession Vi, ViConstString SpectrumTrace, ViInt32 ValBufferSize, ViReal64 Val[], ViInt32* ValActualSize);
+ViStatus _VI_FUNC AgXSAnBasic_SpectrumTracePeaks(ViSession Vi, ViConstString SpectrumTrace, ViReal64 Threshold, ViReal64 Excursion, ViInt32 Sort, ViInt32 ValBufferSize, ViReal64 Val[], ViInt32* ValActualSize);
+ViStatus _VI_FUNC AgXSAnBasic_SpectrumTraceRead(ViSession Vi, ViConstString SpectrumTrace, ViInt32 MaxTimeMilliseconds, ViInt32 ValBufferSize, ViReal64 Val[], ViInt32* ValActualSize);
+
+/*- FastCapture */
+
+ViStatus _VI_FUNC AgXSAnBasic_SpectrumFastCaptureAbort(ViSession Vi);
+ViStatus _VI_FUNC AgXSAnBasic_SpectrumFastCaptureFetch(ViSession Vi, ViInt32 ValBufferSize, ViReal64 Val[], ViInt32* ValActualSize);
+ViStatus _VI_FUNC AgXSAnBasic_SpectrumFastCaptureInitiate(ViSession Vi);
+ViStatus _VI_FUNC AgXSAnBasic_SpectrumFastCaptureRead(ViSession Vi, ViInt32 Length, ViInt32 BlockSize, ViInt32 ValBufferSize, ViReal64 Val[], ViInt32* ValActualSize);
+
+/*- SpectrumWindow */
+
+ViStatus _VI_FUNC AgXSAnBasic_GetSpectrumWindowName(ViSession Vi, ViInt32 Index, ViInt32 NameBufferSize, ViChar Name[]);
+
+/*- Trigger */
+
+ViStatus _VI_FUNC AgXSAnBasic_TriggerSetOutput(ViSession Vi, ViInt32 RearTriggerNo, ViInt32 TriggerType);
+ViStatus _VI_FUNC AgXSAnBasic_TriggerSetOutputPolarity(ViSession Vi, ViInt32 RearTriggerNo, ViInt32 Polarity);
+ViStatus _VI_FUNC AgXSAnBasic_TriggerGetOutput(ViSession Vi, ViInt32 RearTriggerNo, ViInt32* Val);
+ViStatus _VI_FUNC AgXSAnBasic_TriggerGetOutputPolarity(ViSession Vi, ViInt32 RearTriggerNo, ViInt32* Val);
+
+/*- Frame */
+
+ViStatus _VI_FUNC AgXSAnBasic_TriggerFrameAdjust(ViSession Vi, ViReal64 Time);
+ViStatus _VI_FUNC AgXSAnBasic_TriggerFrameReset(ViSession Vi);
+
+/*- Waveform */
+
+ViStatus _VI_FUNC AgXSAnBasic_WaveformConfigure(ViSession Vi);
+
+/*- Marker */
+
+ViStatus _VI_FUNC AgXSAnBasic_WaveformMarkerConfigureEnabled(ViSession Vi, ViBoolean Enabled, ViInt32 Trace);
+ViStatus _VI_FUNC AgXSAnBasic_WavefromMarkerDisableAll(ViSession Vi);
+ViStatus _VI_FUNC AgXSAnBasic_WaveformMarkerQuery(ViSession Vi, ViReal64* pPosition, ViReal64* pAmplitude);
+ViStatus _VI_FUNC AgXSAnBasic_WaveformMarkerSearch(ViSession Vi, ViInt32 SearchType);
+
+/*- Trace */
+
+ViStatus _VI_FUNC AgXSAnBasic_WaveformTraceAbort(ViSession Vi);
+ViStatus _VI_FUNC AgXSAnBasic_WaveformTraceInitiate(ViSession Vi);
+ViStatus _VI_FUNC AgXSAnBasic_WaveformTraceCompress(ViSession Vi, ViConstString WaveformTrace, ViInt32 Method, ViReal64 StartOffset, ViReal64 Length, ViReal64 RepeatOffset, ViInt32 RepeatLimit, ViInt32 ValBufferSize, ViReal64 Val[], ViInt32* ValActualSize);
+ViStatus _VI_FUNC AgXSAnBasic_WaveformTraceFetch(ViSession Vi, ViConstString WaveformTrace, ViInt32 ValBufferSize, ViReal64 Val[], ViInt32* ValActualSize);
+ViStatus _VI_FUNC AgXSAnBasic_WaveformTracePeaks(ViSession Vi, ViConstString WaveformTrace, ViReal64 Threshold, ViReal64 Excursion, ViInt32 Sort, ViInt32 ValBufferSize, ViReal64 Val[], ViInt32* ValActualSize);
+ViStatus _VI_FUNC AgXSAnBasic_WaveformTraceRead(ViSession Vi, ViConstString WaveformTrace, ViInt32 MaxTimeMilliseconds, ViInt32 ValBufferSize, ViReal64 Val[], ViInt32* ValActualSize);
+
+/*- FastCapture */
+
+ViStatus _VI_FUNC AgXSAnBasic_WaveformFastCaptureAbort(ViSession Vi);
+ViStatus _VI_FUNC AgXSAnBasic_WaveformFastCaptureFetch(ViSession Vi, ViInt32 ValBufferSize, ViReal64 Val[], ViInt32* ValActualSize);
+ViStatus _VI_FUNC AgXSAnBasic_WaveformFastCaptureInitiate(ViSession Vi);
+ViStatus _VI_FUNC AgXSAnBasic_WaveformFastCaptureRead(ViSession Vi, ViInt32 Length, ViInt32 BlockSize, ViInt32 ValBufferSize, ViReal64 Val[], ViInt32* ValActualSize);
+
+/*- Status */
+
+ViStatus _VI_FUNC AgXSAnBasic_StatusClear(ViSession Vi);
+ViStatus _VI_FUNC AgXSAnBasic_StatusGetRegister(ViSession Vi, ViInt32 Register, ViInt16* Val);
+ViStatus _VI_FUNC AgXSAnBasic_StatusPreset(ViSession Vi);
+ViStatus _VI_FUNC AgXSAnBasic_StatusSerialPoll(ViSession Vi, ViByte* Val);
+ViStatus _VI_FUNC AgXSAnBasic_StatusSetRegister(ViSession Vi, ViInt32 Register, ViInt16 Value);
+
+/*- System */
+
+ViStatus _VI_FUNC AgXSAnBasic_SystemClearIO(ViSession Vi);
+ViStatus _VI_FUNC AgXSAnBasic_viRead(ViSession Vi, ViInt64 BufferSize, ViByte Buffer[], ViInt64* ReturnCount);
+ViStatus _VI_FUNC AgXSAnBasic_SystemReadString(ViSession Vi, ViInt32 ValBufferSize, ViChar Val[]);
+ViStatus _VI_FUNC AgXSAnBasic_SystemRecallState(ViSession Vi, ViInt32 Identifier);
+ViStatus _VI_FUNC AgXSAnBasic_SystemSaveState(ViSession Vi, ViReal64 Identifier);
+ViStatus _VI_FUNC AgXSAnBasic_SystemWait(ViSession Vi);
+ViStatus _VI_FUNC AgXSAnBasic_viWrite(ViSession Vi, ViInt64 Count, ViByte Buffer[], ViInt64* ReturnCount);
+ViStatus _VI_FUNC AgXSAnBasic_SystemWaitForOperationComplete(ViSession Vi, ViInt32 MaxTimeMilliseconds);
+ViStatus _VI_FUNC AgXSAnBasic_SystemWriteString(ViSession Vi, ViConstString Data);
+ViStatus _VI_FUNC AgXSAnBasic_SystemResetActiveMode(ViSession Vi);
+ViStatus _VI_FUNC AgXSAnBasic_SystemUserPresetAllModes(ViSession Vi);
+
+
+/**************************************************************************** 
+ *----------------- Instrument Error And Completion Codes ------------------* 
+ ****************************************************************************/
+#ifndef _IVIC_ERROR_BASE_DEFINES_
+#define _IVIC_ERROR_BASE_DEFINES_
+
+#define IVIC_WARN_BASE                           (0x3FFA0000L)
+#define IVIC_CROSS_CLASS_WARN_BASE               (IVIC_WARN_BASE + 0x1000)
+#define IVIC_CLASS_WARN_BASE                     (IVIC_WARN_BASE + 0x2000)
+#define IVIC_SPECIFIC_WARN_BASE                  (IVIC_WARN_BASE + 0x4000)
+
+#define IVIC_ERROR_BASE                          (0xBFFA0000L)
+#define IVIC_CROSS_CLASS_ERROR_BASE              (IVIC_ERROR_BASE + 0x1000)
+#define IVIC_CLASS_ERROR_BASE                    (IVIC_ERROR_BASE + 0x2000)
+#define IVIC_SPECIFIC_ERROR_BASE                 (IVIC_ERROR_BASE + 0x4000)
+#define IVIC_LXISYNC_ERROR_BASE                  (IVIC_ERROR_BASE + 0x2000)
+
+#endif
+
+
+#define AGXSANBASIC_ERROR_CANNOT_RECOVER                       (IVIC_ERROR_BASE + 0x0000)
+#define AGXSANBASIC_ERROR_INSTRUMENT_STATUS                    (IVIC_ERROR_BASE + 0x0001)
+#define AGXSANBASIC_ERROR_CANNOT_OPEN_FILE                     (IVIC_ERROR_BASE + 0x0002)
+#define AGXSANBASIC_ERROR_READING_FILE                         (IVIC_ERROR_BASE + 0x0003)
+#define AGXSANBASIC_ERROR_WRITING_FILE                         (IVIC_ERROR_BASE + 0x0004)
+#define AGXSANBASIC_ERROR_INVALID_PATHNAME                     (IVIC_ERROR_BASE + 0x000B)
+#define AGXSANBASIC_ERROR_INVALID_VALUE                        (IVIC_ERROR_BASE + 0x0010)
+#define AGXSANBASIC_ERROR_FUNCTION_NOT_SUPPORTED               (IVIC_ERROR_BASE + 0x0011)
+#define AGXSANBASIC_ERROR_ATTRIBUTE_NOT_SUPPORTED              (IVIC_ERROR_BASE + 0x0012)
+#define AGXSANBASIC_ERROR_VALUE_NOT_SUPPORTED                  (IVIC_ERROR_BASE + 0x0013)
+#define AGXSANBASIC_ERROR_NOT_INITIALIZED                      (IVIC_ERROR_BASE + 0x001D)
+#define AGXSANBASIC_ERROR_UNKNOWN_CHANNEL_NAME                 (IVIC_ERROR_BASE + 0x0020)
+#define AGXSANBASIC_ERROR_TOO_MANY_OPEN_FILES                  (IVIC_ERROR_BASE + 0x0023)
+#define AGXSANBASIC_ERROR_CHANNEL_NAME_REQUIRED                (IVIC_ERROR_BASE + 0x0044)
+#define AGXSANBASIC_ERROR_MISSING_OPTION_NAME                  (IVIC_ERROR_BASE + 0x0049)
+#define AGXSANBASIC_ERROR_MISSING_OPTION_VALUE                 (IVIC_ERROR_BASE + 0x004A)
+#define AGXSANBASIC_ERROR_BAD_OPTION_NAME                      (IVIC_ERROR_BASE + 0x004B)
+#define AGXSANBASIC_ERROR_BAD_OPTION_VALUE                     (IVIC_ERROR_BASE + 0x004C)
+#define AGXSANBASIC_ERROR_OUT_OF_MEMORY                        (IVIC_ERROR_BASE + 0x0056)
+#define AGXSANBASIC_ERROR_OPERATION_PENDING                    (IVIC_ERROR_BASE + 0x0057)
+#define AGXSANBASIC_ERROR_NULL_POINTER                         (IVIC_ERROR_BASE + 0x0058)
+#define AGXSANBASIC_ERROR_UNEXPECTED_RESPONSE                  (IVIC_ERROR_BASE + 0x0059)
+#define AGXSANBASIC_ERROR_FILE_NOT_FOUND                       (IVIC_ERROR_BASE + 0x005B)
+#define AGXSANBASIC_ERROR_INVALID_FILE_FORMAT                  (IVIC_ERROR_BASE + 0x005C)
+#define AGXSANBASIC_ERROR_STATUS_NOT_AVAILABLE                 (IVIC_ERROR_BASE + 0x005D)
+#define AGXSANBASIC_ERROR_ID_QUERY_FAILED                      (IVIC_ERROR_BASE + 0x005E)
+#define AGXSANBASIC_ERROR_RESET_FAILED                         (IVIC_ERROR_BASE + 0x005F)
+#define AGXSANBASIC_ERROR_RESOURCE_UNKNOWN                     (IVIC_ERROR_BASE + 0x0060)
+#define AGXSANBASIC_ERROR_ALREADY_INITIALIZED                  (IVIC_ERROR_BASE + 0x0061)
+#define AGXSANBASIC_ERROR_CANNOT_CHANGE_SIMULATION_STATE       (IVIC_ERROR_BASE + 0x0062)
+#define AGXSANBASIC_ERROR_INVALID_NUMBER_OF_LEVELS_IN_SELECTOR (IVIC_ERROR_BASE + 0x0063)
+#define AGXSANBASIC_ERROR_INVALID_RANGE_IN_SELECTOR            (IVIC_ERROR_BASE + 0x0064)
+#define AGXSANBASIC_ERROR_UNKOWN_NAME_IN_SELECTOR              (IVIC_ERROR_BASE + 0x0065)
+#define AGXSANBASIC_ERROR_BADLY_FORMED_SELECTOR                (IVIC_ERROR_BASE + 0x0066)
+#define AGXSANBASIC_ERROR_UNKNOWN_PHYSICAL_IDENTIFIER          (IVIC_ERROR_BASE + 0x0067)
+#define AGXSANBASIC_ERROR_INVALID_ATTRIBUTE                    (IVIC_ERROR_BASE + 0x000C)
+#define AGXSANBASIC_ERROR_TYPES_DO_NOT_MATCH                   (IVIC_ERROR_BASE + 0x0015)
+#define AGXSANBASIC_ERROR_IVI_ATTR_NOT_WRITABLE                (IVIC_ERROR_BASE + 0x000D)
+#define AGXSANBASIC_ERROR_IVI_ATTR_NOT_READABLE                (IVIC_ERROR_BASE + 0x000E)
+#define AGXSANBASIC_ERROR_INVALID_SESSION_HANDLE               (IVIC_ERROR_BASE + 0x1190)
+
+
+
+#define AGXSANBASIC_SUCCESS                                 0
+#define AGXSANBASIC_WARN_NSUP_ID_QUERY                      (IVIC_WARN_BASE + 0x0065)
+#define AGXSANBASIC_WARN_NSUP_RESET                         (IVIC_WARN_BASE + 0x0066)
+#define AGXSANBASIC_WARN_NSUP_SELF_TEST                     (IVIC_WARN_BASE + 0x0067)
+#define AGXSANBASIC_WARN_NSUP_ERROR_QUERY                   (IVIC_WARN_BASE + 0x0068)
+#define AGXSANBASIC_WARN_NSUP_REV_QUERY                     (IVIC_WARN_BASE + 0x0069)
+
+
+
+#define AGXSANBASIC_ERROR_PERSONALITY_NOT_ACTIVE            (IVIC_SPECIFIC_ERROR_BASE + 0x0211)
+#define AGXSANBASIC_ERROR_PERSONALITY_NOT_INSTALLED         (IVIC_SPECIFIC_ERROR_BASE + 0x0212)
+#define AGXSANBASIC_ERROR_PERSONALITY_NOT_LICENSED          (IVIC_SPECIFIC_ERROR_BASE + 0x0213)
+#define AGXSANBASIC_ERROR_IO_GENERAL                        (IVIC_SPECIFIC_ERROR_BASE + 0x0214)
+#define AGXSANBASIC_ERROR_IO_TIMEOUT                        (IVIC_SPECIFIC_ERROR_BASE + 0x0215)
+#define AGXSANBASIC_ERROR_MODEL_NOT_SUPPORTED               (IVIC_SPECIFIC_ERROR_BASE + 0x0216)
+#define AGXSANBASIC_ERROR_WRAPPED_DRIVER_ERROR              (IVIC_SPECIFIC_ERROR_BASE + 0x0218)
+#define AGXSANBASIC_ERROR_TRACE_METHOD_NOT_SUPPORTED        (IVIC_SPECIFIC_ERROR_BASE + 0x021C)
+#define AGXSANBASIC_ERROR_TRACE_NOT_USED                    (IVIC_SPECIFIC_ERROR_BASE + 0x021D)
+#define AGXSANBASIC_ERROR_INVALID_BLOCK_SIZE                (IVIC_SPECIFIC_ERROR_BASE + 0x021E)
+#define AGXSANBASIC_ERROR_SUBOP_CODE_NOT_SUPPORTED          (IVIC_SPECIFIC_ERROR_BASE + 0x021F)
+
+
+
+
+/**************************************************************************** 
+ *---------------------------- End Include File ----------------------------* 
+ ****************************************************************************/
+#if defined(__cplusplus) || defined(__cplusplus__)
+}
+#endif
+#endif // __AGXSANBASIC_HEADER

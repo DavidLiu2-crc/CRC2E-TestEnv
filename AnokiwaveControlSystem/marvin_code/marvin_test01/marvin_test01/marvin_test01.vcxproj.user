@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <DebuggerFlavor>WindowsRemoteDebugger</DebuggerFlavor>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <LocalDebuggerWorkingDirectory>$(ProjectDir)test</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerCommandArguments>-f 100000000</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Remote|Win32'">
-    <DebuggerFlavor>WindowsRemoteDebugger</DebuggerFlavor>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <LocalDebuggerWorkingDirectory>$(ProjectDir)test</LocalDebuggerWorkingDirectory>
     <RemoteDebuggerCommand>C:\Users\CRC PXIE 8106\Documents\anoki_development\marvin_test01\marvin_test01\test\ControlSolution.exe</RemoteDebuggerCommand>
     <RemoteDebuggerWorkingDirectory>C:\Users\CRC PXIE 8106\Documents\anoki_development\marvin_test01\marvin_test01\test</RemoteDebuggerWorkingDirectory>
@@ -13,9 +14,11 @@
     <DeploymentDirectory>C:\Users\CRC PXIE 8106\Documents\anoki_development\marvin_test01\marvin_test01\test</DeploymentDirectory>
     <RemoteDebuggerDebuggerType>NativeOnly</RemoteDebuggerDebuggerType>
     <RemoteDebuggerAttach>true</RemoteDebuggerAttach>
+    <LocalDebuggerCommandArguments>
+    </LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup>
-    <ShowAllFiles>false</ShowAllFiles>
+    <ShowAllFiles>true</ShowAllFiles>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LocalDebuggerWorkingDirectory>$(ProjectDir)test\</LocalDebuggerWorkingDirectory>

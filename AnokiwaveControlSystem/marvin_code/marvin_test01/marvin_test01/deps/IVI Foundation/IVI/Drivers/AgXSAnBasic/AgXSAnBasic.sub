@@ -1,0 +1,1424 @@
+FPAttributeValueFile
+n SubType="IVI"
+n SubVersion="1"
+
+v AgXSAnBasicInputPort DataType="i"
+ AGXSANBASIC_VAL_BASIC_INPUT_PORT_RF (3)
+  "Input Port RF."
+
+ AGXSANBASIC_VAL_BASIC_INPUT_PORT_IF_ALIGN (4)
+  "Input Port AIQ. Requires option B40."
+
+ AGXSANBASIC_VAL_BASIC_INPUT_PORT_AMPLITUDE_REFERENCE (5)
+  "Input Port External Mixer. Requires option EXM."
+
+
+v InputIQImpedanceType DataType="i"
+ AGXSANBASIC_VAL_INPUTIQ_IMPEDANCE_TYPE_BALANCE1_MEGA_OHM (0)
+  "Balance 1 Mega Ohm."
+
+ AGXSANBASIC_VAL_INPUTIQ_IMPEDANCE_TYPE_BALANCE50_OHM (1)
+  "Balance 50 Ohm."
+
+ AGXSANBASIC_VAL_INPUTIQ_IMPEDANCE_TYPE_UN_BALANCE1_MEGA_OHM (2)
+  "Unbalance 1 Mega Ohm."
+
+ AGXSANBASIC_VAL_INPUTIQ_IMPEDANCE_TYPE_UN_BALANCE50_OHM (3)
+  "Unbalance 50 Ohm."
+
+
+v InputImpedanceType DataType="i"
+ AGXSANBASIC_VAL_INPUT_IMPEDANCE_TYPE_HIGH (0)
+  "Input impedance to 1 Mega Ohm."
+
+ AGXSANBASIC_VAL_INPUT_IMPEDANCE_TYPE_LOW (1)
+  "Input impedance to 50 Ohm."
+
+
+v InputIQCoupling DataType="i"
+ AGXSANBASIC_VAL_INPUTIQ_COUPLINGDC (0)
+  "Turn off low frequency rejection on the I/Q channel, allowing signals down to DC."
+
+ AGXSANBASIC_VAL_INPUTIQ_COUPLINGLFR1 (1)
+  "Turn on low frequency rejection on the I/Q channel for frequencies lower than 1.7 "
+  "Hz"
+
+ AGXSANBASIC_VAL_INPUTIQ_COUPLINGLFR2 (2)
+  "Turn on low frequency rejection on the I/Q channel for frequencies lower than 0.14 "
+  "Hz"
+
+
+v InputCoupling DataType="i"
+ AGXSANBASIC_VAL_INPUT_COUPLINGAC (0)
+  "Input AC Coupling."
+
+ AGXSANBASIC_VAL_INPUT_COUPLINGDC (1)
+  "Input DC Coupling."
+
+
+v AgXSAnBasicInputIFPath DataType="i"
+ AGXSANBASIC_VAL_INPUTIF_PATH10M_HZ (0)
+  "10 MHz IF path."
+
+ AGXSANBASIC_VAL_INPUTIF_PATH25M_HZ (1)
+  "25 MHz IF path."
+
+ AGXSANBASIC_VAL_INPUTIF_PATH40M_HZ (2)
+  "40 MHz IF path."
+
+ AGXSANBASIC_VAL_INPUTIF_PATH140M_HZ (3)
+  "140 MHz IF path."
+
+ AGXSANBASIC_VAL_INPUTIF_PATH160M_HZ (4)
+  "160 MHz IF path."
+
+
+v AgXSAnBasicIFGain DataType="i"
+ AGXSANBASIC_VAL_IF_GAIN_AUTO_RANGE (0)
+  "Auto Range."
+
+ AGXSANBASIC_VAL_IF_GAIN_LOW (1)
+  "Low IF Gain."
+
+ AGXSANBASIC_VAL_IF_GAIN_HIGH (2)
+  "High IF Gain."
+
+
+v AgXSAnBasicTriggerSource DataType="i"
+ AGXSANBASIC_VAL_BASIC_TRIGGER_SOURCE_EXTERNAL_FRONT (0)
+  "External front."
+
+ AGXSANBASIC_VAL_BASIC_TRIGGER_SOURCE_EXTERNAL_REAR (1)
+  "External rear."
+
+ AGXSANBASIC_VAL_BASIC_TRIGGER_SOURCE_FRAME (2)
+  "Frame."
+
+ AGXSANBASIC_VAL_BASIC_TRIGGER_SOURCE_IF (3)
+  "Video."
+
+ AGXSANBASIC_VAL_BASIC_TRIGGER_SOURCE_IMMEDIATE (4)
+  "Immediate."
+
+ AGXSANBASIC_VAL_BASIC_TRIGGER_SOURCE_LINE (5)
+  "Line."
+
+ AGXSANBASIC_VAL_BASIC_TRIGGER_SOURCE_RF_BURST (6)
+  "RF Burst."
+
+ AGXSANBASIC_VAL_BASIC_TRIGGER_SOURCE_LXI_LAN_TRIGGER (7)
+  "LXI LAN trigger."
+
+ AGXSANBASIC_VAL_BASIC_TRIGGER_SOURCE_LXI_ALARM_TRIGGER (8)
+  "LXI alarm trigger."
+
+
+v SpectrumLOMixingMode DataType="i"
+ AGXSANBASIC_VAL_SPECTRUMLO_MIXING_MODE_NORMAL (0)
+  "Normal mixing mode for the Local Oscillator (LO)."
+
+ AGXSANBASIC_VAL_SPECTRUMLO_MIXING_MODE_ALTERNATE (1)
+  "Alternate mixing mode for the Local Oscillator (LO)."
+
+
+v SpectrumFrequencySynthesisState DataType="i"
+ AGXSANBASIC_VAL_SPECTRUM_FREQUENCY_SYNTHESIS_STATE1 (0)
+  "Frequency Synthesis State1."
+
+ AGXSANBASIC_VAL_SPECTRUM_FREQUENCY_SYNTHESIS_STATE2 (1)
+  "Frequency Synthesis State2."
+
+ AGXSANBASIC_VAL_SPECTRUM_FREQUENCY_SYNTHESIS_STATE3 (2)
+  "Frequency Synthesis State3."
+
+ AGXSANBASIC_VAL_SPECTRUM_FREQUENCY_SYNTHESIS_STATE4 (3)
+  "Frequency Synthesis State4."
+
+ AGXSANBASIC_VAL_SPECTRUM_FREQUENCY_SYNTHESIS_STATE5 (4)
+  "Frequency Synthesis State5."
+
+
+v AgXSAnBasicAveragingMode DataType="i"
+ AGXSANBASIC_VAL_BASIC_AVERAGING_MODE_EXPONENTIAL (0)
+  "Each successive data acquisition after the average count is reached, is exponentially "
+  "weighted and combined with the existing average."
+
+ AGXSANBASIC_VAL_BASIC_AVERAGING_MODE_REPEAT (1)
+  "After reaching the average count, the averaging is reset and a new average is started."
+
+
+v AgXSAnBasicSpectrumAverageType DataType="i"
+ AGXSANBASIC_VAL_BASIC_SPECTRUM_AVERAGE_TYPE_MAX (0)
+  "The maximum values are retained."
+
+ AGXSANBASIC_VAL_BASIC_SPECTRUM_AVERAGE_TYPE_MIN (1)
+  "The minimum values are retained."
+
+ AGXSANBASIC_VAL_BASIC_SPECTRUM_AVERAGE_TYPE_RMS (2)
+  "The power is averaged, providing the rms of the voltage."
+
+ AGXSANBASIC_VAL_BASIC_SPECTRUM_AVERAGE_TYPE_SCALAR (3)
+  "The voltage is averaged."
+
+ AGXSANBASIC_VAL_BASIC_SPECTRUM_AVERAGE_TYPE_LOG (4)
+  "The log of the power is averaged. (This is also known as video averaging.)"
+
+
+v AgXSAnBasicBandwidthShape DataType="i"
+ AGXSANBASIC_VAL_BANDWIDTH_SHAPE_GAUSSIAN (0)
+  "Filter type Gaussian."
+
+ AGXSANBASIC_VAL_BANDWIDTH_SHAPE_FLATTOP (1)
+  "Filter type Flattop."
+
+ AGXSANBASIC_VAL_BANDWIDTH_SHAPE_SHORT_NYQUIST (2)
+  "Filter type Short Nyquist."
+
+ AGXSANBASIC_VAL_BANDWIDTH_SHAPE_ROOT_SHORT_NYQUIST (3)
+  "Filter type Root Short Nyquist."
+
+ AGXSANBASIC_VAL_BANDWIDTH_SHAPE_RAISED_COSINE (4)
+  "Filter type Raised Cosine."
+
+ AGXSANBASIC_VAL_BANDWIDTH_SHAPE_ROOT_RAISED_COSINE (5)
+  "Filter type Root Raised Cosine."
+
+
+v AgXSAnBasicMarkerFunction DataType="i"
+ AGXSANBASIC_VAL_BASIC_MARKER_FUNCTION_BAND_POWER (0)
+  "Band Power."
+
+ AGXSANBASIC_VAL_MARKER_FUNCTION_NOISE (1)
+  "Noise."
+
+ AGXSANBASIC_VAL_BASIC_MARKER_FUNCTION_OFF (2)
+  "Turns off all functions."
+
+ AGXSANBASIC_VAL_MARKER_FUNCTION_BAND_DENSITY (3)
+  "Band Density."
+
+
+v AgXSAnBasicSpectrumTrace DataType="i"
+ AGXSANBASIC_VAL_BASIC_SPECTRUM_TRACE_IQ (0)
+  "Trace IQ."
+
+ AGXSANBASIC_VAL_BASIC_SPECTRUM_TRACE_SPECTRUM (1)
+  "Trace Spectrum."
+
+ AGXSANBASIC_VAL_BASIC_SPECTRUM_TRACE_AVERAGE_SPECTRUM (2)
+  "Trace average spectrum."
+
+ AGXSANBASIC_VAL_SPECTRUM_TRACEI (3)
+  "Trace I."
+
+ AGXSANBASIC_VAL_SPECTRUM_TRACEQ (4)
+  "Trace Q."
+
+
+v AgXSAnBasicMarkerType DataType="i"
+ AGXSANBASIC_VAL_BASIC_MARKER_TYPE_POSITION (0)
+  "Normal position-type marker."
+
+ AGXSANBASIC_VAL_BASIC_MARKER_TYPE_DELTA (1)
+  "A delta marker."
+
+ AGXSANBASIC_VAL_BASIC_MARKER_TYPE_OFF (2)
+  "Off."
+
+
+v AgXSAnBasicMarkerPeakSearchMode DataType="i"
+ AGXSANBASIC_VAL_MARKER_PEAK_SEARCH_MODE_MAXIMUM (0)
+  "It corresponds to the Highest Peak setting. Finds the maximum point on the trace, "
+  "subject to the peak-search qualifications."
+
+ AGXSANBASIC_VAL_MARKER_PEAK_SEARCH_MODE_PARAMETER (1)
+  "It corresponds to the same as \"Next Peak\" Criteria setting. Finds the maximum point "
+  "on the trace, but subject to the Excursion and Threshold values."
+
+
+v AgXSAnBasicSpectrumFFTWindowType DataType="i"
+ AGXSANBASIC_VAL_BASIC_SPECTRUM_FFT_WINDOW_TYPE_BH4_TAP (0)
+  "Blackman Harris with 4 taps."
+
+ AGXSANBASIC_VAL_BASIC_SPECTRUM_FFT_WINDOW_TYPE_BLACKMAN (1)
+  "Blackman."
+
+ AGXSANBASIC_VAL_BASIC_SPECTRUM_FFT_WINDOW_TYPE_FLATTOP (2)
+  "Flat top, the default (for high amplitude accuracy)."
+
+ AGXSANBASIC_VAL_BASIC_SPECTRUM_FFT_WINDOW_TYPE_GAUSSIAN (3)
+  "Gaussian with alpha of 3.5."
+
+ AGXSANBASIC_VAL_BASIC_SPECTRUM_FFT_WINDOW_TYPE_HAMMING (4)
+  "Hamming."
+
+ AGXSANBASIC_VAL_BASIC_SPECTRUM_FFT_WINDOW_TYPE_HANNING (5)
+  "Hanning."
+
+ AGXSANBASIC_VAL_BASIC_SPECTRUM_FFT_WINDOW_TYPE_KB70 (6)
+  "Kaiser Bessel with sidelobes at -70 dBc."
+
+ AGXSANBASIC_VAL_BASIC_SPECTRUM_FFT_WINDOW_TYPE_KB90 (7)
+  "Kaiser Bessel with sidelobes at -90 dBc."
+
+ AGXSANBASIC_VAL_BASIC_SPECTRUM_FFT_WINDOW_TYPE_KB110 (8)
+  "Kaiser Bessel with sidelobes at -110 dBc."
+
+ AGXSANBASIC_VAL_BASIC_SPECTRUM_FFT_WINDOW_TYPE_UNIFORM (9)
+  "No window is used. (This is the unity response.)"
+
+
+v SpectrumAnalogAntiAliasingFilterType DataType="i"
+ AGXSANBASIC_VAL_SPECTRUM_ANALOG_ANTI_ALIASING_FILTER_TYPEF36 (0)
+  "F36 filter."
+
+ AGXSANBASIC_VAL_SPECTRUM_ANALOG_ANTI_ALIASING_FILTER_TYPEF80 (1)
+  "F80 filter."
+
+
+v AgXSAnBasicFastCaptureWordLength DataType="i"
+ AGXSANBASIC_VAL_FAST_CAPTURE_WORD_LENGTH_AUTO (0)
+  "Select Auto Fast capture world length."
+
+ AGXSANBASIC_VAL_FAST_CAPTURE_WORD_LENGTH_BIT32 (1)
+  "Select 32 bit Fast capture world length."
+
+ AGXSANBASIC_VAL_FAST_CAPTURE_WORD_LENGTH_BIT64 (2)
+  "Select 64 bit Fast capture world length."
+
+
+v DisplayWindowXRefPosition DataType="i"
+ AGXSANBASIC_VAL_DISPLAY_WINDOWX_REF_POSITION_LEFT (0)
+  "Reference postion Left."
+
+ AGXSANBASIC_VAL_DISPLAY_WINDOWX_REF_POSITION_CENTER (1)
+  "Reference postion Center."
+
+ AGXSANBASIC_VAL_DISPLAY_WINDOWX_REF_POSITION_RIGHT (2)
+  "Reference postion Right."
+
+
+v DisplayWindowYRefPosition DataType="i"
+ AGXSANBASIC_VAL_DISPLAY_WINDOWY_REF_POSITION_TOP (0)
+  "Reference postion Top."
+
+ AGXSANBASIC_VAL_DISPLAY_WINDOWY_REF_POSITION_CENTER (1)
+  "Reference postion Center."
+
+ AGXSANBASIC_VAL_DISPLAY_WINDOWY_REF_POSITION_BOTTOM (2)
+  "Reference postion Bottom."
+
+
+v TriggerHoldOffType DataType="i"
+ AGXSANBASIC_VAL_TRIGGER_HOLD_OFF_TYPE_NORMAL (0)
+  "This is the 'oscilloscope' type of trigger holdoff, and is the setting when the Holdoff "
+  "Type key does not appear. In this type of holdoff, no new trigger will be accepted "
+  "until the holdoff interval has expired after the previous trigger."
+
+ AGXSANBASIC_VAL_TRIGGER_HOLD_OFF_TYPE_ABOVE (1)
+  "For the trigger slope is positive or negative, a trigger event is generated only "
+  "if the signal characteristic of interest crosses the trigger threshold and then remains "
+  "above the threshold for at least the holdoff time."
+
+ AGXSANBASIC_VAL_TRIGGER_HOLD_OFF_TYPE_BELOW (2)
+  "For positive or negative slope, a trigger event is generated only if the signal characteristic "
+  "of interest crosses the trigger threshold after having been below the threshold for "
+  "at least the holdoff time."
+
+
+v AgXSAnBasicTriggerSlope DataType="i"
+ AGXSANBASIC_VAL_BASIC_TRIGGER_SLOPE_POSITIVE (0)
+  "Positive."
+
+ AGXSANBASIC_VAL_BASIC_TRIGGER_SLOPE_NEGATIVE (1)
+  "Negative."
+
+
+v AgXSAnBasicTriggerFrameSyncSource DataType="i"
+ AGXSANBASIC_VAL_BASIC_TRIGGER_FRAME_SYNC_SOURCE_EXTERNAL_FRONT (0)
+  "The external1 input port that you will use for the periodicframe trigger synchronization."
+
+ AGXSANBASIC_VAL_TRIGGER_FRAME_SYNC_SOURCE_EXTERNAL2 (1)
+  "The external2 input port that you will use for the periodicframe trigger synchronization."
+
+ AGXSANBASIC_VAL_TRIGGER_FRAME_SYNC_SOURCERF_BURST (3)
+  "The RF burst envelope signal to be used for the periodic timer trigger synchronization."
+
+ AGXSANBASIC_VAL_BASIC_TRIGGER_FRAME_SYNC_SOURCE_OFF (2)
+  "Turns off the sync source for your periodic trigger. With the sync source off, the "
+  "timing will drift unless the signal source frequency is locked to the analyzer frequency "
+  "reference."
+
+
+v TriggerRFBurstLevelType DataType="i"
+ AGXSANBASIC_VAL_TRIGGERRF_BURST_LEVEL_TYPE_ABSOLUTE (0)
+  "RFBurst Level Type Absolute."
+
+ AGXSANBASIC_VAL_TRIGGERRF_BURST_LEVEL_TYPE_RELATIVE (1)
+  "RFBurst Level Type Relative."
+
+
+v TriggerQDemodulatedTriggerPolarity DataType="i"
+ AGXSANBASIC_VAL_TRIGGERQ_DEMODULATED_TRIGGER_POLARITY_POSITIVE (0)
+  "Positive Polarity."
+
+ AGXSANBASIC_VAL_TRIGGERQ_DEMODULATED_TRIGGER_POLARITY_NEGATIVE (1)
+  "Negative Polarity."
+
+
+v TriggerIQMagnitudeTriggerPolarity DataType="i"
+ AGXSANBASIC_VAL_TRIGGERIQ_MAGNITUDE_TRIGGER_POLARITY_POSITIVE (0)
+  "Positive polarity."
+
+ AGXSANBASIC_VAL_TRIGGERIQ_MAGNITUDE_TRIGGER_POLARITY_NEGATIVE (1)
+  "Negative polarity."
+
+
+v TriggerInputITriggerPolarity DataType="i"
+ AGXSANBASIC_VAL_TRIGGER_INPUTI_TRIGGER_POLARITY_POSITIVE (0)
+  "Positive polarity."
+
+ AGXSANBASIC_VAL_TRIGGER_INPUTI_TRIGGER_POLARITY_NEGATIVE (1)
+  "Negative polarity."
+
+
+v TriggerInputQTriggerPolarity DataType="i"
+ AGXSANBASIC_VAL_TRIGGER_INPUTQ_TRIGGER_POLARITY_POSITIVE (0)
+  "Positive polarity."
+
+ AGXSANBASIC_VAL_TRIGGER_INPUTQ_TRIGGER_POLARITY_NEGATIVE (1)
+  "Negative polarity."
+
+
+v Polarity DataType="i"
+ AGXSANBASIC_VAL_POLARITY_POSITIVE (0)
+  "Positive Polarity."
+
+ AGXSANBASIC_VAL_POLARITY_NEGATIVE (1)
+  "Negative Polarity."
+
+
+v TriggerAIQMagnitudeTriggerPolarity DataType="i"
+ AGXSANBASIC_VAL_TRIGGERAIQ_MAGNITUDE_TRIGGER_POLARITY_POSITIVE (0)
+  "Positive Polarity."
+
+ AGXSANBASIC_VAL_TRIGGERAIQ_MAGNITUDE_TRIGGER_POLARITY_NEGATIVE (1)
+  "Negative Polarity."
+
+
+v WaveformFrequencySynthesisState DataType="i"
+ AGXSANBASIC_VAL_WAVEFORM_FREQUENCY_SYNTHESIS_STATE1 (0)
+  "Frequency Synthesis State1."
+
+ AGXSANBASIC_VAL_WAVEFORM_FREQUENCY_SYNTHESIS_STATE2 (1)
+  "Frequency Synthesis State2."
+
+ AGXSANBASIC_VAL_WAVEFORM_FREQUENCY_SYNTHESIS_STATE3 (2)
+  "Frequency Synthesis State3."
+
+
+v WaveformLOMixingMode2 DataType="i"
+ AGXSANBASIC_VAL_WAVEFORMLO_MIXING_MODE_NORMAL (0)
+  "Normal mixing mode for the Local Oscillator (LO)."
+
+ AGXSANBASIC_VAL_WAVEFORMLO_MIXING_MODE_ALTERNATE (1)
+  "Alternate mixing mode for the Local Oscillator (LO)."
+
+
+v AgXSAnBasicWaveformAverageType DataType="i"
+ AGXSANBASIC_VAL_BASIC_WAVEFORM_AVERAGE_TYPE_MAX (0)
+  "The maximum values are retained."
+
+ AGXSANBASIC_VAL_BASIC_WAVEFORM_AVERAGE_TYPE_MIN (1)
+  "The minimum values are retained."
+
+ AGXSANBASIC_VAL_BASIC_WAVEFORM_AVERAGE_TYPE_RMS (2)
+  "The power is averaged, providing the rms of the voltage."
+
+ AGXSANBASIC_VAL_BASIC_WAVEFORM_AVERAGE_TYPE_MAX_MIN (3)
+  "The maximum and minimum values are retained."
+
+ AGXSANBASIC_VAL_BASIC_WAVEFORM_AVERAGE_TYPE_LOG (4)
+  "The log of the power is averaged. (This is also known as video averaging.)"
+
+
+v AgXSAnBasicWaveformTrace DataType="i"
+ AGXSANBASIC_VAL_BASIC_WAVEFORM_TRACE_RF_ENVELOPE (0)
+  "Trace RF Envelop."
+
+ AGXSANBASIC_VAL_BASIC_WAVEFORM_TRACE_IQ (1)
+  "Trace IQ."
+
+ AGXSANBASIC_VAL_WAVEFORM_TRACEI (2)
+  "Trace I."
+
+ AGXSANBASIC_VAL_WAVEFORM_TRACEQ (3)
+  "Trace Q."
+
+
+v WaveformAntiAliasingFilterType DataType="i"
+ AGXSANBASIC_VAL_WAVEFORM_ANTI_ALIASING_FILTER_TYPEF36 (0)
+  "F36 filter."
+
+ AGXSANBASIC_VAL_WAVEFORM_ANTI_ALIASING_FILTER_TYPEF80 (1)
+  "F80 filter."
+
+
+v WaveformTraceType DataType="i"
+ AGXSANBASIC_VAL_WAVEFORM_TRACE_TYPERF_ENVELOPE (0)
+  "RF Envelope"
+
+ AGXSANBASIC_VAL_WAVEFORM_TRACE_TYPEIQ (1)
+  "IQ Waveform"
+
+ AGXSANBASIC_VAL_WAVEFORM_TRACE_TYPEI (2)
+  "I Waveform"
+
+ AGXSANBASIC_VAL_WAVEFORM_TRACE_TYPEQ (3)
+  "Q Waveform"
+
+
+0 AgXSAnBasic_GetAttributeViInt32 3 4 false g DataType="ViInt32"
+0 AgXSAnBasic_SetAttributeViInt32 3 4 false s DataType="ViInt32"
+0 AgXSAnBasic_CheckAttributeViInt32 3 4 false s DataType="ViInt32"
+0 AgXSAnBasic_GetAttributeViReal64 3 4 false g DataType="ViReal64"
+0 AgXSAnBasic_SetAttributeViReal64 3 4 false s DataType="ViReal64"
+0 AgXSAnBasic_CheckAttributeViReal64 3 4 false s DataType="ViReal64"
+0 AgXSAnBasic_GetAttributeViSession 3 4 false g DataType="ViSession"
+0 AgXSAnBasic_SetAttributeViSession 3 4 false s DataType="ViSession"
+0 AgXSAnBasic_CheckAttributeViSession 3 4 false s DataType="ViSession"
+0 AgXSAnBasic_GetAttributeViBoolean 3 4 false g DataType="ViBoolean"
+0 AgXSAnBasic_SetAttributeViBoolean 3 4 false s DataType="ViBoolean"
+0 AgXSAnBasic_CheckAttributeViBoolean 3 4 false s DataType="ViBoolean"
+0 AgXSAnBasic_GetAttributeViString 3 5 false g DataType="ViString"
+0 AgXSAnBasic_SetAttributeViString 3 4 false s DataType="ViString"
+0 AgXSAnBasic_CheckAttributeViString 3 4 false s DataType="ViString"
+1 all "Inherent IVI Attributes"
+
+2 all "Advanced Session Information"
+
+3 all "Driver Setup" AGXSANBASIC_ATTR_DRIVER_SETUP ViString g 
+ "The driver setup string.  It is either specified in the Configuration Store or passed "
+ "in the OptionString parameter of the Initialize function.  Driver setup is empty "
+ "if the driver is not initialized."
+
+3 all "I/O Resource Descriptor" AGXSANBASIC_ATTR_IO_RESOURCE_DESCRIPTOR ViString g 
+ "The resource descriptor specifies the connection to a physical device.  It is either "
+ "specified in the Configuration Store or passed in the ResourceName parameter of the "
+ "Initialize function.  It is empty if the driver is not initialized."
+
+3 all "Logical Name" AGXSANBASIC_ATTR_LOGICAL_NAME ViString g 
+ "Logical Name identifies a driver session in the Configuration Store.  If Logical "
+ "Name is not empty, the driver was initialized from information in the driver session. "
+ " If it is empty, the driver was initialized without using the Configuration Store."
+
+2 all "Driver Capabilities"
+
+3 all "Class Group Capabilities" AGXSANBASIC_ATTR_GROUP_CAPABILITIES ViString g 
+ "A comma-separated list of the class capability groups implemented by the driver. "
+ " Capability group names are documented in the IVI class specifications.  If the driver "
+ "is not class compliant, the driver returns an empty string."
+
+3 all "Supported Instrument Models" AGXSANBASIC_ATTR_SUPPORTED_INSTRUMENT_MODELS ViString g 
+ "A comma-separated list of instrument models that the IVI specific driver can control. "
+ " The string does not include an abbreviation for the manufacturer if it is the same "
+ "for all models."
+
+2 all "Driver Identification"
+
+3 all "Specific Driver Class Spec Major Version" AGXSANBASIC_ATTR_SPECIFIC_DRIVER_CLASS_SPEC_MAJOR_VERSION ViInt32 g 
+ "Returns the major version number of the class specification in accordance with which "
+ "the IVI specific driver was developed. Zero is returned if the driver is not compliant "
+ "with a class specification."
+
+3 all "Specific Driver Class Spec Minor Version" AGXSANBASIC_ATTR_SPECIFIC_DRIVER_CLASS_SPEC_MINOR_VERSION ViInt32 g 
+ "Returns the minor version number of the class specification in accordance with which "
+ "the IVI specific driver was developed. Zero is returned if the driver is not compliant "
+ "with a class specification."
+
+3 all "Specific Driver Description" AGXSANBASIC_ATTR_SPECIFIC_DRIVER_DESCRIPTION ViString g 
+ "Returns a brief description of the IVI specific driver. The string that this attribute "
+ "returns contains a maximum of 256 bytes including the NUL byte."
+
+3 all "Specific Driver Prefix" AGXSANBASIC_ATTR_SPECIFIC_DRIVER_PREFIX ViString g 
+ "Returns the case-sensitive prefix of the user-callable functions that the IVI-C specific "
+ "driver exports. The string that this attribute returns contains a maximum of 32 bytes "
+ "including the NUL byte."
+
+3 all "Specific Driver Revision" AGXSANBASIC_ATTR_SPECIFIC_DRIVER_REVISION ViString g 
+ "Returns version information about the IVI specific driver. The string that this attribute "
+ "returns contains a maximum of 256 bytes including the NUL byte."
+
+3 all "Specific Driver Vendor" AGXSANBASIC_ATTR_SPECIFIC_DRIVER_VENDOR ViString g 
+ "Returns the name of the vendor that supplies the IVI specific driver. The string "
+ "that this attribute returns contains a maximum of 256 bytes including the NUL byte."
+
+2 all "Instrument Identification"
+
+3 all "Instrument Firmware Revision" AGXSANBASIC_ATTR_INSTRUMENT_FIRMWARE_REVISION ViString g 
+ "The firmware revision reported by the physical instrument.  If Simulation is enabled "
+ "or the instrument is not capable of reporting the firmware revision, a string is "
+ "returned that explains the condition."
+
+3 all "Instrument Manufacturer" AGXSANBASIC_ATTR_INSTRUMENT_MANUFACTURER ViString g 
+ "The name of the manufacturer reported by the physical instrument.  If Simulation "
+ "is enabled or the instrument is not capable of reporting the name of the manufacturer, "
+ "a string is returned that explains the condition. Manufacturer is limited to 256 "
+ "bytes"
+
+3 all "Instrument Model" AGXSANBASIC_ATTR_INSTRUMENT_MODEL ViString g 
+ "The model number or name reported by the physical instrument.  If Simulation is enabled "
+ "or the instrument is not capable of reporting the model number or name, a string "
+ "is returned that explains the condition.  Model is limited to 256 bytes"
+
+2 all "User Options"
+
+3 all "Cache" AGXSANBASIC_ATTR_CACHE ViBoolean gs 
+ "Drivers may choose to always cache some instrument settings, never cache others, "
+ "and optionally cache others, to avoid unnecessary I/O to the instrument.  If True, "
+ "the driver caches optionally cached instrument settings."
+
+3 all "Interchange Check" AGXSANBASIC_ATTR_INTERCHANGE_CHECK ViBoolean gs 
+ "Not Supported - If True, the driver maintains a record of interchangeability warnings. "
+ " If the driver does not support interchangeability checking, attempts to set InterchangeCheck "
+ "to True return an error."
+
+3 all "Query Instrument Status" AGXSANBASIC_ATTR_QUERY_INSTRUMENT_STATUS ViBoolean gs 
+ "If True, the driver queries the instrument status at the end of each method or property "
+ "that performs I/O to the instrument.  If an error is reported, use ErrorQuery to "
+ "retrieve error messages one at a time from the instrument."
+
+3 all "Range Check" AGXSANBASIC_ATTR_RANGE_CHECK ViBoolean gs 
+ "Drivers may choose to always validate some property/parameter values, never validate "
+ "others, and optionally validate others, to avoid sending invalid commands to the "
+ "instrument.  If True, the driver performs optional validations."
+
+3 all "Record Value Coercions" AGXSANBASIC_ATTR_RECORD_COERCIONS ViBoolean gs 
+ "Not Supported - If True, the driver keeps a list of the value coercions it makes "
+ "for ViInt32 and ViReal64 attributes.  If the driver does not support coercion recording, "
+ "attempts to set RecordCoercions to True will return an error."
+
+3 all "Simulate" AGXSANBASIC_ATTR_SIMULATE ViBoolean gs 
+ "If True, the driver does not perform I/O to the instrument, and returns simulated "
+ "values for output parameters."
+
+1 all "Instrument Specific"
+
+2 all "Frequency"
+
+3 all "Center" AGXSANBASIC_ATTR_FREQUENCY_CENTER ViReal64 gs 
+ "Set the center frequency in Hz for the currently selected input."
+
+3 all "IF"
+
+4 all "Center" AGXSANBASIC_ATTR_FREQUENCY_IQ_CENTER ViReal64 gs 
+ "The I/Q Center Frequency in Hz."
+
+3 all "RF"
+
+4 all "Center" AGXSANBASIC_ATTR_FREQUENCY_RF_CENTER ViReal64 gs 
+ "The RF Center Frequency in Hz."
+
+2 all "Input"
+
+3 all "Port" AGXSANBASIC_ATTR_INPUT_PORT ViInt32 gs AgXSAnBasicInputPort
+ "Selects the input signal."
+
+3 all "IF"
+
+4 all "Path" AGXSANBASIC_ATTR_INPUT_IF_PATH ViInt32 gs AgXSAnBasicInputIFPath
+ "Enables you to select different IF Paths for the AIF/DIF boards.The selections are "
+ "10 MHz, 25 MHz, 40 MHz, and 140 MHz paths"
+
+4 all "Path Auto Enabled" AGXSANBASIC_ATTR_INPUT_IF_PATH_AUTO_ENABLED ViBoolean gs 
+ "Automatically selects between the IF Paths based on the current measurements Digital "
+ "IF Bandwidth setting."
+
+3 all "IQ"
+
+4 all "Coupling" AGXSANBASIC_ATTR_INPUT_IQ_COUPLING ViInt32 gs InputCoupling
+ "Selects coupling at the analyzer RF input port."
+
+4 all "I Coupling" AGXSANBASIC_ATTR_INPUT_IQ_I_COUPLING ViInt32 gs InputIQCoupling
+ "Selects type of coupling to reject low frequencies."
+
+4 all "I Differential Enabled" AGXSANBASIC_ATTR_INPUT_IQ_I_DIFFERENTIAL_ENABLED ViBoolean gs 
+ "Enables or disables differential input for the I channel."
+
+4 all "I Impedance" AGXSANBASIC_ATTR_INPUT_IQ_I_IMPEDANCE ViInt32 gs InputImpedanceType
+ "The input impedance for the I channel."
+
+4 all "I Offset" AGXSANBASIC_ATTR_INPUT_IQ_I_OFFSET ViReal64 gs 
+ "Removes a DC offset value from the Q channel input."
+
+4 all "Impedance" AGXSANBASIC_ATTR_INPUT_IQ_IMPEDANCE ViInt32 gs InputIQImpedanceType
+ "The combined (Differential Input and Input Z selections) input impedance."
+
+4 all "Mirror Enabled" AGXSANBASIC_ATTR_INPUT_IQ_MIRROR_ENABLED ViBoolean gs 
+ "Enables or disables the I and Q channels which have an identical setup."
+
+4 all "Q Coupling" AGXSANBASIC_ATTR_INPUT_IQ_Q_COUPLING ViInt32 gs InputIQCoupling
+ "Selects type of coupling to reject low frequencies."
+
+4 all "Q Differential Enabled" AGXSANBASIC_ATTR_INPUT_IQ_Q_DIFFERENTIAL_ENABLED ViBoolean gs 
+ "Enables or disables differential input for the Q channel."
+
+4 all "Q Impedance" AGXSANBASIC_ATTR_INPUT_IQ_Q_IMPEDANCE ViInt32 gs InputImpedanceType
+ "The input impedance for the Q channel."
+
+4 all "Q Offset" AGXSANBASIC_ATTR_INPUT_IQ_Q_OFFSET ViReal64 gs 
+ "Removes a DC offset value from the Q channel input."
+
+4 all "Reference Impedance" AGXSANBASIC_ATTR_INPUT_IQ_REFERENCE_IMPEDANCE ViReal64 gs 
+ "The reference input impedance."
+
+4 all "Power"
+
+5 all "I Max" AGXSANBASIC_ATTR_IQ_POWER_I_MAX ViReal64 gs 
+ "The internal power gain range for the I channel when Input Path is I Only or Ind "
+ "I/Q, and it is used for both the I and Q channels when the Input Path is I+jQ."
+
+5 all "Mirroring Enabled" AGXSANBASIC_ATTR_IQ_POWER_MIRRORING_ENABLED ViBoolean gs 
+ "Enable or disables the Q Same as I that will cause the Q channel range to be mirrored "
+ "from the I channel."
+
+5 all "Q Max" AGXSANBASIC_ATTR_IQ_POWER_Q_MAX ViReal64 gs 
+ "The internal Power gain range for the Q channel."
+
+4 all "Voltage"
+
+5 all "I Max" AGXSANBASIC_ATTR_IQ_VOLTAGE_I_MAX ViReal64 gs 
+ "The internal voltage gain range for the I channel when Input Path is I Only or Ind "
+ "I/Q, and it is used for both the I and Q channels when the Input Path is I+jQ."
+
+5 all "Mirroring Enabled" AGXSANBASIC_ATTR_IQ_VOLTAGE_MIRRORING_ENABLED ViBoolean gs 
+ "Enable or disables the Q Same as I that will cause the Q channel range to be mirrored "
+ "from the I channel."
+
+5 all "Q Max" AGXSANBASIC_ATTR_IQ_VOLTAGE_Q_MAX ViReal64 gs 
+ "The internal voltage gain range for the Q channel."
+
+3 all "RF"
+
+4 all "Attenuation" AGXSANBASIC_ATTR_RF_ATTENUATION ViReal64 gs 
+ "The attenuation applied to the RF input signal path."
+
+4 all "Attenuation Auto Enabled" AGXSANBASIC_ATTR_RF_ATTENUATION_AUTO_ENABLED ViBoolean gs 
+ "Enables or disables the auto selection of RF input attenuation."
+
+4 all "External Gain" AGXSANBASIC_ATTR_RF_EXTERNAL_GAIN ViReal64 gs 
+ "The external gain in dB. It affect the displayed signal level."
+
+2 all "Spectrum"
+
+3 all "ADC Dither Auto Enabled" AGXSANBASIC_ATTR_SPECTRUM_ADC_DITHER_AUTO_ENABLED ViBoolean gs 
+ "Sets ADC dithering to automatically select whether dithering is needed."
+
+3 all "ADC Dither Enabled" AGXSANBASIC_ATTR_SPECTRUM_ADC_DITHER_ENABLED ViBoolean gs 
+ "Enable or disable the dither function."
+
+3 all "Frequency Span" AGXSANBASIC_ATTR_SPECTRUM_FREQUENCY_SPAN ViReal64 gs 
+ "The frequency span."
+
+3 all "Frequency Synthesis Auto Enabled" AGXSANBASIC_ATTR_SPECTRUM_FREQUENCY_SYNTHESIS_AUTO_ENABLED ViBoolean gs 
+ "Selects the LO (local oscillator) phase noise behavior for various desired operating "
+ "conditions."
+
+3 all "Frequency Synthesis State" AGXSANBASIC_ATTR_SPECTRUM_FREQUENCY_SYNTHESIS_STATE ViInt32 gs SpectrumFrequencySynthesisState
+ "Selects the LO (local oscillator) phase noise behavior for various desired operating "
+ "conditions."
+
+3 all "IF Gain Auto Enabled" AGXSANBASIC_ATTR_SPECTRUM_IF_GAIN_AUTO_ENABLED ViBoolean gs 
+ "Enable or disable the IF Gain function."
+
+3 all "IF Gain Offset" AGXSANBASIC_ATTR_SPECTRUM_IF_GAIN_OFFSET ViReal64 gs 
+ "The IF Gain offset."
+
+3 all "IFGain" AGXSANBASIC_ATTR_SPECTRUM_IF_GAIN ViInt32 gs AgXSAnBasicIFGain
+ "Optimize IF Gain for specific signals or signal levels."
+
+3 all "IQ Delta Enabled" AGXSANBASIC_ATTR_SPECTRUM_IQ_DELTA_ENABLED ViBoolean gs 
+ "Enable or disable the I/Q Magnitude and Phase Delta Results."
+
+3 all "Lo Mixing Mode Enabled" AGXSANBASIC_ATTR_SPECTRUM_LO_MIXING_MODE_ENABLED ViInt32 gs SpectrumLOMixingMode
+ "Enables to alternate between mixing modes for the Local Oscillator (LO)."
+
+3 all "Sample Rate" AGXSANBASIC_ATTR_SPECTRUM_SAMPLE_RATE ViReal64 g 
+ "ReadOnly The sample rate of the acquired data."
+
+3 all "Trace Enabled" AGXSANBASIC_ATTR_SPECTRUM_TRACE_ENABLED ViBoolean gs 
+ "Toggles the instantaneous trace display between On and Off."
+
+3 all "Trigger Source" AGXSANBASIC_ATTR_SPECTRUM_TRIGGER_SOURCE ViInt32 gs AgXSAnBasicTriggerSource
+ "Select the trigger source used to control the data acquisitions."
+
+3 all "Average"
+
+4 all "Count" AGXSANBASIC_ATTR_SPECTRUM_AVERAGE_COUNT ViInt32 gs 
+ "The number of sweeps that will be averaged."
+
+4 all "Enabled" AGXSANBASIC_ATTR_SPECTRUM_AVERAGE_ENABLED ViBoolean gs 
+ "Enable or disable the number of sweeps that will be averaged."
+
+4 all "Mode" AGXSANBASIC_ATTR_SPECTRUM_AVERAGE_MODE ViInt32 gs AgXSAnBasicAveragingMode
+ "The type of termination control used for the averaging function. This determines "
+ "the averaging action after the specified number of sweeps (average count) is reached."
+
+4 all "Time Average Count" AGXSANBASIC_ATTR_SPECTRUM_AVERAGE_TIME_AVERAGE_COUNT ViInt32 gs 
+ "The number of hardware averages to be executed per data acquisition."
+
+4 all "Time Average Count Auto Enabled" AGXSANBASIC_ATTR_SPECTRUM_AVERAGE_TIME_AVERAGE_COUNT_AUTO_ENABLED ViBoolean gs 
+ "Enable or disable the auto selection of the number of HW averages to be executed "
+ "per each data acquisition."
+
+4 all "Type" AGXSANBASIC_ATTR_SPECTRUM_AVERAGE_TYPE ViInt32 gs AgXSAnBasicSpectrumAverageType
+ "Select the type of averaging."
+
+4 all "Type Auto Enabled" AGXSANBASIC_ATTR_SPECTRUM_AVERAGE_TYPE_AUTO_ENABLED ViBoolean gs 
+ "Enable or disable the auto averaging type."
+
+3 all "Bandwidth"
+
+4 all "Acquisition" AGXSANBASIC_ATTR_SPECTRUM_BANDWIDTH_ACQUISITION ViReal64 gs 
+ "The digital IF Bandwidth."
+
+4 all "Acquisition Auto Enabled" AGXSANBASIC_ATTR_SPECTRUM_BANDWIDTH_ACQUISITION_AUTO_ENABLED ViBoolean gs 
+ "Select auto or manual control of the pre-FFT BW."
+
+4 all "Acquisition Shape" AGXSANBASIC_ATTR_SPECTRUM_BANDWIDTH_ACQUISITION_SHAPE ViInt32 gs AgXSAnBasicBandwidthShape
+ "Allows you to select the type of IF filter (post ADC, digital filter) that is used."
+
+4 all "Resolution" AGXSANBASIC_ATTR_SPECTRUM_BANDWIDTH_RESOLUTION ViReal64 gs 
+ "The resolution bandwidth for the FFT. This is the bandwidth used for resolving the "
+ "FFT measurement."
+
+4 all "Resolution Auto Enabled" AGXSANBASIC_ATTR_SPECTRUM_BANDWIDTH_RESOLUTION_AUTO_ENABLED ViBoolean gs 
+ "Enable or disable the auto selection of resolution bandwidth for the FFT."
+
+3 all "Display"
+
+4 all "Text" AGXSANBASIC_ATTR_SPECTRUM_DISPLAY_TEXT ViString gs 
+ "Allows to read or write Title on the display."
+
+4 all "WindowX"
+
+5 all "Auto Scale Enabled" AGXSANBASIC_ATTR_SPECTRUM_DISPLAY_WINDOW_X_AUTO_SCALE_ENABLED ViBoolean gs 
+ "Enable or disable the Auto Scaling function."
+
+5 all "Ref Position" AGXSANBASIC_ATTR_SPECTRUM_DISPLAY_WINDOW_X_REF_POSITION ViInt32 gs DisplayWindowXRefPosition
+ "Positions the reference level at the Left, center, or right of the X- scale display."
+
+5 all "Reference" AGXSANBASIC_ATTR_SPECTRUM_DISPLAY_WINDOW_X_REFERENCE ViReal64 gs 
+ "The value for the absolute power reference."
+
+5 all "Scale" AGXSANBASIC_ATTR_SPECTRUM_DISPLAY_WINDOW_X_SCALE ViReal64 gs 
+ "The units-per-division of the vertical scale in the logarithmic display."
+
+4 all "WindowY"
+
+5 all "Auto Scale Enabled" AGXSANBASIC_ATTR_SPECTRUM_DISPLAY_WINDOW_Y_AUTO_SCALE_ENABLED2 ViBoolean gs 
+ "Enable or disable the Auto Scaling function."
+
+5 all "Ref Position" AGXSANBASIC_ATTR_SPECTRUM_DISPLAY_WINDOW_Y_REF_POSITION2 ViInt32 gs DisplayWindowYRefPosition
+ "Positions the reference level at the top, center, or bottom of the Y- scale display."
+
+5 all "Reference" AGXSANBASIC_ATTR_SPECTRUM_DISPLAY_WINDOW_Y_REFERENCE ViReal64 gs 
+ "The value for the absolute power reference."
+
+5 all "Scale" AGXSANBASIC_ATTR_SPECTRUM_DISPLAY_WINDOW_Y_SCALE ViReal64 gs 
+ "The units-per-division of the vertical scale in the logarithmic display."
+
+3 all "FastCapture"
+
+4 all "Block Size" AGXSANBASIC_ATTR_SPECTRUM_FAST_CAPTURE_BLOCK_SIZE ViInt32 gs 
+ "The block size for the Fast Capture transfer in samples (points).  This is the number "
+ "of points that will be returned from the Capture buffer by the Fetch method. This "
+ "is constrained to be an even number."
+
+4 all "Length" AGXSANBASIC_ATTR_SPECTRUM_FAST_CAPTURE_LENGTH ViInt32 gs 
+ "The length of the Fast Capture in samples (points). This is constrained to be an "
+ "even number."
+
+4 all "Pointer" AGXSANBASIC_ATTR_SPECTRUM_FAST_CAPTURE_POINTER ViInt32 gs 
+ "The pointer position for the Fast Capture transfer in samples (points)."
+
+4 all "Word Length" AGXSANBASIC_ATTR_SPECTRUM_FAST_CAPTURE_WORD_LENGTH ViInt32 gs AgXSAnBasicFastCaptureWordLength
+ "Allows choice of internal fast capture word length. Shorter word length allows twice "
+ "the time length to be captured, at the cost of quantization noise."
+
+3 all "FFT"
+
+4 all "Length" AGXSANBASIC_ATTR_SPECTRUM_FFT_LENGTH ViInt32 gs 
+ "The FFT length. This value is only used if length control is set to manual. The value "
+ "must be greater than or equal to the window length value. Any amount greater than "
+ "the window length is implemented by zero-padding."
+
+4 all "Length Auto" AGXSANBASIC_ATTR_SPECTRUM_FFT_LENGTH_AUTO ViBoolean gs 
+ "Enables or disables the auto selection of the FFT and window lengths."
+
+4 all "RBW Points" AGXSANBASIC_ATTR_SPECTRUM_FFT_RBW_POINTS ViReal64 gs 
+ "Specifies the minimum number of data points that are used inside the resolution bandwidth."
+
+4 all "Window" AGXSANBASIC_ATTR_SPECTRUM_FFT_WINDOW ViInt32 gs AgXSAnBasicSpectrumFFTWindowType
+ "The FFT window type."
+
+4 all "Window Length" AGXSANBASIC_ATTR_SPECTRUM_FFT_WINDOW_LENGTH ViInt32 gs 
+ "The FFT window length."
+
+3 all "Filter"
+
+4 all "Alpha" AGXSANBASIC_ATTR_SPECTRUM_FILTER_ALPHA ViReal64 gs 
+ "The filter alpha for the DIF filter."
+
+4 all "Analog Anti Aliasing Filter Auto Enabled" AGXSANBASIC_ATTR_SPECTRUM_FILTER_ANALOG_ANTI_ALIASING_FILTER_AUTO_ENABLED ViBoolean gs 
+ "Auto enable the anti-alias filter that will be used for measurements using the wideband "
+ "IF path."
+
+4 all "Analog Anti Aliasing Filter Type" AGXSANBASIC_ATTR_SPECTRUM_FILTER_ANALOG_ANTI_ALIASING_FILTER_TYPE ViInt32 gs SpectrumAnalogAntiAliasingFilterType
+ "Selects the anti-alias filter that will be used for measurements using the wideband "
+ "IF path."
+
+4 all "Bandwidth" AGXSANBASIC_ATTR_SPECTRUM_FILTER_BANDWIDTH ViReal64 gs 
+ "Filter Bandwidth."
+
+4 all "Bandwidth Auto Enabled" AGXSANBASIC_ATTR_SPECTRUM_FILTER_BANDWIDTH_AUTO_ENABLED ViBoolean gs 
+ "Auto Selection of Filter bandwidth."
+
+3 all "Marker"
+
+4 all "Active Marker" AGXSANBASIC_ATTR_SPECTRUM_MARKER_ACTIVE_MARKER ViInt32 gs 
+ "Currently active marker."
+
+4 all "Amplitude" AGXSANBASIC_ATTR_SPECTRUM_MARKER_AMPLITUDE ViReal64 g 
+ "ReadOnly The current Y value for the designated marker on its assigned trace. The "
+ "value is in the Y-axis units for the trace (which is often dBm)."
+
+4 all "Count" AGXSANBASIC_ATTR_SPECTRUM_MARKER_COUNT ViInt32 g 
+ "ReadOnly Number of markers."
+
+4 all "Delta Reference" AGXSANBASIC_ATTR_SPECTRUM_MARKER_DELTA_REFERENCE ViInt32 gs 
+ "Selects the desired marker. The selected marker will be relative to its reference "
+ "marker."
+
+4 all "Enabled" AGXSANBASIC_ATTR_SPECTRUM_MARKER_ENABLED ViBoolean gs 
+ "Enables or disables the Active marker."
+
+4 all "Function" AGXSANBASIC_ATTR_SPECTRUM_MARKER_FUNCTION ViInt32 gs AgXSAnBasicMarkerFunction
+ "Specifies the marker control mode."
+
+4 all "Function Band Left" AGXSANBASIC_ATTR_SPECTRUM_MARKER_FUNCTION_BAND_LEFT ViReal64 gs 
+ "Sets the left edge frequency for the band of the selected marker."
+
+4 all "Function Band Right" AGXSANBASIC_ATTR_SPECTRUM_MARKER_FUNCTION_BAND_RIGHT ViReal64 gs 
+ "Sets the right edge frequency for the band of the selected marker."
+
+4 all "Function Band Span" AGXSANBASIC_ATTR_SPECTRUM_MARKER_FUNCTION_BAND_SPAN ViReal64 gs 
+ "Sets the width of the span for the selected marker."
+
+4 all "Position" AGXSANBASIC_ATTR_SPECTRUM_MARKER_POSITION ViReal64 gs 
+ "Specifies the marker X Axis value in the current marker X Axis Scale unit."
+
+4 all "Trace" AGXSANBASIC_ATTR_SPECTRUM_MARKER_TRACE ViInt32 gs AgXSAnBasicSpectrumTrace
+ "Assigns the specified marker to the designated trace."
+
+4 all "Type" AGXSANBASIC_ATTR_SPECTRUM_MARKER_TYPE ViInt32 gs AgXSAnBasicMarkerType
+ "Selects the type of markers that you want to activate."
+
+4 all "Peak"
+
+5 all "Excursion" AGXSANBASIC_ATTR_SPECTRUM_MARKER_PEAK_EXCURSION ViReal64 gs 
+ "The value in dB defines the minimum amplitude variation (rise and fall) required "
+ "for a signal to be identified as peak."
+
+5 all "Excursion Enabled" AGXSANBASIC_ATTR_SPECTRUM_MARKER_PEAK_EXCURSION_ENABLED ViBoolean gs 
+ "Enable or disable the peak excursion."
+
+5 all "Search Mode" AGXSANBASIC_ATTR_SPECTRUM_MARKER_PEAK_SEARCH_MODE ViInt32 gs AgXSAnBasicMarkerPeakSearchMode
+ "The peak search type. There are two types of peak search functions. One type is the "
+ "\"Peak Search\" type, the other type is the \"Next Peak\" type."
+
+5 all "Threshold" AGXSANBASIC_ATTR_SPECTRUM_MARKER_PEAK_THRESHOLD ViReal64 gs 
+ "The peak threshold value in dBm defines the minimum signal level (or min threshold) "
+ "that the peak identification algorithm uses to recognize a peak."
+
+5 all "Threshold Enabled" AGXSANBASIC_ATTR_SPECTRUM_MARKER_PEAK_THRESHOLD_ENABLED ViBoolean gs 
+ "Enable or disable the peak threshold."
+
+2 all "System"
+
+3 all "System Io Timeout" AGXSANBASIC_ATTR_SYSTEM_IO_TIMEOUT ViInt32 gs 
+ "The I/O timeout in milliseconds.  The client program should normally not need to "
+ "set the timeout.  Driver methods  with operations which take a significant time to "
+ "perform are responsible for adjusting the I/O timeout to an appropriate value."
+
+3 all "System Serial Number" AGXSANBASIC_ATTR_SYSTEM_SERIAL_NUMBER ViString g 
+ "-READ ONLY- The instrument serial number."
+
+3 all "System Trace Enabled" AGXSANBASIC_ATTR_SYSTEM_TRACE_ENABLED ViBoolean gs 
+ "If true, output trace log of all driver calls to an XML file using a unique file "
+ "name based on date and time in the same directory as the application executable accessing "
+ "the driver OR as specified using tracing options when initializing the driver."
+
+2 all "Trigger"
+
+3 all "Holdoff" AGXSANBASIC_ATTR_TRIGGER_HOLDOFF ViReal64 gs 
+ "The holdoff time between triggers. After a trigger, another trigger will not be allowed "
+ "until the holdoff time expires."
+
+3 all "Holdoff Enabled" AGXSANBASIC_ATTR_TRIGGER_HOLDOFF_ENABLED ViBoolean gs 
+ "Enable or disable holdoff time state."
+
+3 all "Holdoff Type" AGXSANBASIC_ATTR_TRIGGER_HOLDOFF_TYPE ViInt32 gs TriggerHoldOffType
+ "Enables to set the Trigger Holdoff Type."
+
+3 all "Sweep Mode Continuous Enabled" AGXSANBASIC_ATTR_TRIGGER_SWEEP_MODE_CONTINUOUS_ENABLED ViBoolean gs 
+ "Selects whether a trigger is continuously initiated or not. Each trigger initiates "
+ "a single, complete, measurement operation."
+
+3 all "AIQMagnitude"
+
+4 all "Bandwidth" AGXSANBASIC_ATTR_TRIGGER_AIQMAGNITUDE_BANDWIDTH ViReal64 gs 
+ "The information bandwidth used by the auxiliary receiver for the Auxiliary Channel "
+ "I/Q Magnitude trigger."
+
+4 all "Centre Frequency" AGXSANBASIC_ATTR_TRIGGER_AIQMAGNITUDE_CENTRE_FREQUENCY ViReal64 gs 
+ "The center frequency to be used by the auxiliary receiver."
+
+4 all "Delay" AGXSANBASIC_ATTR_TRIGGER_AIQMAGNITUDE_DELAY ViReal64 gs 
+ "Controls a time delay during that the analyzer will wait to begin a sweep after meeting "
+ "the trigger criteria."
+
+4 all "Level" AGXSANBASIC_ATTR_TRIGGER_AIQMAGNITUDE_LEVEL ViReal64 gs 
+ "A level for the I/Q magnitude trigger. When the signal crosses this level, with the "
+ "chosen slope, the trigger occurs."
+
+4 all "Slope" AGXSANBASIC_ATTR_TRIGGER_AIQMAGNITUDE_SLOPE ViInt32 gs TriggerAIQMagnitudeTriggerPolarity
+ "Controls the trigger polarity."
+
+3 all "Auto"
+
+4 all "Enabled" AGXSANBASIC_ATTR_TRIGGER_AUTO_ENABLED ViBoolean gs 
+ "Turns the automatic trigger function on and off. This function causes a trigger to "
+ "occur if the designated time has elapsed and no trigger occurred."
+
+4 all "Time" AGXSANBASIC_ATTR_TRIGGER_AUTO_TIME ViReal64 gs 
+ "The time in seconds that the analyzer will wait for the trigger conditions to be "
+ "met. If they are not met after that much time, then the analyzer is triggered anyway."
+
+3 all "External"
+
+4 all "Delay" AGXSANBASIC_ATTR_TRIGGER_EXTERNAL_DELAY ViReal64 gs 
+ "Controls a time delay during which the analyzer will wait to begin a sweep after "
+ "meeting the trigger criteria."
+
+4 all "Level" AGXSANBASIC_ATTR_TRIGGER_EXTERNAL_LEVEL ViReal64 gs 
+ "The value where the external 1 trigger input will trigger a new sweep or measurement."
+
+4 all "Slope" AGXSANBASIC_ATTR_TRIGGER_EXTERNAL_SLOPE ViInt32 gs AgXSAnBasicTriggerSlope
+ "Controls the trigger polarity. It is set positive to trigger on a rising edge and "
+ "negative to trigger on a falling edge."
+
+3 all "External2"
+
+4 all "Delay" AGXSANBASIC_ATTR_TRIGGER_EXTERNAL2_DELAY ViReal64 gs 
+ "Controls a time delay during which the analyzer will wait to begin a sweep after "
+ "meeting the trigger criteria."
+
+4 all "Level" AGXSANBASIC_ATTR_TRIGGER_EXTERNAL2_LEVEL ViReal64 gs 
+ "The value where the external 2 trigger input will trigger a new sweep or measurement."
+
+4 all "Slope" AGXSANBASIC_ATTR_TRIGGER_EXTERNAL2_SLOPE ViInt32 gs AgXSAnBasicTriggerSlope
+ "Controls the trigger polarity. It is set positive to trigger on a rising edge and "
+ "negative to trigger on a falling edge."
+
+3 all "External2Ex"
+
+4 all "Delay Enabled" AGXSANBASIC_ATTR_TRIGGER_EXTERNAL2EX_DELAY_ENABLED ViBoolean gs 
+ "Enable or disable the trigger delay state of analyzer."
+
+4 all "Zero Span Delay Compensation Enabled" AGXSANBASIC_ATTR_TRIGGER_EXTERNAL2EX_ZERO_SPAN_DELAY_COMPENSATION_ENABLED ViBoolean gs 
+ "Enable or disable the zero span delay compensation."
+
+3 all "External3"
+
+4 all "Delay" AGXSANBASIC_ATTR_TRIGGER_EXTERNAL3_DELAY ViReal64 gs 
+ "Controls a time delay during which the analyzer will wait to begin a sweep after "
+ "meeting the trigger criteria."
+
+4 all "Delay Enabled" AGXSANBASIC_ATTR_TRIGGER_EXTERNAL3_DELAY_ENABLED ViBoolean gs 
+ "Enable or disable the trigger delay state of analyzer."
+
+4 all "Level" AGXSANBASIC_ATTR_TRIGGER_EXTERNAL3_LEVEL ViReal64 gs 
+ "The value where the external 3 trigger input will trigger a new sweep or measurement."
+
+4 all "Slope" AGXSANBASIC_ATTR_TRIGGER_EXTERNAL3_SLOPE ViInt32 gs AgXSAnBasicTriggerSlope
+ "Controls the trigger polarity. It is set positive to trigger on a rising edge and "
+ "negative to trigger on a falling edge."
+
+4 all "Zero Span Delay Compensation Enabled" AGXSANBASIC_ATTR_TRIGGER_EXTERNAL3_ZERO_SPAN_DELAY_COMPENSATION_ENABLED ViBoolean gs 
+ "Enable or disable the zero span delay compensation."
+
+3 all "ExternalEx"
+
+4 all "Delay Enabled" AGXSANBASIC_ATTR_TRIGGER_EXTERNALEX_DELAY_ENABLED ViBoolean gs 
+ "Enable or disable the trigger delay state of analyzer."
+
+4 all "Zero Span Delay Compensation Enabled" AGXSANBASIC_ATTR_TRIGGER_EXTERNALEX_ZERO_SPAN_DELAY_COMPENSATION_ENABLED ViBoolean gs 
+ "Enable or disable the zero span delay compensation."
+
+3 all "Frame"
+
+4 all "Delay" AGXSANBASIC_ATTR_TRIGGER_FRAME_DELAY ViReal64 gs 
+ "Delays the measurement timing relative to the Periodic Timer."
+
+4 all "Delay Enabled" AGXSANBASIC_ATTR_TRIGGER_FRAME_DELAY_ENABLED ViBoolean gs 
+ "Enable or disable the trigger delay state of analyzer."
+
+4 all "Offset" AGXSANBASIC_ATTR_TRIGGER_FRAME_OFFSET ViReal64 gs 
+ "Adjusts the accumulated offset between the periodic timer events and the trigger "
+ "event."
+
+4 all "Period" AGXSANBASIC_ATTR_TRIGGER_FRAME_PERIOD ViReal64 gs 
+ "The period in second of the internal periodic timer clock."
+
+4 all "Sync Source" AGXSANBASIC_ATTR_TRIGGER_FRAME_SYNC_SOURCE ViInt32 gs AgXSAnBasicTriggerFrameSyncSource
+ "Selects a signal source for you to synchronize your periodic timer trigger to, otherwise "
+ "you are triggering at some arbitrary location in the frame."
+
+3 all "IDemodulated"
+
+4 all "Delay" AGXSANBASIC_ATTR_TRIGGER_IDEMODULATED_DELAY ViReal64 gs 
+ "Controls a time delay during which the analyzer will wait to begin a sweep after "
+ "meeting the trigger criteria."
+
+4 all "Delay Enabled" AGXSANBASIC_ATTR_TRIGGER_IDEMODULATED_DELAY_ENABLED ViBoolean gs 
+ "Enable or disable the time delay."
+
+4 all "Level" AGXSANBASIC_ATTR_TRIGGER_IDEMODULATED_LEVEL ViReal64 gs 
+ "A level for the I (Demodulated) trigger."
+
+4 all "Slope" AGXSANBASIC_ATTR_TRIGGER_IDEMODULATED_SLOPE ViInt32 gs TriggerQDemodulatedTriggerPolarity
+ "Controls the trigger polarity."
+
+3 all "IF"
+
+4 all "Delay" AGXSANBASIC_ATTR_TRIGGER_IF_DELAY ViReal64 gs 
+ "Controls a time delay during that the analyzer will wait to begin a sweep after meeting "
+ "the trigger criteria."
+
+4 all "Level" AGXSANBASIC_ATTR_TRIGGER_IF_LEVEL ViReal64 gs 
+ "Specifies the trigger level when using the IF (video) trigger. When the video signal "
+ "crosses this level, with the chosen slope, the trigger occurs."
+
+4 all "Slope" AGXSANBASIC_ATTR_TRIGGER_IF_SLOPE ViInt32 gs AgXSAnBasicTriggerSlope
+ "Controls the trigger polarity. It is set positive to trigger on a rising edge and "
+ "negative to trigger on a falling edge."
+
+3 all "InputI"
+
+4 all "Delay" AGXSANBASIC_ATTR_TRIGGER_INPUTI_DELAY ViReal64 gs 
+ "Controls a time delay during which the analyzer will wait to begin a sweep after "
+ "meeting the trigger criteria."
+
+4 all "Delay Enabled" AGXSANBASIC_ATTR_TRIGGER_INPUTI_DELAY_ENABLED ViBoolean gs 
+ "Enable or disable the time delay."
+
+4 all "Level" AGXSANBASIC_ATTR_TRIGGER_INPUTI_LEVEL ViReal64 gs 
+ "A level for the Input I trigger."
+
+4 all "Slope" AGXSANBASIC_ATTR_TRIGGER_INPUTI_SLOPE ViInt32 gs TriggerInputITriggerPolarity
+ "Controls the trigger polarity."
+
+3 all "InputQ"
+
+4 all "Delay" AGXSANBASIC_ATTR_TRIGGER_INPUTQ_DELAY ViReal64 gs 
+ "Controls a time delay during which the analyzer will wait to begin a sweep after "
+ "meeting the trigger criteria."
+
+4 all "Level" AGXSANBASIC_ATTR_TRIGGER_INPUTQ_LEVEL ViReal64 gs 
+ "A level for the Input Q trigger."
+
+4 all "Slope" AGXSANBASIC_ATTR_TRIGGER_INPUTQ_SLOPE ViInt32 gs TriggerInputQTriggerPolarity
+ "Controls the trigger polarity."
+
+3 all "IQMagnitude"
+
+4 all "Delay" AGXSANBASIC_ATTR_TRIGGER_IQMAGNITUDE_DELAY ViReal64 gs 
+ "Controls a time delay during which the analyzer will wait to begin a sweep after "
+ "meeting the trigger criteria."
+
+4 all "Delay Enabled" AGXSANBASIC_ATTR_TRIGGER_IQMAGNITUDE_DELAY_ENABLED ViBoolean gs 
+ "Enable or disable the time delay."
+
+4 all "Level" AGXSANBASIC_ATTR_TRIGGER_IQMAGNITUDE_LEVEL ViReal64 gs 
+ "Level for the I/Q magnitude trigger."
+
+4 all "Slope" AGXSANBASIC_ATTR_TRIGGER_IQMAGNITUDE_SLOPE ViInt32 gs TriggerIQMagnitudeTriggerPolarity
+ "Controls trigger polarity."
+
+3 all "Line"
+
+4 all "Delay" AGXSANBASIC_ATTR_TRIGGER_LINE_DELAY ViReal64 gs 
+ "Controls a time delay during which the analyzer will wait to begin a sweep after "
+ "meeting the trigger criteria."
+
+4 all "Slope" AGXSANBASIC_ATTR_TRIGGER_LINE_SLOPE ViInt32 gs Polarity
+ "Controls the trigger polarity."
+
+3 all "QDemodulated"
+
+4 all "Delay" AGXSANBASIC_ATTR_TRIGGER_QDEMODULATED_DELAY ViReal64 gs 
+ "Controls a time delay during which the analyzer will wait to begin a sweep after "
+ "meeting the trigger criteria."
+
+4 all "Level" AGXSANBASIC_ATTR_TRIGGER_QDEMODULATED_LEVEL ViReal64 gs 
+ "A level for the Q (Demodulated) trigger."
+
+4 all "Slope" AGXSANBASIC_ATTR_TRIGGER_QDEMODULATED_SLOPE ViInt32 gs TriggerQDemodulatedTriggerPolarity
+ "Controls the trigger polarity."
+
+3 all "RFBurst"
+
+4 all "Delay" AGXSANBASIC_ATTR_TRIGGER_RF_BURST_DELAY ViReal64 gs 
+ "The time delay during which the analyzer will wait to begin a sweep after meeting "
+ "the trigger criteria."
+
+4 all "Delay Enabled" AGXSANBASIC_ATTR_TRIGGER_DELAY_ENABLED ViBoolean gs 
+ "Enable or disable the trigger delay state."
+
+4 all "Level Absolute" AGXSANBASIC_ATTR_TRIGGER_LEVEL_ABSOLUTE ViReal64 gs 
+ "The absolute trigger level for the RF burst envelope."
+
+4 all "Level Type" AGXSANBASIC_ATTR_TRIGGER_LEVEL_TYPE ViInt32 gs TriggerRFBurstLevelType
+ "The Level Type of RFBurst trigger."
+
+4 all "Peak Level" AGXSANBASIC_ATTR_TRIGGER_RF_BURST_PEAK_LEVEL ViReal64 gs 
+ "The trigger level when using the RF Burst (wideband) Trigger. The value is relative "
+ "to the peak of the signal. RF Burst is also known as RF Envelope."
+
+4 all "Slope" AGXSANBASIC_ATTR_TRIGGER_RF_BURST_SLOPE ViInt32 gs AgXSAnBasicTriggerSlope
+ "Set the trigger slope when using the RF Burst (wideband) Trigger."
+
+2 all "Waveform"
+
+3 all "ADC Ditcher Auto Enabled" AGXSANBASIC_ATTR_WAVEFORM_ADC_DITHER_AUTO_ENABLED ViBoolean gs 
+ "Sets ADC dithering to automatically select whether dithering is needed."
+
+3 all "ADC Dither Enabled" AGXSANBASIC_ATTR_WAVEFORM_ADC_DITHER_ENABLED ViBoolean gs 
+ "Enable or disable the dither function."
+
+3 all "Aperture" AGXSANBASIC_ATTR_WAVEFORM_APERTURE ViReal64 g 
+ "ReadOnly The waveform sample period (aperture) based on current resolution bandwidth, "
+ "filter type, and decimation factor. Sample rate is the reciprocal of period."
+
+3 all "Frequency Synthesis State" AGXSANBASIC_ATTR_WAVEFORM_FREQUENCY_SYNTHESIS_STATE ViInt32 gs WaveformFrequencySynthesisState
+ "Selects the LO (local oscillator) phase noise behavior for various desired operating "
+ "conditions."
+
+3 all "Frequency Synthesis State Auto Enabled" AGXSANBASIC_ATTR_WAVEFORM_FREQUENCY_SYNTHESIS_STATE_AUTO_ENABLED ViBoolean gs 
+ "Selects the LO (local oscillator) phase noise behavior to optimize dynamic range "
+ "and speed for various instrument operating conditions."
+
+3 all "IF Gain Auto Enabled" AGXSANBASIC_ATTR_WAVEFORM_IF_GAIN_AUTO_ENABLED ViBoolean gs 
+ "Enable or disable the IF Gain function."
+
+3 all "IF Gain Offset" AGXSANBASIC_ATTR_WAVEFORM_IF_GAIN_OFFSET ViReal64 gs 
+ "The IF Gain offset."
+
+3 all "IFGain" AGXSANBASIC_ATTR_WAVEFORM_IF_GAIN ViInt32 gs AgXSAnBasicIFGain
+ "Optimize IF Gain for specific signals or signal levels."
+
+3 all "LO Mixing Type" AGXSANBASIC_ATTR_WAVEFORM_LO_MIXING_TYPE ViInt32 gs WaveformLOMixingMode2
+ "Enables to alternate between mixing modes for the Local Oscillator (LO)."
+
+3 all "Sample Rate" AGXSANBASIC_ATTR_WAVEFORM_SAMPLE_RATE ViReal64 gs 
+ "The arbitrary sample rate for the acquired data to be processed."
+
+3 all "Sweep Time" AGXSANBASIC_ATTR_WAVEFORM_SWEEP_TIME ViReal64 gs 
+ "Specifies how long the measurement is performed. X Scale only changes the representation "
+ "of the display."
+
+3 all "Trigger Source" AGXSANBASIC_ATTR_WAVEFORM_TRIGGER_SOURCE ViInt32 gs AgXSAnBasicTriggerSource
+ "Select the trigger source used to control the data acquisitions."
+
+3 all "Average"
+
+4 all "Count" AGXSANBASIC_ATTR_WAVEFORM_AVEREAGE_COUNT ViInt32 gs 
+ "The number of sweeps that will be averaged. After the specified number of sweeps "
+ "(average counts), the averaging mode (terminal control) setting determines the averaging "
+ "action."
+
+4 all "Enabled" AGXSANBASIC_ATTR_WAVEFORM_AVEREAGE_ENABLED ViBoolean gs 
+ "Enable or disable the averaging."
+
+4 all "Mode" AGXSANBASIC_ATTR_WAVEFORM_AVEREAGE_MODE ViInt32 gs AgXSAnBasicAveragingMode
+ "Select the type of termination control used for the averaging function. This determines "
+ "the averaging action after the specified number of sweeps (average count) is reached."
+
+4 all "Time Average Count Auto Enabled" AGXSANBASIC_ATTR_WAVEFORM_AVERAGE_TIME_AVERAGE_COUNT_AUTO_ENABLED ViBoolean gs 
+ "Enable or disable the auto selection of the number of HW averages to be executed "
+ "per each data acquisition."
+
+4 all "Type" AGXSANBASIC_ATTR_WAVEFORM_AVERAGE_TYPE ViInt32 gs AgXSAnBasicWaveformAverageType
+ "Select the type of averaging."
+
+4 all "Type Auto Enabled" AGXSANBASIC_ATTR_WAVEFORM_AVEREAGE_TYPE_AUTO_ENABLED ViBoolean gs 
+ "Auto enabled the selected averaging type."
+
+3 all "Bandwidth"
+
+4 all "Resolution" AGXSANBASIC_ATTR_WAVEFORM_BANDWIDTH_RESOLUTION ViReal64 gs 
+ "The Digital IF (formerly Info BW) bandwidth of the instrument."
+
+4 all "Shape" AGXSANBASIC_ATTR_WAVEFORM_BANDWIDTH_SHAPE ViInt32 gs AgXSAnBasicBandwidthShape
+ "Type of Resolution BW filter that is used."
+
+3 all "Display"
+
+4 all "View" AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_VIEW ViInt32 gs 
+ "Select view by number."
+
+4 all "View Selection" AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_VIEW_SELECTION ViInt32 gs WaveformTraceType
+ "Selects the results view"
+
+4 all "IQWaveformView"
+
+5 all "WindowX"
+
+6 all "Auto Scale Enabled" AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_IQWAVEFORM_VIEW_WINDOW_X_AUTO_SCALE_ENABLED ViBoolean gs 
+ "Enable or disable the scale coupling function."
+
+6 all "Ref Position" AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_IQWAVEFORM_VIEW_WINDOW_X_REF_POSITION ViInt32 gs DisplayWindowXRefPosition
+ "Positions the reference level at the Left, center, or right of the X- scale display."
+
+6 all "Reference" AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_IQWAVEFORM_VIEW_WINDOW_X_REFERENCE ViReal64 gs 
+ "The reference value for time on the horizontal axis."
+
+6 all "Scale" AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_IQWAVEFORM_VIEW_WINDOW_X_SCALE ViReal64 gs 
+ "Specifies the horizontal scale by changing a time value per division."
+
+5 all "WindowY"
+
+6 all "Auto Scale Enabled" AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_IQWAVEFORM_VIEW_WINDOW_Y_AUTO_SCALE_ENABLED ViBoolean gs 
+ "Positions the reference level at the top, center, or bottom of the Y- scale display."
+
+6 all "Ref Position" AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_IQWAVEFORM_VIEW_WINDOW_Y_REF_POSITION ViInt32 gs DisplayWindowYRefPosition
+ "Positions the reference level at the top, center, or bottom of the Y- scale display."
+
+6 all "Reference" AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_IQWAVEFORM_VIEW_WINDOW_Y_REFERENCE ViReal64 gs 
+ "The Y Scale reference value (in dBm) when the RF Envelope View is active."
+
+6 all "Scale" AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_IQWAVEFORM_VIEW_WINDOW_Y_SCALE ViReal64 gs 
+ "The scale per division for the RF Envelope result waveform (time domain) measurements "
+ "in the graph window."
+
+4 all "WindowX"
+
+5 all "Auto Scale Enabled" AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_WINDOW_X_AUTO_SCALE_ENABLED ViBoolean gs 
+ "Enable or disable the scale coupling function."
+
+5 all "Ref Position" AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_WINDOW_X_REF_POSITION ViInt32 gs DisplayWindowXRefPosition
+ "Positions the reference level at the Left, center, or right of the X- scale display."
+
+5 all "Reference" AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_WINDOW_X_REFERENCE ViReal64 gs 
+ "The reference value for time on the horizontal axis."
+
+5 all "Scale" AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_WINDOW_X_SCALE ViReal64 gs 
+ "Specifies the horizontal scale by changing a time value per division."
+
+4 all "WindowY"
+
+5 all "Auto Scale Enabled" AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_WINDOW_Y_AUTO_SCALE_ENABLED ViBoolean gs 
+ "Enable or disable the Auto Scaling function."
+
+5 all "Ref Position" AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_WINDOW_Y_REF_POSITION ViInt32 gs DisplayWindowYRefPosition
+ "Positions the reference level at the top, center, or bottom of the Y- scale display."
+
+5 all "Reference" AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_WINDOW_Y_REFERENCE ViReal64 gs 
+ "The Y Scale reference value (in dBm) when the RF Envelope View is active."
+
+5 all "Scale" AGXSANBASIC_ATTR_WAVEFORM_DISPLAY_WINDOW_Y_SCALE ViReal64 gs 
+ "The scale per division for the RF Envelope result waveform (time domain) measurements "
+ "in the graph window."
+
+3 all "FastCapture"
+
+4 all "Block Size" AGXSANBASIC_ATTR_WAVEFORM_FAST_CAPTURE_BLOCK_SIZE ViInt32 gs 
+ "The block size for the Fast Capture transfer in samples (points).  This is the number "
+ "of points that will be returned from the Capture buffer by the Fetch method. This "
+ "is constrained to be an even number."
+
+4 all "Length" AGXSANBASIC_ATTR_WAVEFORM_FAST_CAPTURE_LENGTH ViInt32 gs 
+ "The length of the Fast Capture in samples (points). This is constrained to be an "
+ "even number."
+
+4 all "Pointer" AGXSANBASIC_ATTR_WAVEFORM_FAST_CAPTURE_POINTER ViInt32 gs 
+ "The pointer position for the Fast Capture transfer in samples (points)."
+
+4 all "Word Length" AGXSANBASIC_ATTR_WAVEFORM_FAST_CAPTURE_WORD_LENGTH ViInt32 gs AgXSAnBasicFastCaptureWordLength
+ "Allows choice of internal fast capture word length. Shorter word length allows twice "
+ "the time length to be captured, at the cost of quantization noise."
+
+3 all "Filter"
+
+4 all "Alpha" AGXSANBASIC_ATTR_WAVEFORM_FILTER_ALPHA ViReal64 gs 
+ "The filter alpha for the DIF filter."
+
+4 all "Analog Anti Aliasing Filter Auto Enabled" AGXSANBASIC_ATTR_WAVEFORM_FILTER_ANALOG_ANTI_ALIASING_FILTER_AUTO_ENABLED ViBoolean gs 
+ "Auto enable the anti-alias filter that will be used for measurements using the wideband "
+ "IF path."
+
+4 all "Analog Anti Aliasing Filter Type" AGXSANBASIC_ATTR_WAVEFORM_FILTER_ANALOG_ANTI_ALIASING_FILTER_TYPE ViInt32 gs WaveformAntiAliasingFilterType
+ "Selects the anti-alias filter that will be used for measurements using the wideband "
+ "IF path."
+
+4 all "Bandwidth" AGXSANBASIC_ATTR_WAVEFORM_FILTER_BANDWIDTH ViReal64 gs 
+ "Filter Bandwidth."
+
+4 all "Bandwidth Auto Enabled" AGXSANBASIC_ATTR_WAVEFORM_FILTER_BANDWIDTH_AUTO_ENABLED ViBoolean gs 
+ "Auto Selection of Filter bandwidth."
+
+3 all "Marker"
+
+4 all "Active Marker" AGXSANBASIC_ATTR_WAVEFORM_MARKER_ACTIVE_MARKER ViInt32 gs 
+ "Currently active marker."
+
+4 all "Amplitude" AGXSANBASIC_ATTR_WAVEFORM_MARKER_AMPLITUDE ViReal64 g 
+ "ReadOnly The current Y value for the designated marker on its assigned trace. The "
+ "value is in the Y-axis units for the trace (which is often dBm)."
+
+4 all "Count" AGXSANBASIC_ATTR_WAVEFORM_MARKER_COUNT ViInt32 g 
+ "ReadOnly Number of markers."
+
+4 all "Coupled Enabled" AGXSANBASIC_ATTR_COUPLED_ENABLED ViBoolean gs 
+ "Enable or disable the state of the markers to be coupled."
+
+4 all "Delta Reference" AGXSANBASIC_ATTR_DELTA_REFERENCE ViInt32 gs 
+ "Selects the desired marker. The selected marker will be relative to its reference "
+ "marker."
+
+4 all "Enabled" AGXSANBASIC_ATTR_WAVEFORM_MARKER_ENABLED ViBoolean gs 
+ "Enables or disables the Active Marker."
+
+4 all "Function" AGXSANBASIC_ATTR_WAVEFORM_MARKER_FUNCTION ViInt32 gs AgXSAnBasicMarkerFunction
+ "The marker control mode."
+
+4 all "Function Band Left" AGXSANBASIC_ATTR_FUNCTION_BAND_LEFT ViReal64 gs 
+ "The left edge frequency or time for the band of the selected marker. The right edge "
+ "is unaffected."
+
+4 all "Function Band Right" AGXSANBASIC_ATTR_FUNCTION_BAND_RIGHT ViReal64 gs 
+ "The right edge frequency or time for the band of the selected marker. The left edge "
+ "is unaffected."
+
+4 all "Function2" AGXSANBASIC_ATTR_FUNCTION_BAND_SPAN ViReal64 gs 
+ "The width of the span for the selected marker."
+
+4 all "Position" AGXSANBASIC_ATTR_WAVEFORM_MARKER_POSITION ViReal64 gs 
+ "Specifies the marker X Axis value in the current marker X Axis Scale unit."
+
+4 all "Trace" AGXSANBASIC_ATTR_WAVEFORM_MARKER_TRACE ViInt32 gs AgXSAnBasicWaveformTrace
+ "Assigns the specified marker to the designated trace."
+
+4 all "Type" AGXSANBASIC_ATTR_WAVEFORM_MARKER_TYPE ViInt32 gs AgXSAnBasicMarkerType
+ "Selects the type of markers that you want to activate."

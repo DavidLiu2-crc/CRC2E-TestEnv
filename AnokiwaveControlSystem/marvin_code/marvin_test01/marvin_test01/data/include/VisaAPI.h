@@ -17,7 +17,7 @@ public:
 
 	// Searches for Visa resource by opening VISA Resource Manager
 	void cmd_SearchForVisaResource();
-	void cmd_StartVisaConnection();
+	bool cmd_StartVisaConnection();
 	void cmd_EndVisaConnection();
 
 	void cmd_sendString(ViChar* _command, ViChar* _response);

@@ -1,0 +1,1112 @@
+(saveFormat "7.0")
+(date "Thu 02/Aug/2018 10:54:40 ")
+(veerev "9.32.17710.0")
+(platform "PC")
+(execMode v6)
+(prefExecMode v6)
+(filterNAN 0)
+(workspaceStackingOrder M)
+(sysconfig
+(iodevice "AgilentXxx"
+(type GPIB)
+(gateway "This host")
+(channel 7)
+(subchannel 14)
+(readTerm "\n")
+(fs ",")
+(eol "\n")
+(multiField dataOnly)
+(arrayFormat linear)
+(timeout 5)
+(byteOrder 0)
+(ivicomFile "AgXSAnBasic")
+(ivicomAddr "GPIB0::14::INSTR")
+(eoiEnabled 1)
+(model ""
+(standard 488)))
+(iodevice "AgXSAn"
+(type GPIB)
+(gateway "This host")
+(channel 7)
+(subchannel 14)
+(readTerm "\n")
+(fs ",")
+(eol "\n")
+(multiField dataOnly)
+(arrayFormat linear)
+(timeout 5)
+(byteOrder 0)
+(ivicomFile "AgXSAn")
+(ivicomAddr "GPIB0::14::INSTR")
+(eoiEnabled 1)
+(model ""
+(standard 488))))
+(SaveCF no)
+(watchterminalslist
+(terminal 0
+(deviceIdNumberStr "M.61")
+(input 0)
+(index 1)
+(isimport 0)))
+(device 0 ROOTCONTEXT
+(assemblyRefs
+(assemblyRef 1
+(displayName
+"mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089")
+(filename "C:\\Windows\\Microsoft.NET\\Framework\\v2.0.50727\\mscorlib.dll"))
+(assemblyRef 2
+(displayName
+"Agilent.AgXSAnBasic.Interop, Version=1.4.0.0, Culture=neutral, PublicKeyToken=CED78D295D1E0F2B"
+)
+(libid "{BD1C44DE-BD49-47F7-8983-4B40831A0D9A}")
+(desc "IVI AgXSAnBasic 1.0 Type Library")
+(filename "C:\\Program Files\\IVI Foundation\\IVI\\Bin\\AgXSAnBasic.dll")
+(verMajor 2)
+(verMinor 0)
+(lcid 0)
+(isPIA 1)
+(IAFilename
+"C:\\Program Files\\IVI Foundation\\IVI\\Bin\\Primary Interop Assemblies\\Agilent.AgXSAnBasic.Interop.dll"
+))
+(assemblyRef 3
+(displayName
+"Ivi.Driver.Interop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a128c98f1d7717c1"
+)
+(libid "{47ed5120-a398-11d4-ba58-000064657374}")
+(desc "IviDriver 1.0 Type Library (x64)")
+(filename
+"C:\\Program Files (x86)\\IVI Foundation\\IVI\\Bin\\IviDriverTypeLib.dll")
+(verMajor 1)
+(verMinor 0)
+(lcid 0)
+(isPIA 1)
+(IAFilename
+"C:\\Program Files (x86)\\IVI Foundation\\IVI\\Bin\\Primary Interop Assemblies\\Ivi.Driver.Interop.DLL"
+))
+(assemblyRef 4
+(displayName
+"Ivi.SessionFactory.Interop, Version=1.1.0.0, Culture=neutral, PublicKeyToken=a128c98f1d7717c1"
+)
+(libid "{2730edc0-8db0-445b-9bd2-b031416475c3}")
+(desc "IviSessionFactory 1.0 Type Library (x64)")
+(filename
+"C:\\Program Files (x86)\\IVI Foundation\\IVI\\Bin\\IviSessionFactory.dll")
+(verMajor 1)
+(verMinor 0)
+(lcid 0)
+(isPIA 1)
+(IAFilename
+"C:\\Program Files (x86)\\IVI Foundation\\IVI\\Bin\\Primary Interop Assemblies\\Ivi.SessionFactory.Interop.DLL"
+))
+(assemblyRef 5
+(displayName
+"Agilent.AgXSAn.Interop, Version=3.6.1.0, Culture=neutral, PublicKeyToken=CED78D295D1E0F2B"
+)
+(libid "{4972BE34-5966-4755-B032-7C9251604F06}")
+(desc "IVI AgXSAn 2.0 Type Library")
+(filename "C:\\Program Files (x86)\\IVI Foundation\\IVI\\Bin\\AgXSAn.dll")
+(verMajor 3)
+(verMinor 1)
+(lcid 0)
+(isPIA 1)
+(IAFilename
+"C:\\Program Files (x86)\\IVI Foundation\\IVI\\Bin\\Primary Interop Assemblies\\Agilent.AgXSAn.Interop.dll"
+))
+(assemblyRef 6
+(displayName
+"Ivi.Visa.Interop, Version=5.0.0.0, Culture=neutral, PublicKeyToken=a128c98f1d7717c1"
+)
+(libid "{db8cbf00-d6d3-11d4-aa51-00a024ee30bd}")
+(desc "VISA COM 3.0 Type Library")
+(filename "C:\\Program Files (x86)\\IVI Foundation\\VISA\\VisaCom\\GlobMgr.dll")
+(verMajor 5)
+(verMinor 5)
+(lcid 0)
+(isPIA 1)
+(IAFilename
+"C:\\Program Files (x86)\\IVI Foundation\\VISA\\VisaCom\\Primary Interop Assemblies\\Ivi.Visa.Interop.dll"
+))
+(assemblyRef 7
+(displayName
+"Ivi.SpecAn.Interop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a128c98f1d7717c1"
+)
+(libid "{47ed5126-a398-11d4-ba58-000064657374}")
+(desc "IviSpecAn 1.0 Type Library (x64)")
+(filename
+"C:\\Program Files (x86)\\IVI Foundation\\IVI\\Bin\\IviSpecAnTypeLib.dll")
+(verMajor 1)
+(verMinor 0)
+(lcid 0)
+(isPIA 1)
+(IAFilename
+"C:\\Program Files (x86)\\IVI Foundation\\IVI\\Bin\\Primary Interop Assemblies\\Ivi.SpecAn.Interop.DLL"
+))
+(assemblyRef 8
+(displayName
+"Ivi.LxiSync.Interop, Version=1.0.4.0, Culture=neutral, PublicKeyToken=a128c98f1d7717c1"
+)
+(libid "{47ed512a-a398-11d4-ba58-000064657374}")
+(desc "IviLxiSync 1.0 Type Library (x64)")
+(filename
+"C:\\Program Files (x86)\\IVI Foundation\\IVI\\Bin\\IviLxiSyncTypeLib.dll")
+(verMajor 1)
+(verMinor 0)
+(lcid 0)
+(isPIA 1)
+(IAFilename
+"C:\\Program Files (x86)\\IVI Foundation\\IVI\\Bin\\Primary Interop Assemblies\\Ivi.LxiSync.Interop.dll"
+))
+(selectedNamespaces ""))
+(properties
+(variableName Main)
+(variableScope glob)
+(trigMode deg)
+(nextID 68)
+(popupTitleText "Untitled")
+(popupMoveable 1)
+(deleteGlobals 0))
+(deviceList
+(device 17 TEXTDISPLAY
+(properties
+(name "FirmwareRevision")
+(variableScope cont))
+(interface
+(input 1
+(name "Data"))))
+(device 18 TEXTDISPLAY
+(properties
+(name "Identifier")
+(variableScope cont))
+(interface
+(input 1
+(name "Data"))))
+(device 26 IVICOMBUILDER
+(properties
+(name "Initialize IVI Driver")
+(variableScope cont)
+(transactions 4 "identifier = agXSAnBasicClass.Identity.Identifier"
+"agXSAnBasicClass.Initialize(ResourceName, asVariantBool(False), asVariantBool(True), OptionString)"
+"firmwareRevision = agXSAnBasicClass.Identity.InstrumentFirmwareRevision"
+"instrumentModel = agXSAnBasicClass.Identity.InstrumentModel")
+(parmInfo 11 "1" "T 0" "4" "T 0" "T 0" "T 0" "T 0" "1" "T 0" "1" "T 0")
+(memberInfos 4 "System.String Identifier"
+"Void Initialize(System.String, Boolean, Boolean, System.String)"
+"System.String InstrumentFirmwareRevision" "System.String InstrumentModel")
+(statics 4 "0" "0" "0" "0")
+(assemblyQualifiedName
+"Agilent.AgXSAnBasic.Interop.AgXSAnBasicClass, Agilent.AgXSAnBasic.Interop, Version=1.4.0.0, Culture=neutral, PublicKeyToken=ced78d295d1e0f2b"
+)
+(objectName "agXSAnBasicClass")
+(addrString "GPIB0::14::INSTR")
+(performQuery 1)
+(performReset 1)
+(sessionFactory 0)
+(classCompliant 0))
+(interface
+(input 1
+(name "ResourceName")
+(requires
+(datatype Text)
+(shape "Scalar"))
+(lock name constraints)
+(optional yes))
+(input 2
+(name "OptionString")
+(requires
+(datatype Text)
+(shape "Scalar"))
+(lock name constraints)
+(optional yes))
+(output 1
+(name "identifier")
+(optional yes))
+(output 2
+(name "instrumentModel")
+(optional yes))
+(output 3
+(name "firmwareRevision")
+(optional yes)))
+(implementation
+(prefix "AgXSAnBasic")
+(ioDev "AgilentXxx")))
+(device 27 DECLVAR
+(properties
+(name "Declare agXSAnBasicClass")
+(scope glob)
+(globalName "agXSAnBasicClass"))
+(implementation
+(value Object
+(data 
+".NET OFF Agilent.AgXSAnBasic.Interop,Agilent.AgXSAnBasic.Interop.AgXSAnBasic"))
+))
+(device 28 NOTE
+(properties
+(name "Information")
+(variableScope cont)
+(text2 1
+"{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 Arial;}{\\f1\\fnil\\fcharset0 Times New Roman;}}\r\n{\\colortbl ;\\red0\\green0\\blue0;}\r\n\\viewkind4\\uc1\\pard\\cf1\\fs20 Always use a global Declare Variable object to hold the driver class object instantiated by CreateInstance.  This global variable is then used by all subsequent To/From driver objects in your program.\\f1\\fs24\\par\r\n}\r\n"
+)))
+(device 29 IVICOMBUILDER
+(properties
+(name "CreateInstance To/From Agilent IVI Driver")
+(variableScope cont)
+(transactions 1
+"agXSAnBasicClass = CreateInstance(\"Agilent.AgXSAnBasic.Interop\", \"Agilent.AgXSAnBasic.Interop.AgXSAnBasicClass\")"
+)
+(parmInfo 4 "3" "T 0" "T 0" "T 0")
+(memberInfos 1 "Void .ctor()")
+(statics 1 "0")
+(assemblyQualifiedName
+"Agilent.AgXSAnBasic.Interop.AgXSAnBasicClass, Agilent.AgXSAnBasic.Interop, Version=1.4.0.0, Culture=neutral, PublicKeyToken=ced78d295d1e0f2b"
+)
+(objectName "agXSAnBasicClass")
+(addrString "GPIB0::14::INSTR")
+(performQuery 1)
+(performReset 1)
+(sessionFactory 0)
+(classCompliant 0))
+(implementation
+(prefix "AgXSAnBasic")
+(ioDev "AgilentXxx")))
+(device 30 LITERALCONSTANT
+(properties
+(name "ResourceName")
+(variableScope cont)
+(enableEditing 1))
+(interface
+(output 1
+(name "Text")
+(lock name constraints)))
+(implementation
+(value Text
+(data  "GPIB0::14::INSTR"))
+(initValue Text
+(data  ""))))
+(device 31 LITERALCONSTANT
+(properties
+(name "OptionString")
+(variableScope cont)
+(enableEditing 1))
+(interface
+(output 1
+(name "Text")
+(lock name constraints)))
+(implementation
+(value Text
+(data  "Simulate=True, DriverSetup= Model="))
+(initValue Text
+(data  ""))))
+(device 32 TEXTDISPLAY
+(properties
+(name "Model")
+(variableScope cont))
+(interface
+(input 1
+(name "Data"))))
+(device 33 NOTE
+(properties
+(name "Agilent IVI Driver Example Program")
+(variableScope cont)
+(text2 1
+"{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 Arial;}{\\f1\\fnil\\fcharset0 Times New Roman;}}\r\n{\\colortbl ;\\red0\\green0\\blue0;}\r\n\\viewkind4\\uc1\\pard\\cf1\\fs20 This example program runs without an instrument in simulation mode.  To run with an instrument change the OptionString to \"Simulate=false\" and edit the ResourceName as needed.  The program initializes the driver and displays some identity properties.\\f1\\fs24\\par\r\n}\r\n"
+)))
+(device 34 IVICOMBUILDER
+(properties
+(name "Close To/From Agilent IVI Driver")
+(variableScope cont)
+(transactions 1 "agXSAnBasicClass.Close()")
+(parmInfo 1 "0")
+(memberInfos 1 "Void Close()")
+(statics 1 "0")
+(assemblyQualifiedName
+"Agilent.AgXSAnBasic.Interop.AgXSAnBasicClass, Agilent.AgXSAnBasic.Interop, Version=1.4.0.0, Culture=neutral, PublicKeyToken=ced78d295d1e0f2b"
+)
+(objectName "agXSAnBasicClass")
+(addrString "GPIB0::14::INSTR")
+(performQuery 1)
+(performReset 1)
+(sessionFactory 0)
+(classCompliant 0))
+(implementation
+(prefix "AgXSAnBasic")
+(ioDev "AgilentXxx")))
+(device 41 IVICOMBUILDER
+(properties
+(name "Waveform Measurement")
+(variableScope cont)
+(transactions 2 "agXSAnBasicClass.Waveform.SweepTime = sweepTime"
+"Data = agXSAnBasicClass.Waveform.Traces.Item(\"WfmTraceRawIQ\").Read(5000)")
+(parmInfo 6 "1" "T 0" "3" "T 0" "T 0" "T 0")
+(memberInfos 2 "Double SweepTime" "Double[] Read(Int32)")
+(statics 2 "0" "0")
+(assemblyQualifiedName
+"Agilent.AgXSAnBasic.Interop.AgXSAnBasicClass, Agilent.AgXSAnBasic.Interop, Version=1.4.0.0, Culture=neutral, PublicKeyToken=ced78d295d1e0f2b"
+)
+(objectName "agXSAnBasicClass")
+(addrString "GPIB0::14::INSTR")
+(performQuery 1)
+(performReset 1)
+(sessionFactory 0)
+(classCompliant 0))
+(interface
+(input 1
+(name "sampleRate")
+(requires
+(datatype Real64)
+(shape "Scalar"))
+(lock name constraints)
+(optional yes))
+(input 2
+(name "sweepTime")
+(requires
+(datatype Real64)
+(shape "Scalar"))
+(lock name constraints)
+(optional yes))
+(output 1
+(name "Data")
+(optional yes)))
+(implementation
+(prefix "AgXSAnBasic")
+(ioDev "AgilentXxx")))
+(device 42 CONSTANT
+(properties
+(name "Sample Rate")
+(variableScope cont)
+(enableEditing 1))
+(interface
+(output 1
+(name "Real32")
+(lock name constraints)))
+(implementation
+(value Real32
+(data  5000000))
+(initValue Real32
+(data  0))))
+(device 44 CONSTANT
+(properties
+(name "Attenuation")
+(variableScope cont)
+(enableEditing 1))
+(interface
+(output 1
+(name "Real64")
+(lock name constraints)))
+(implementation
+(value Real
+(data  20))
+(initValue Real
+(data  0))))
+(device 45 CONSTANT
+(properties
+(name "Sweep Time")
+(variableScope cont)
+(enableEditing 1))
+(interface
+(output 1
+(name "Real64")
+(lock name constraints)))
+(implementation
+(value Real
+(data  0.005))
+(initValue Real
+(data  0))))
+(device 46 TEXTDISPLAY
+(properties
+(name "Waveform Measurement Data")
+(variableScope cont))
+(interface
+(input 1
+(name "Data"))))
+(device 47 IVICOMBUILDER
+(properties
+(name "Spectrum Measurement")
+(variableScope cont)
+(transactions 3 "agXSAnBasicClass.Frequency.Center = center"
+"agXSAnBasicClass.Spectrum.FrequencySpan = frequencySpan"
+"Data = agXSAnBasicClass.Spectrum.Traces.Item(\"RawIQ\").Read(5000)")
+(parmInfo 8 "1" "T 0" "1" "T 0" "3" "T 0" "T 0" "T 0")
+(memberInfos 3 "Double Center" "Double FrequencySpan" "Double[] Read(Int32)")
+(statics 3 "0" "0" "0")
+(assemblyQualifiedName
+"Agilent.AgXSAnBasic.Interop.AgXSAnBasicClass, Agilent.AgXSAnBasic.Interop, Version=1.4.0.0, Culture=neutral, PublicKeyToken=ced78d295d1e0f2b"
+)
+(objectName "agXSAnBasicClass")
+(addrString "GPIB0::14::INSTR")
+(performQuery 1)
+(performReset 1)
+(sessionFactory 0)
+(classCompliant 0))
+(interface
+(input 1
+(name "center")
+(requires
+(datatype Real64)
+(shape "Scalar"))
+(lock name constraints)
+(optional yes))
+(input 2
+(name "frequencySpan")
+(requires
+(datatype Real64)
+(shape "Scalar"))
+(lock name constraints)
+(optional yes))
+(output 1
+(name "Data")
+(optional yes)))
+(implementation
+(prefix "AgXSAnBasic")
+(ioDev "AgilentXxx")))
+(device 48 CONSTANT
+(properties
+(name "Center Frequency")
+(variableScope cont)
+(enableEditing 1))
+(interface
+(output 1
+(name "Real64")
+(lock name constraints)))
+(implementation
+(value Real
+(data  2000000000))
+(initValue Real
+(data  0))))
+(device 50 CONSTANT
+(properties
+(name "Frequency Span")
+(variableScope cont)
+(enableEditing 1))
+(interface
+(output 1
+(name "Real64")
+(lock name constraints)))
+(implementation
+(value Real
+(data  25000000))
+(initValue Real
+(data  0))))
+(device 51 TEXTDISPLAY
+(properties
+(name "Spectrum Measurement Data")
+(variableScope cont))
+(interface
+(input 1
+(name "Data"))))
+(device 53 IVICOMBUILDER
+(properties
+(name "To/From AgXSAn")
+(variableScope cont)
+(transactions 4
+"agXSAnClass = CreateInstance(\"Agilent.AgXSAn.Interop\", \"Agilent.AgXSAn.Interop.AgXSAnClass\")"
+"agXSAnClass.Initialize(ResourceName, asVariantBool(True), asVariantBool(True), OptionString)"
+"agXSAnClass.Frequency.Center = 2500000000"
+"agXSAnClass.Input.Port = Agilent.AgXSAn.Interop.AgXSAnInputPortEnum.AgXSAnInputPortRF"
+)
+(parmInfo 13 "3" "T 0" "T 0" "T 0" "4" "T 0" "T 0" "T 0" "T 0" "1" "T 0" "1"
+"T 0")
+(memberInfos 4 "Void .ctor()"
+"Void Initialize(System.String, Boolean, Boolean, System.String)"
+"Double Center" "Agilent.AgXSAn.Interop.AgXSAnInputPortEnum Port")
+(statics 4 "0" "0" "0" "0")
+(assemblyQualifiedName
+"Agilent.AgXSAn.Interop.AgXSAnClass, Agilent.AgXSAn.Interop, Version=3.6.1.0, Culture=neutral, PublicKeyToken=ced78d295d1e0f2b"
+)
+(objectName "agXSAnClass")
+(addrString "GPIB0::14::INSTR")
+(performQuery 1)
+(performReset 1)
+(sessionFactory 0)
+(classCompliant 0))
+(interface
+(input 1
+(name "ResourceName")
+(requires
+(datatype Text)
+(shape "Scalar"))
+(lock name constraints)
+(optional yes))
+(input 2
+(name "OptionString")
+(requires
+(datatype Text)
+(shape "Scalar"))
+(lock name constraints)
+(optional yes)))
+(implementation
+(prefix "AgXSAn")
+(ioDev "AgXSAn")))
+(device 54 DECLVAR
+(properties
+(name "Declare agXSAnClass")
+(scope glob)
+(globalName "agXSAnClass"))
+(implementation
+(value Object
+(data  ".NET OFF Agilent.AgXSAn.Interop,Agilent.AgXSAn.Interop.AgXSAn"))))
+(device 55 IVICOMBUILDER
+(properties
+(name "Close AgXSAn")
+(variableScope cont)
+(transactions 1 "agXSAnClass.Close()")
+(parmInfo 1 "0")
+(memberInfos 1 "Void Close()")
+(statics 1 "0")
+(assemblyQualifiedName
+"Agilent.AgXSAn.Interop.AgXSAnClass, Agilent.AgXSAn.Interop, Version=3.6.1.0, Culture=neutral, PublicKeyToken=ced78d295d1e0f2b"
+)
+(objectName "agXSAnClass")
+(addrString "GPIB0::14::INSTR")
+(performQuery 1)
+(performReset 1)
+(sessionFactory 0)
+(classCompliant 0))
+(implementation
+(prefix "AgXSAn")
+(ioDev "AgXSAn")))
+(device 59 IVICOMBUILDER
+(properties
+(name "Set RF Attenuation")
+(variableScope cont)
+(transactions 1 "agXSAnBasicClass.Input.RF.Attenuation = attenuation")
+(parmInfo 2 "1" "T 0")
+(memberInfos 1 "Double Attenuation")
+(statics 1 "0")
+(assemblyQualifiedName
+"Agilent.AgXSAnBasic.Interop.AgXSAnBasicClass, Agilent.AgXSAnBasic.Interop, Version=1.4.0.0, Culture=neutral, PublicKeyToken=ced78d295d1e0f2b"
+)
+(objectName "agXSAnBasicClass")
+(addrString "GPIB0::14::INSTR")
+(performQuery 1)
+(performReset 1)
+(sessionFactory 0)
+(classCompliant 0))
+(interface
+(input 1
+(name "attenuation")
+(requires
+(datatype Real64)
+(shape "Scalar"))
+(lock name constraints)
+(optional yes)))
+(implementation
+(prefix "AgXSAnBasic")
+(ioDev "AgilentXxx")))
+(device 57 IVICOMBUILDER
+(properties
+(name "Configure Waveform Measurement")
+(variableScope cont)
+(transactions 1 "agXSAnBasicClass.Waveform.Configure()")
+(parmInfo 1 "0")
+(memberInfos 1 "Void Configure()")
+(statics 1 "0")
+(assemblyQualifiedName
+"Agilent.AgXSAnBasic.Interop.AgXSAnBasicClass, Agilent.AgXSAnBasic.Interop, Version=1.4.0.0, Culture=neutral, PublicKeyToken=ced78d295d1e0f2b"
+)
+(objectName "agXSAnBasicClass")
+(addrString "GPIB0::14::INSTR")
+(performQuery 1)
+(performReset 1)
+(sessionFactory 0)
+(classCompliant 0))
+(implementation
+(prefix "AgXSAnBasic")
+(ioDev "AgilentXxx")))
+(device 60 IVICOMBUILDER
+(properties
+(name "To/From AgilentXxx")
+(variableScope cont)
+(transactions 1 "instrumentModel = agXSAnBasicClass.Identity.InstrumentModel")
+(parmInfo 2 "1" "T 0")
+(memberInfos 1 "System.String InstrumentModel")
+(statics 1 "0")
+(assemblyQualifiedName
+"Agilent.AgXSAnBasic.Interop.AgXSAnBasicClass, Agilent.AgXSAnBasic.Interop, Version=1.4.0.0, Culture=neutral, PublicKeyToken=ced78d295d1e0f2b"
+)
+(objectName "agXSAnBasicClass")
+(addrString "GPIB0::14::INSTR")
+(performQuery 1)
+(performReset 1)
+(sessionFactory 0)
+(classCompliant 0))
+(interface
+(output 1
+(name "instrumentModel")
+(optional yes)))
+(implementation
+(prefix "AgXSAnBasic")
+(ioDev "AgilentXxx")))
+(device 61 IFTHENELSE
+(properties
+(variableScope cont)
+(cases 1 "A!=B AND A!=C AND A!=D AND A!=E"))
+(interface
+(input 1
+(name "A")
+(optional yes))
+(input 2
+(name "B")
+(optional yes))
+(input 3
+(name "C")
+(optional yes))
+(input 4
+(name "D")
+(optional yes))
+(input 5
+(name "E")
+(optional yes))
+(output 1
+(name "Then")
+(lock name constraints))
+(output 2
+(name "Else")
+(lock name constraints))))
+(device 62 IVICOMBUILDER
+(properties
+(name "To/From AgXSAn")
+(variableScope cont)
+(transactions 1 "agXSAnClass.Level.Attenuation = 20")
+(parmInfo 2 "1" "T 0")
+(memberInfos 1 "Double Attenuation")
+(statics 1 "0")
+(assemblyQualifiedName
+"Agilent.AgXSAn.Interop.AgXSAnClass, Agilent.AgXSAn.Interop, Version=3.6.1.0, Culture=neutral, PublicKeyToken=ced78d295d1e0f2b"
+)
+(objectName "agXSAnClass")
+(addrString "GPIB0::14::INSTR")
+(performQuery 1)
+(performReset 1)
+(sessionFactory 0)
+(classCompliant 0))
+(implementation
+(prefix "AgXSAn")
+(ioDev "AgXSAn")))
+(device 63 JUNCTION
+(properties
+(name "JCT")
+(variableScope cont))
+(interface
+(input 1
+(name "A"))
+(input 2
+(name "B"))
+(output 1
+(name "Data"))))
+(device 64 LITERALCONSTANT
+(properties
+(name "Text")
+(variableScope cont)
+(enableEditing 1))
+(interface
+(output 1
+(name "Text")
+(lock name constraints)))
+(implementation
+(value Text
+(data  "M9421A"))
+(initValue Text
+(data  ""))))
+(device 65 LITERALCONSTANT
+(properties
+(name "Text")
+(variableScope cont)
+(enableEditing 1))
+(interface
+(output 1
+(name "Text")
+(lock name constraints)))
+(implementation
+(value Text
+(data  "M9420A"))
+(initValue Text
+(data  ""))))
+(device 66 LITERALCONSTANT
+(properties
+(name "Text")
+(variableScope cont)
+(enableEditing 1))
+(interface
+(output 1
+(name "Text")
+(lock name constraints)))
+(implementation
+(value Text
+(data  "M90XA"))
+(initValue Text
+(data  ""))))
+(device 67 LITERALCONSTANT
+(properties
+(name "Text")
+(variableScope cont)
+(enableEditing 1))
+(interface
+(output 1
+(name "Text")
+(lock name constraints)))
+(implementation
+(value Text
+(data  "M8920A"))
+(initValue Text
+(data  ""))))
+(configuration
+(connect D2:3 D0:1)
+(connect D2:1 D1:1)
+(connect D5:0 D2:0)
+(connect D6:1 D2:1)
+(connect D7:1 D2:2)
+(connect D2:2 D8:1)
+(connect D16:0 D10:0)
+(connect D28:1 D11:0)
+(connect D12:1 D11:1)
+(connect D14:1 D11:2)
+(connect D11:1 D15:1)
+(connect D11:0 D16:0)
+(connect D17:1 D16:1)
+(connect D18:1 D16:2)
+(connect D16:1 D19:1)
+(connect D2:0 D20:0)
+(connect D6:1 D20:1)
+(connect D7:1 D20:2)
+(connect D10:0 D22:0)
+(connect D27:0 D23:0)
+(connect D13:1 D23:1)
+(connect D20:0 D24:0)
+(connect D24:0 D25:0)
+(connect D25:1 D26:0)
+(connect D2:2 D26:1)
+(connect D29:1 D26:2)
+(connect D30:1 D26:3)
+(connect D31:1 D26:4)
+(connect D32:1 D26:5)
+(connect D26:1 D27:0)
+(connect D23:0 D28:1)
+(connect D26:2 D28:2)))
+(contextCarrier
+(wndRestoredOrigin 2 2)
+(wndRestoredExtent 528 391)
+(wndState max)
+(active detail)
+(detail
+(extent 1364 865)
+(anchorPt 133 54)
+(configuration
+(devCarrierFor 17
+(active open)
+(icon
+(extent 110 0))
+(open
+(extent 194 26))
+(pinCenter 790 170))
+(devCarrierFor 18
+(active open)
+(icon
+(extent 51 0))
+(open
+(extent 184 26))
+(pinCenter 790 50))
+(devCarrierFor 26
+(active icon)
+(icon
+(extent 104 34))
+(open
+(extent 304 116))
+(terminals on)
+(pinCenter 380 110))
+(devCarrierFor 27
+(active icon)
+(icon
+(extent 193 15))
+(open
+(extent 484 126))
+(pinCenter 390 -10))
+(devCarrierFor 28
+(active open)
+(icon
+(extent 68 0)
+(iconImage "notepad.icn"))
+(open
+(extent 334 86)
+(editing disabled))
+(pinCenter 710 -120))
+(devCarrierFor 29
+(active icon)
+(icon
+(extent 246 15))
+(open
+(extent 259 46))
+(terminals on)
+(pinCenter 380 30))
+(devCarrierFor 30
+(active open)
+(icon
+(extent 96 0))
+(open
+(extent 174 29))
+(pinCenter 10 80))
+(devCarrierFor 31
+(active open)
+(icon
+(extent 74 0))
+(open
+(extent 174 29))
+(pinCenter 10 140))
+(devCarrierFor 32
+(active open)
+(icon
+(extent 37 0))
+(open
+(extent 194 26))
+(pinCenter 790 110))
+(devCarrierFor 33
+(active open)
+(icon
+(extent 209 0)
+(iconImage "notepad.icn"))
+(open
+(extent 354 166)
+(editing disabled))
+(pinCenter 100 -80))
+(devCarrierFor 34
+(active icon)
+(icon
+(extent 190 15))
+(open
+(extent 229 74))
+(terminals on)
+(pinCenter 390 670))
+(devCarrierFor 41
+(active icon)
+(icon
+(extent 147 34))
+(open
+(extent 364 126))
+(terminals on)
+(pinCenter 390 470))
+(devCarrierFor 42
+(active icon)
+(icon
+(extent 79 15))
+(open
+(extent 115 29)
+(showFormat real))
+(pinCenter 90 440))
+(devCarrierFor 44
+(active icon)
+(icon
+(extent 67 15))
+(open
+(extent 104 29)
+(showFormat real))
+(pinCenter 90 410))
+(devCarrierFor 45
+(active icon)
+(icon
+(extent 75 15))
+(open
+(extent 111 29)
+(showFormat real))
+(pinCenter 90 470))
+(devCarrierFor 46
+(active icon)
+(icon
+(extent 179 15))
+(open
+(extent 294 146))
+(pinCenter 750 450))
+(devCarrierFor 47
+(active icon)
+(icon
+(extent 145 25))
+(open
+(extent 221 74))
+(terminals on)
+(pinCenter 390 520))
+(devCarrierFor 48
+(active icon)
+(icon
+(extent 106 15))
+(open
+(extent 142 29)
+(showFormat real))
+(pinCenter 90 510))
+(devCarrierFor 50
+(active icon)
+(icon
+(extent 97 15))
+(open
+(extent 133 29)
+(showFormat real))
+(pinCenter 90 540))
+(devCarrierFor 51
+(active icon)
+(icon
+(extent 177 15))
+(open
+(extent 354 236))
+(pinCenter 750 520))
+(devCarrierFor 53
+(active icon)
+(icon
+(extent 99 25))
+(open
+(extent 244 156))
+(terminals on)
+(pinCenter 380 170))
+(devCarrierFor 54
+(active icon)
+(icon
+(extent 134 15))
+(open
+(extent 484 126))
+(pinCenter 390 -60))
+(devCarrierFor 55
+(active icon)
+(icon
+(extent 85 15))
+(open
+(extent 221 74))
+(terminals on)
+(pinCenter 390 750))
+(devCarrierFor 59
+(active icon)
+(icon
+(extent 110 15))
+(open
+(extent 221 74))
+(terminals on)
+(pinCenter 390 410))
+(devCarrierFor 57
+(active icon)
+(icon
+(extent 210 15))
+(open
+(extent 221 74))
+(terminals on)
+(pinCenter 370 220))
+(devCarrierFor 60
+(active icon)
+(icon
+(extent 111 15))
+(open
+(extent 221 74))
+(terminals on)
+(pinCenter 370 260))
+(devCarrierFor 61
+(active icon)
+(icon
+(extent 71 54))
+(open
+(extent 219 102))
+(terminals on)
+(pinCenter 550 330))
+(devCarrierFor 62
+(active icon)
+(icon
+(extent 99 15))
+(open
+(extent 221 84))
+(terminals on)
+(pinCenter 390 360))
+(devCarrierFor 63
+(active icon)
+(icon
+(extent 26 25))
+(open)
+(terminals on)
+(pinCenter 520 410))
+(devCarrierFor 64
+(active open)
+(icon)
+(open
+(extent 104 16))
+(pinCenter 90 200))
+(devCarrierFor 65
+(active open)
+(icon)
+(open
+(extent 104 16))
+(pinCenter 90 250))
+(devCarrierFor 66
+(active open)
+(icon)
+(open
+(extent 104 16))
+(pinCenter 90 300))
+(devCarrierFor 67
+(active open)
+(icon)
+(open
+(extent 104 16))
+(pinCenter 90 350))
+(connect D2:3 D0:1
+(points 4 434 120 450 120 450 170 690 170))
+(connect D2:1 D1:1
+(points 4 434 100 450 100 450 50 695 50))
+(connect D5:0 D2:0
+(points 2 380 40 380 90))
+(connect D6:1 D2:1
+(points 4 99 80 120 80 120 100 325 100))
+(connect D7:1 D2:2
+(points 4 99 140 120 140 120 120 325 120))
+(connect D2:2 D8:1
+(points 2 434 110 690 110))
+(connect D16:0 D10:0
+(points 2 390 535 390 660))
+(connect D28:1 D11:0
+(points 5 535 410 560 410 560 440 390 440 390 450))
+(connect D12:1 D11:1
+(points 4 132 440 150 440 150 460 314 460))
+(connect D14:1 D11:2
+(points 4 130 470 150 470 150 480 314 480))
+(connect D11:1 D15:1
+(points 4 466 470 490 470 490 450 658 450))
+(connect D11:0 D16:0
+(points 2 390 489 390 505))
+(connect D17:1 D16:1
+(points 2 145 510 315 510))
+(connect D18:1 D16:2
+(points 4 141 540 160 540 160 530 315 530))
+(connect D16:1 D19:1
+(points 2 465 520 659 520))
+(connect D2:0 D20:0
+(points 2 380 129 380 155))
+(connect D6:1 D20:1
+(points 6 99 80 120 80 120 100 310 100 310 160 328 160))
+(connect D7:1 D20:2
+(points 6 99 140 120 140 120 120 300 120 300 180 328 180))
+(connect D10:0 D22:0
+(points 2 390 680 390 740))
+(connect D27:0 D23:0
+(points 2 390 370 390 400))
+(connect D13:1 D23:1
+(points 2 126 410 332 410))
+(connect D20:0 D24:0
+(points 4 380 185 380 200 370 200 370 210))
+(connect D24:0 D25:0
+(points 2 370 230 370 250))
+(connect D25:1 D26:0
+(points 3 428 260 550 260 550 300))
+(connect D2:2 D26:1
+(points 4 434 110 500 110 500 310 512 310))
+(connect D29:1 D26:2
+(points 4 144 200 170 200 170 320 512 320))
+(connect D30:1 D26:3
+(points 8 144 250 160 250 160 290 380 290 380 280 480 280 480 330 512 330))
+(connect D31:1 D26:4
+(points 4 144 300 470 300 470 340 512 340))
+(connect D32:1 D26:5
+(points 6 144 350 160 350 160 330 460 330 460 350 512 350))
+(connect D26:1 D27:0
+(points 7 588 310 610 310 610 280 490 280 490 290 390 290 390 350))
+(connect D23:0 D28:1
+(points 5 390 420 390 430 470 430 470 400 504 400))
+(connect D26:2 D28:2
+(points 6 588 350 610 350 610 380 480 380 480 420 504 420)))
+(stackingOrder 4 9 7 6 0 8 1 2 5 3 21 24 22 10 16 25 19 15 11 20 23 27 28 18 17
+14 12 13 29 30 31 32 26))
+(numberFormats
+(realFormat standard)
+(realSigDigits 4)
+(realRadixSpec 4)
+(integerBase decimal))))

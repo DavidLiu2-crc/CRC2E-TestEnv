@@ -17,7 +17,7 @@
 			4. Use the AnokiObj.cmd_memcpy() function to copy the equivalent memory into a heap array to be loaded into Marvin Card
 
 	Specifics: Theta resolution of 0.0219 degrees. Phi resolution of 0.08789 degrees. Frequency in 1Mhz increments.
-
+			   Max array size is set to 500000 steps, for 25x25 angles, 100MHz, 27uS dwell time. Adjust if necessary if out of stack
 */
 #pragma once
 
@@ -147,11 +147,11 @@ private:
 	// ---------------- DEFINE LOCAL MEMORY HEAP FOR DATA MEMORY AND DATA CONTROL  ------------------
 	unsigned long commandSequenceIndex = 0; // Index counter for where commandSequenceIndex is located currently
 	unsigned long controlSequenceIndex = 0; // Index counter for where controlSequenceIndex is located currently
-	unsigned long maxCommandSequence = 10000000; // Index counter for max number of command sequences to traverse
+	unsigned long maxCommandSequence = 500000; // Index counter for max number of command sequences to traverse
 	//std::array< unsigned long, 10000000> commandSequence = { 0 };	// Heap array declaration for commandSequence
-	unsigned char* commandSequence = new unsigned char[10000000];	// Heap declaration for commandSequence
+	unsigned char* commandSequence = new unsigned char[maxCommandSequence];	// Heap declaration for commandSequence
 	//std::array< unsigned long, 10000000> controlSequence = { 0 };	// Heap array declaration for controlSequence
-	unsigned char* controlSequence = new unsigned char[10000000];	// Heap declaration for controlSequence
+	unsigned char* controlSequence = new unsigned char[maxCommandSequence];	// Heap declaration for controlSequence
 
 	//unsigned int cardFrequency;		// Operating card frequency of the object to delay for
 	unsigned int numStepsPAADelay = 0;	// Number of steps for PAA calculation delay

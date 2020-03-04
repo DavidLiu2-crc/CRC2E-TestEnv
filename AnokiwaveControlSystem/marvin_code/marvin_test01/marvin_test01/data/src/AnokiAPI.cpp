@@ -360,7 +360,7 @@ void AnokiAPI::convertObjToASCII() {
 	// Last object probably is the disable beam command
 	addIndexObjToCommandSequence(numberVectorObj-1);
 
-	// Clear the step to set all 
+	// Clear the step to set all
 	commandSequence[commandSequenceIndex] = 0x08;
 	commandSequenceIndex++;
 

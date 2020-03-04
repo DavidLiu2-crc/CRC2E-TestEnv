@@ -25,33 +25,77 @@
 // User-defined VISA API class
 #include "data\include\VisaAPI.h"
 
-// --- Main execution functio
+
+// --- Main execution function
 int main(int argc, char* argv[]) {
+
+    // --- Entry point for main file --------------------------------------------------------------
     
-    // Ask user for operating frequency of the card
-    std::cout << "MAIN: Enter a frequency for Marvin card to clock at (0.001 to 100 MHz): ";
-    std::string userinput_freq;
-    std::getline(std::cin, userinput_freq);
+    unsigned long _exeFrequency = 1000000;  // execution operation frequency
+    unsigned long _exeMilliseconds = 1000;  // execution sleep time
+    bool _exeVISA = false;                  // execution look for visa
+    // input CSV file name
+    char nInputCSVFile[100] = { 0 };
+    // Default file name expected
+    snprintf(nInputCSVFile, sizeof(nInputCSVFile) / sizeof(char), "anglePoint.csv");
 
-    // Define execution frequency
-    //unsigned long _exeFrequency = 100000000;
-    unsigned long _exeFrequency = std::stod(userinput_freq) * 1000000;
+    // --- Check the optional parameters ----------------------------------------------------------
+    unsigned char _numArguments = argc;
+    for (unsigned char i = 1; i < argc; i++) {
 
-    //// Define User-defined class that handles GTDIO interface
-    MarvinAPI marvin;
-    marvin.set_OperatingFrequency(_exeFrequency);
-    //// Define User-defined class that handles Anokwiave interface
-    AnokiAPI anoki(_exeFrequency);
-    anoki.set_CreateClockFlag(true);
+        // Check if input option -f (frequency)
+        if (strcmp(argv[i], "-f") == 0) {
+            _exeFrequency = std::stof(argv[i + 1]);
+            if (_exeFrequency > 100000000) _exeFrequency = 100000000;   // Upper bound the frequency
+            i++;    // skip one iteration
+        }
+
+        // Check if input option -v (visa)
+        if (strcmp(argv[i], "-v") == 0) {
+            if (strcmp(argv[i], "1") == 0) {
+                _exeVISA = true;
+            }
+        }
+
+        // Check if input option -i (input file)
+        if (strcmp(argv[i], "-i") == 0) {
+            strcpy_s(nInputCSVFile, 100, argv[i + 1]);
+            i++;    // skip one iteration
+        }
+
+        // Check if input option -e (execution time)
+        if (strcmp(argv[i], "-e") == 0) {
+            _exeMilliseconds = std::stof(argv[i + 1]);
+            i++;    // skip one iteration
+        }
+
+        // Check if help option -h
+        if (strcmp(argv[i], "-h") == 0) {
+            // Display to the user help documentation and exit the program
+            std::cout << "ControlSolution.exe designed to run on PXI with Marvin DIO Card installed.\n";
+            std::cout << "Input arguments:\n";
+            std::cout << " -f : (unsigned long 0 - 100000000) operating frequency of the Marvin card\n";
+            std::cout << " -v : (boolean 0:false 1:true) running VISA subroutine\n";
+            std::cout << " -i : filename.extension reference angle file to read and send to Marvin card\n";
+            std::cout << " -e : (unsigned long 0 - inf) max milliseconds to run after trig before force halt\n";
+            return 0;
+        }
+    }
+
+    // --- Define instances of user-defined objects -----------------------------------------------
 
     // Define User-defined class that handles VISA interface with PXA
     VisaAPI keysight;
-    // Ask user if they want to connect to VISA at all.
-    std::cout << "MAIN: Do you want to search and connect to NI VISA resources (y / n)?  ";
-    std::string userinput_VISA;
-    std::getline(std::cin, userinput_VISA);
+    // Define User-defined class that handles GTDIO interface
+    MarvinAPI marvin;
+    // Define User-defined class that handles Anokwiave interface
+    AnokiAPI anoki(_exeFrequency);
 
-    if (userinput_VISA == "y") {
+    marvin.set_OperatingFrequency(_exeFrequency);
+    anoki.set_CreateClockFlag(true);
+    
+    // Connect to visa resources
+    if (_exeVISA) {
         keysight.cmd_SearchForVisaResource();
         keysight.cmd_StartVisaConnection();
         keysight.set_VisaAttributes();
@@ -61,19 +105,25 @@ int main(int argc, char* argv[]) {
         strcpy_s(command, "*IDN?\n");
         keysight.cmd_sendString(command, response);
 
+        strcpy_s(command, ":DISP:ENAB ON");
+        keysight.cmd_sendString(command, response);
+        strcpy_s(command, ":INST:SEL BASIC");
+        keysight.cmd_sendString(command, response);
+        keysight.cmd_sendString("*CLS; *RST", response);
+
+        keysight.cmd_sendString(":FORM REAL 32", response);
+
+        keysight.cmd_sendString("FCAP:LENG", response);
+        keysight.cmd_sendString("FCAP:LENG 10000", response);
+        keysight.cmd_sendString("FCAP:BLOC 10000", response);
+        keysight.cmd_sendString(":INIT:FCAP", response);
 
         keysight.cmd_EndVisaConnection();
     }
 
-    // --- Find the local relative filepath of .csv with 2 column defining angles.
-    char nInputCSVFile[100];
-    if (argv[1] == NULL) {
-        snprintf(nInputCSVFile, sizeof(nInputCSVFile) / sizeof(char), "anglePoint.csv");
-    } else {
-        strcpy_s(nInputCSVFile, argv[1]);
-    }
-
+    
     // --- Load the angles in the csv file to AnokiAPI
+
     anoki.cmd_readFromCSV(nInputCSVFile);
     // Set the frequency in case the input file does not have frequency column
     anoki.cmd_generateCommandSequenceFromFile(0, 28050);
@@ -84,30 +134,46 @@ int main(int argc, char* argv[]) {
     //anoki.export_MemoryToReadable();
     //std::cout << "\n";
 
-    // --- Initialize marvin card
-    marvin.cmd_SetupInterface(0x103, DIO_IO_INTERFACE_LVDS, DIO_BOARD_TYPE_GX5290, DIO_OPERATING_MODE_DEFAULT);
+    try {
+        throw 20;
+    }
+    catch (int e) {
+        std::cout << "An integer exception was thrown: " << e << "\n";
+        return 0;
+    }
+
+    // --- Initialize marvin card -----------------------------------------------------------------
+    marvin.cmd_SetConnection(0x103, DIO_IO_INTERFACE_LVDS, DIO_BOARD_TYPE_GX5290, DIO_OPERATING_MODE_DEFAULT);
     marvin.cmd_StartConnection();
+    marvin.cmd_ConfigureHandle( marvin.get_boardMasterHandle() );
 
     // --- Set LVDS cable latch high
-    //std::cout << "MAIN: Setting LVDS Latch channel high\n";
+    std::cout << "MAIN: Setting LVDS Latch channel high\n";
 
-    //marvin.set_BufferValue(0x08, 5);
+    marvin.set_BufferValue(marvin.get_boardMasterHandle(), 0x08, 5);
+    marvin.cmd_RunFromStep(0);
 
-    //std::string userinputPAAPowered;
-    //std::cout << "Please power on the Anokiwave PAA now, it should recognize LVDS interface.\nWaiting for user to press enter.\n";
-    //std::getline(std::cin, userinputPAAPowered);
+    std::string userinputPAAPowered;
+    std::cout << "Please power on the Anokiwave PAA now, it should recognize LVDS interface.\nWaiting for user to press enter.\n";
+    std::getline(std::cin, userinputPAAPowered);
 
     // --- Load memory heap into DIO file
     strcpy_s(marvin.szDIOFileNameInput, "marvin_test01.DIO");
-    strcpy_s(marvin.szDIFileNameOutput, "marvin_test01__.DI");
+    strcpy_s(marvin.szDIFileNameOutput, "marvin_test01.DI");
 
     DWORD numAnokiSteps = anoki.get_numberOfSteps();
-    marvin.cmd_StartDIOLoad(numAnokiSteps);
+    marvin.set_CardMemory(marvin.get_boardMasterHandle(), anoki.get_commandPointer(), anoki.get_controlPointer(), numAnokiSteps);
 
-    marvin.set_CardMemory(anoki.get_commandPointer(), anoki.get_controlPointer(), numAnokiSteps);
-    marvin.cmd_LoadVectorToCard();
+    //DWORD numAnokiSteps = anoki.get_numberOfSteps();
+    //marvin.cmd_StartDIOLoad(numAnokiSteps);
+    //marvin.cmd_ConfigureHandle(marvin.get_fileHandle());
+    //marvin.set_fileChannelName(marvin.get_fileHandle());
 
-    marvin.cmd_RunProgram(10000);
+    //marvin.set_CardMemory(marvin.get_boardMasterHandle, anoki.get_commandPointer(), anoki.get_controlPointer(), numAnokiSteps);
+    //marvin.cmd_LoadVectorToCard();
+    
+    // Provide run program with the maximum wait time before halting execution run.
+    marvin.cmd_RunProgram(_exeMilliseconds);
     marvin.cmd_ReadFromCard();
 
     anoki.cmd_maskedReadMemory();

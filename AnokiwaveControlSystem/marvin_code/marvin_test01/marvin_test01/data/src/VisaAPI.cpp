@@ -25,7 +25,9 @@ void VisaAPI::cmd_SearchForVisaResource() {
 	CheckErrorMsg("Could not find any visa resources with host name");
 }
 
-void VisaAPI::cmd_StartVisaConnection() {
+bool VisaAPI::cmd_StartVisaConnection() {
+	
+
 	// Start the NI Visa Session
 	nStatus = viOpenDefaultRM(&defaultRM);
 	CheckErrorMsg("Could not open a VI Session");
@@ -34,7 +36,12 @@ void VisaAPI::cmd_StartVisaConnection() {
 	nStatus = viOpen(defaultRM, searchInstrDescriptor, VI_NULL, VI_NULL, &instr);
 	CheckErrorMsg("Could not open any visa resources with host name");
 
+	if (nStatus < VI_SUCCESS) {
+		return false;
+	}
+
 	std::cout << "VisaAPI: Connected to Visa resource." << searchInstrDescriptor << "\n";
+	return true;
 }
 
 void VisaAPI::cmd_EndVisaConnection() {
@@ -50,6 +57,16 @@ void VisaAPI::cmd_sendString(ViChar* _command, ViChar* _response) {
 	ViUInt32 writeCounter, readCounter;
 	ViUInt32 readNumOfBytes = 128;
 
+	char* queryBit = strchr(_command, '?');
+	// If not a query command, simply read and read status
+	if (queryBit == NULL) {
+
+	}
+	// If there is query command, then write and read from the PXA
+	else if (queryBit > 0) {
+
+	}
+
 	// Write the command to the visa instrument
 	nStatus = viWrite(instr, (ViBuf)_command, (ViUInt32)strlen(_command), &writeCounter);
 	CheckErrorMsg("Could not write command.");
@@ -63,10 +80,12 @@ void VisaAPI::cmd_sendString(ViChar* _command, ViChar* _response) {
 
 	// Display to user what was sent and received
 	std::cout << "\n";
-	std::cout << "Sent: " << _command;
-	std::cout << "Read: " << _response;
+	std::cout << "Sent: " << _command << "\n";
+	std::cout << "Read: " << _response << "\n";
 	std::cout << "\n";
 }
+
+//NMI_HARDWARE_FAILUER
 
 void VisaAPI::cmd_sendString(const char* _command, const char* _response) {
 	ViUInt32 writeCounter, readCounter;
