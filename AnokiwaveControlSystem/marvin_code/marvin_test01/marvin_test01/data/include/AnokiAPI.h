@@ -24,6 +24,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <exception>
 #include <string>
 #include <array>
 #include <vector>
@@ -78,7 +79,7 @@ public:
 	/// char filePath = 'anglePoint.csv';
 	/// cmd_readFromCSV( filePath );
 	/// </code></example>
-	void cmd_readFromCSV(char* pnInputCSVFile);
+	int cmd_readFromCSV(char* pnInputCSVFile);
 
 	/// <summary>
 	/// Group function caller fills nVectorAnokiObj with objects containing Anokiwave Commands and copies to local memory heap
@@ -187,10 +188,6 @@ private:
 	void addDelayStep(unsigned int _numSteps, unsigned char stepValue);
 	// Append appropriate number of steps for PAA point steering timing
 	void addSteerTiming();
-
-	void show_message(std::string message);
-	void show_message(std::string message, char* message2);
-	void show_message(char* message1, char* message2);
 
 	void clearMemoryHeap();
 

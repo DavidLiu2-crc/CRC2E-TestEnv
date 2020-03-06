@@ -38,6 +38,9 @@ public:
 	CHAR szDIOFileNameInput[128]{ ' ' };	// Defines the name of the input file
 	CHAR szDIFileNameOutput[128]{ ' ' };	// Defines the name of the output file
 
+	std::string szDIOInputFileName = "";
+	std::string szDIOOutputFileName = "";
+
 	// --- Define Public functions here ---------------------------------------------------------------
 
 	/// <summary>
@@ -97,6 +100,8 @@ public:
 	void set_OperatingFrequency(unsigned long _freq);
 
 	void set_fileChannelName(SHORT _nFileHandler);
+
+	void set_fileName(char* filename);
 
 	// --- Define get functions here --------------------------------------------------------------
 	SHORT get_boardMasterHandle();

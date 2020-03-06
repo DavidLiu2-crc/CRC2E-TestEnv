@@ -1,6 +1,6 @@
 <?xml version="1.0"?><doc>
 <members>
-<member name="M:MarvinAPI.cmd_SetConnection(System.Int16,System.Int16,System.Int16,System.Int16)" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\MarvinAPI.h" line="43">
+<member name="M:MarvinAPI.cmd_SetConnection(System.Int16,System.Int16,System.Int16,System.Int16)" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\MarvinAPI.h" line="46">
 <summary>
 Simple function to initialize the card locating in <c>nSlotNum</c> with connector of type <c>interfaceType</c>.
 </summary>
@@ -9,13 +9,13 @@ Simple function to initialize the card locating in <c>nSlotNum</c> with connecto
 <param name="_nExpectBoard">short representing board ID found connected (0x70 default GX5292) </param>
 <param name="_nOperatingMode">short representing 0:Default, 1:Real-Time Compare</param>
 </member>
-<member name="M:MarvinAPI.cmd_StartConnection" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\MarvinAPI.h" line="52">
+<member name="M:MarvinAPI.cmd_StartConnection" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\MarvinAPI.h" line="55">
 <summary>
 Starts connection with Marvin Card located at nSlotNum.
 Connects to board at nSlotNum, gets the board to check if recognized (default 0x70 GX5292)
 </summary>
 </member>
-<member name="M:MarvinAPI.cmd_ConfigureHandle(System.Int16)" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\MarvinAPI.h" line="58">
+<member name="M:MarvinAPI.cmd_ConfigureHandle(System.Int16)" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\MarvinAPI.h" line="61">
 <summary>
 Setting up the following attributes (card handle or file handle)
 <list type="bullet">
@@ -30,7 +30,7 @@ Setting up the following attributes (card handle or file handle)
 </summary>
 <param name="nHandle"></param>
 </member>
-<member name="M:MarvinAPI.cmd_StartDIOLoad(System.UInt32!System.Runtime.CompilerServices.IsLong)" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\MarvinAPI.h" line="76">
+<member name="M:MarvinAPI.cmd_StartDIOLoad(System.UInt32!System.Runtime.CompilerServices.IsLong)" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\MarvinAPI.h" line="79">
 <summary>
 Create a DIO File and set the number of steps for that file
 </summary>

@@ -26,71 +26,93 @@
 
 
 // ---------------- DEFINE BASIC COMMANDS ----------------
-void AnokiAPI::cmd_readFromCSV(char* pnInputFile) {
-	
+int AnokiAPI::cmd_readFromCSV(char* pnInputFile) {
+
 	// Copy the csv input file name
 	pnInputFilename = std::string(pnInputFile);
 	pnInputFilename = pnInputFilename.substr(0, pnInputFilename.find('.'));
 
-	std::ifstream file;
-	// --- Try and catch file opening exception --------------------------------
-	try {
-		file.open(pnInputFile, std::ios::in);
-
-	} catch(std::ios_base::failure& e) {
-		std::cout << "Exception: " << e.code() << " gave " << e.what() << "\n";
-		nInputCSVFileRead = false;
-	}
+	std::ifstream inputfile;
+	inputfile.exceptions( std::ifstream::failbit | std::ifstream::badbit);
 	std::string line = "";
 
-	// --- Read through each line of the file while possible --------------------
-	while (std::getline(file, line)) {
-
-		// Set up vector placeholder for numbers in current line
-		std::vector<float> angleLine;
-		// Find the first comma splice
-		std::size_t commaIndex = line.find(',');
+	// --- Try and catch file opening exception ---------------------------------------------------
+	try {
+		inputfile.open(pnInputFile, std::ios::in);
+	}
+	catch (std::ifstream::failure & e) { // Could not read file
 		
-		// Parse any number of values more that 2 columns
-		while (commaIndex != std::string::npos) {
-			// Grab the digits in the first number up to comma
-			std::string strNum = line.substr(0, commaIndex);
-			// Remove digts from character string
-			line = line.erase(0, commaIndex + 1);
-			commaIndex = line.find(',');
-			// Append the digits as a float to vector placeholder
+		std::cerr << "Catch: " << e.what() << "\n";
+		nInputCSVFileRead = false;
+
+		// TODO: Try to open another file? or just quit the program
+
+		return -6;
+	}
+
+	// --- Try and catch numbers in csv line as readable ------------------------------------------
+	inputfile.exceptions(std::ifstream::goodbit);
+	try {
+		// --- Read through each line of the file while possible
+		while (std::getline(inputfile, line)) {
+
+			// Set up vector placeholder for numbers in current line
+			std::vector<float> angleLine;
+			// Find the first comma splice
+			std::size_t commaIndex = line.find(',');
+
+			// Parse any number of values more that 2 columns
+			while (commaIndex != std::string::npos) {
+				// Grab the digits in the first number up to comma
+				std::string strNum = line.substr(0, commaIndex);
+				// Remove digts from character string
+				line = line.erase(0, commaIndex + 1);
+				commaIndex = line.find(',');
+				// Append the digits as a float to vector placeholder
+				angleLine.push_back(std::stof(strNum));
+			}
+			// Parse the remaining string as a number
+			std::string strNum = line;
+			// Append the last digit as a float to vector placeholder
 			angleLine.push_back(std::stof(strNum));
+
+			// (Debugging) Check the values 
+			//std::cout << strNum.c_str() << "\n";
+			//std::cout << angleLine.size() << "\n";
+
+			// Append each line of values to nVectorANGLE
+			nVectorANGLE.push_back(angleLine);
 		}
-		// Parse the remaining string as a number
-		std::string strNum = line;
-		// Append the last digit as a float to vector placeholder
-		angleLine.push_back(std::stof(strNum));
 
-		// (Debugging) Check the values 
-		//std::cout << strNum.c_str() << "\n";
-		//std::cout << angleLine.size() << "\n";
-
-		// Append each line of values to nVectorANGLE
-		nVectorANGLE.push_back(angleLine);
+		// --- Remove the header information
+		unsigned int numberHeaderLines = 3;
+		for (unsigned int i = 0; i < numberHeaderLines; i++) {
+			nVectorAnokiHead.push_back(nVectorANGLE.at(i));
+		}
+		nVectorANGLE.erase(nVectorANGLE.begin(), nVectorANGLE.begin() + numberHeaderLines);
 	}
+	catch (std::out_of_range & e) {// Could not locate 
+		// TODO: Try to make placeholder or default line or numbers?
 
-	// Add try catch block here if no nVectorANGLE were read from csv
-	// Like opening csv file, but no commas were found to seperate them
-
-	// --- Remove the header information ----------------------------------------------
-	unsigned int numberHeaderLines = 3;
-	for (unsigned int i = 0; i < numberHeaderLines; i++) {
-		nVectorAnokiHead.push_back( nVectorANGLE.at(i) );
+		return -5;
 	}
-	nVectorANGLE.erase(nVectorANGLE.begin(), nVectorANGLE.begin()+numberHeaderLines);
+	catch (std::bad_alloc & e) {// Could find comma bad allocation of string read
+		std::cerr << "Bad Alloc catch: " << e.what() << "\n";
+		// TODO: Try to re-read the line in a different way to grab numbers?
+
+		return -36;
+	}
+	
 
 	// Tells other functions that the csv file was read and to proceed
 	nInputCSVFileRead = true;
 	// Close the file handler / opens up the file for other processes.
-	file.close();
+	inputfile.close();
 
 	//show_message("Importing angles from CSV file", pnInputFilename);
 	std::cout << "AnokiAPI: Importing angle CSV File : " << pnInputFile << "\n";
+
+	return 0;
 }
 
 void AnokiAPI::cmd_generateCommandSequenceFromFile(unsigned int _beamMode, unsigned short _freq) {
@@ -274,7 +296,8 @@ void AnokiAPI::cmd_steerAngle() {
 
 	// Check if csv has already been read first before proceeding
 	if (!nInputCSVFileRead) {
-		std::cout << "CSV file not previously read before calling this function...";
+		// TODO: throw here no input filehas even been read yet
+		std::cout << "CSV file not previously read before calling this function...\n";
 		return;
 	}
 
@@ -425,18 +448,6 @@ void AnokiAPI::addSteerTiming() {
 	addDelayStep(numStepsStrobeBit, 0x18);
 	// Add delay time for PXA scanning block time
 	addDelayStep(numStepsScanDelay, 0x08);
-}
-
-void AnokiAPI::show_message(std::string message) {
-	std::cout << "AnokiAPI: " << message.c_str() << "\n";
-}
-
-void AnokiAPI::show_message(std::string message, char* message2) {
-	std::cout << "AnokiAPI: " << message.c_str() << " " << message2 << "\n";
-}
-
-void AnokiAPI::show_message(char* message1, char* message2) {
-	std::cout << "AnokiAPI: " << message1 << "  " << message2 << "\n";
 }
 
 void AnokiAPI::clearMemoryHeap() {

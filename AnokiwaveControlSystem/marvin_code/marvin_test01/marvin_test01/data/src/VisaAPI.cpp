@@ -53,58 +53,44 @@ void VisaAPI::cmd_EndVisaConnection() {
 }
 
 // different from viQuery because this can perform actions after writing / before reading
-void VisaAPI::cmd_sendString(ViChar* _command, ViChar* _response) {
+void VisaAPI::cmd_sendString(ViConstString _command, ViConstString _response) {
 	ViUInt32 writeCounter, readCounter;
-	ViUInt32 readNumOfBytes = 128;
+	ViUInt32 readNumOfBytes = 1024;
+	ViUInt16 statusByte = 0;
 
-	char* queryBit = strchr(_command, '?');
-	// If not a query command, simply read and read status
+	char* pCommand = (char*) _command;
+	char* queryBit = strchr(pCommand, '?');
+
+	nStatus = viWrite(instr, (ViBuf)_command, (ViUInt32)strlen(_command), &writeCounter);
+	CheckErrorMsg("Could not write command.");
+
+	// If not a query command, simply read status
 	if (queryBit == NULL) {
-
+		viReadSTB(instr, &statusByte);
 	}
 	// If there is query command, then write and read from the PXA
 	else if (queryBit > 0) {
-
+		nStatus = viRead(instr, (ViBuf)_response, readNumOfBytes, &readCounter);
+		CheckErrorMsg("Could not read command.");
+		std::cout << "Read: " << _response << "\n";
 	}
-
-	// Write the command to the visa instrument
-	nStatus = viWrite(instr, (ViBuf)_command, (ViUInt32)strlen(_command), &writeCounter);
-	CheckErrorMsg("Could not write command.");
-	
 	// Perform check on nStatus after writing
 	// TODO: Add exception
 
-	// Read the response back from the visa instrument
-	nStatus = viRead(instr, (ViBuf)_response, readNumOfBytes, &readCounter);
-	CheckErrorMsg("Could not read command.");
-
 	// Display to user what was sent and received
-	std::cout << "\n";
-	std::cout << "Sent: " << _command << "\n";
-	std::cout << "Read: " << _response << "\n";
-	std::cout << "\n";
+	//std::cout << "\n";
+	//std::cout << "Sent: " << _command << "\n";
+	//std::cout << "Read: " << _response << "\n";
+	//std::cout << "\n";
 }
 
-//NMI_HARDWARE_FAILUER
+// TODO: find why this sometimes happen NMI_HARDWARE_FAILURE?
 
-void VisaAPI::cmd_sendString(const char* _command, const char* _response) {
-	ViUInt32 writeCounter, readCounter;
-	ViUInt32 readNumOfBytes = 128;
+void VisaAPI::cmd_fetchData(ViReal32* pRawDataPointer, ViUInt32 _bufferSize) {
+	
+	viWrite(instr, ":INIT:FCAP", 1024, &writeCounter);
 
-	// Write the command to the visa instrument
-	nStatus = viWrite(instr, (ViBuf)_command, (ViUInt32)strlen(_command), &writeCounter);
-	CheckErrorMsg("Could not write command.");
-
-	// Perform check on nStatus after writing
-	// TODO: Add exception
-
-	// Read the response back from the visa instrument
-	nStatus = viRead(instr, (ViBuf)_response, readNumOfBytes, &readCounter);
-	CheckErrorMsg("Could not read command.");
-
-	// Display to user what was sent and received
-	std::cout << "Sent: " << _command << "\n";
-	std::cout << "Read: " << _response << "\n";
+	viQueryf(instr, "")
 }
 
 void VisaAPI::set_VisaFindHostname(ViConstString _hostname) {

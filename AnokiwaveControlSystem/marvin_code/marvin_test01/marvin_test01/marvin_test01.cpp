@@ -28,6 +28,9 @@
 
 // --- Main execution function
 int main(int argc, char* argv[]) {
+    // (Debugging)
+    Sleep(3000);
+
 
     // --- Entry point for main file --------------------------------------------------------------
     
@@ -52,9 +55,10 @@ int main(int argc, char* argv[]) {
 
         // Check if input option -v (visa)
         if (strcmp(argv[i], "-v") == 0) {
-            if (strcmp(argv[i], "1") == 0) {
+            if (strcmp(argv[i + 1], "1") == 0) {
                 _exeVISA = true;
             }
+            i++;    // skip one iteration
         }
 
         // Check if input option -i (input file)
@@ -81,6 +85,8 @@ int main(int argc, char* argv[]) {
             return 0;
         }
     }
+    std::string pnInputName = std::string(nInputCSVFile);
+    pnInputName = pnInputName.substr(0, pnInputName.find('.'));
 
     // --- Define instances of user-defined objects -----------------------------------------------
 
@@ -120,7 +126,6 @@ int main(int argc, char* argv[]) {
 
         keysight.cmd_EndVisaConnection();
     }
-
     
     // --- Load the angles in the csv file to AnokiAPI
 
@@ -133,14 +138,6 @@ int main(int argc, char* argv[]) {
     anoki.export_MemoryToASCII();
     //anoki.export_MemoryToReadable();
     //std::cout << "\n";
-
-    try {
-        throw 20;
-    }
-    catch (int e) {
-        std::cout << "An integer exception was thrown: " << e << "\n";
-        return 0;
-    }
 
     // --- Initialize marvin card -----------------------------------------------------------------
     marvin.cmd_SetConnection(0x103, DIO_IO_INTERFACE_LVDS, DIO_BOARD_TYPE_GX5290, DIO_OPERATING_MODE_DEFAULT);
@@ -158,8 +155,9 @@ int main(int argc, char* argv[]) {
     std::getline(std::cin, userinputPAAPowered);
 
     // --- Load memory heap into DIO file
-    strcpy_s(marvin.szDIOFileNameInput, "marvin_test01.DIO");
-    strcpy_s(marvin.szDIFileNameOutput, "marvin_test01.DI");
+    marvin.set_fileName(pnInputName.c_str());
+    //strcpy_s(marvin.szDIOFileNameInput, "marvin_test01.DIO");
+    //strcpy_s(marvin.szDIFileNameOutput, "marvin_test01.DI");
 
     DWORD numAnokiSteps = anoki.get_numberOfSteps();
     marvin.set_CardMemory(marvin.get_boardMasterHandle(), anoki.get_commandPointer(), anoki.get_controlPointer(), numAnokiSteps);
@@ -174,6 +172,7 @@ int main(int argc, char* argv[]) {
     
     // Provide run program with the maximum wait time before halting execution run.
     marvin.cmd_RunProgram(_exeMilliseconds);
+    
     marvin.cmd_ReadFromCard();
 
     anoki.cmd_maskedReadMemory();

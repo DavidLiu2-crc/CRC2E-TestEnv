@@ -169,7 +169,7 @@ Sends the command to return the summary detail
 </summary>
 <returns><c> AnokiObj </c> command object </returns>
 </member>
-<member name="M:AnokiAPI.cmd_readFromCSV(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte*)" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\AnokiAPI.h" line="66">
+<member name="M:AnokiAPI.cmd_readFromCSV(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte*)" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\AnokiAPI.h" line="67">
 <summary>
 Opens the .csv file and adds the angles into a (m x n) matrix. Assumes csv file contain 2 column theta, phi values.
 <para>
@@ -186,30 +186,30 @@ char filePath = 'anglePoint.csv';
 cmd_readFromCSV( filePath );
 </code></example>
 </member>
-<member name="M:AnokiAPI.cmd_generateCommandSequenceFromFile(System.UInt32,System.UInt16)" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\AnokiAPI.h" line="83">
+<member name="M:AnokiAPI.cmd_generateCommandSequenceFromFile(System.UInt32,System.UInt16)" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\AnokiAPI.h" line="84">
 <summary>
 Group function caller fills nVectorAnokiObj with objects containing Anokiwave Commands and copies to local memory heap
 </summary>
 <param name="_beamMode">unsigned int that denotes the beam mode 0, 1, 2, 3</param>
 <param name="_freq">unsigned short that denotes the center frequency of the PAA to point/TX at</param>
 </member>
-<member name="M:AnokiAPI.export_MemoryToASCII" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\AnokiAPI.h" line="93">
+<member name="M:AnokiAPI.export_MemoryToASCII" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\AnokiAPI.h" line="94">
 <summary>
 Opens and writes the local memory heap array into ASC
 </summary>
 </member>
-<member name="M:AnokiAPI.export_MemoryToReadable" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\AnokiAPI.h" line="98">
+<member name="M:AnokiAPI.export_MemoryToReadable" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\AnokiAPI.h" line="99">
 <summary>
 Opens and writes the command log into txt file
 </summary>
 </member>
-<member name="M:AnokiAPI.set_CurrentCommand(AnokiObj)" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\AnokiAPI.h" line="107">
+<member name="M:AnokiAPI.set_CurrentCommand(AnokiObj)" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\AnokiAPI.h" line="108">
 <summary>
 Adds an anokiObj to nVectorAnokiOBJ
 </summary>
 <param name="anokiObj">Returned AnokiObj from AnokiCommand with command information</param>
 </member>
-<member name="M:AnokiAPI.set_CreateClockFlag(System.Boolean)" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\AnokiAPI.h" line="112">
+<member name="M:AnokiAPI.set_CreateClockFlag(System.Boolean)" decl="true" source="C:\Users\crcuser.TOSHIBA-A50E-1\Documents\CRC2E-TestEnv\AnokiwaveControlSystem\marvin_code\marvin_test01\marvin_test01\data\include\AnokiAPI.h" line="113">
 <summary>
 Set all the commands to include the clock bit in its step (Double length)
 </summary>

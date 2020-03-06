@@ -78,9 +78,9 @@ void MarvinAPI::cmd_ConfigureHandle(SHORT nHandle) {
 	CheckStatus();
 	DioGetIOConfiguration(nHandle, &nWidth, &nDirection, &nStatus);
 	CheckStatus();
-	//std::cout << "Check error here?";
-	std::cout << "MarvinAPI: Configured IO Channel Width set to: " << (32 >> nWidth) << "\n";
-	std::cout << "MarvinAPI: Configured max steps in memory: " << (64 << nWidth) << "MB \n";
+	// Display the IO Channel width
+	//std::cout << "MarvinAPI: Configured IO Channel Width set to: " << (32 >> nWidth) << "\n";
+	//std::cout << "MarvinAPI: Configured max steps in memory: " << (64 << nWidth) << "MB \n";
 
 	// --- Set up the connection interface --------------------------------------------------------
 	SHORT nConnector; 
@@ -89,8 +89,8 @@ void MarvinAPI::cmd_ConfigureHandle(SHORT nHandle) {
 	DioGetInputInterface(nHandle, &nConnector, &nStatus);
 	CheckStatus();
 	// Display the connection interface
-	std::cout << "MarvinAPI: Configured card interface type: ";
-	std::cout << (nConnector ? "LVDS \n" : "TTL \n"); // nConnector returns 1:LVDS, 0:TTL
+	//std::cout << "MarvinAPI: Configured card interface type: ";
+	//std::cout << (nConnector ? "LVDS \n" : "TTL \n"); // nConnector returns 1:LVDS, 0:TTL
 
 	// --- Set up the Operating mode of the card --------------------------------------------------
 	SHORT nOperatingMode = 0; 
@@ -99,8 +99,8 @@ void MarvinAPI::cmd_ConfigureHandle(SHORT nHandle) {
 	DioDomainGetOperatingMode(nHandle, &nOperatingMode, &nStatus);
 	CheckStatus();
 	// Display the Operating mode of the card
-	std::cout << "MarvinAPI: Configured operating mode: ";
-	std::cout << (nOperatingMode ? "Real-Time Compare \n" : "High Speed IO Default \n"); // nOperatingMode 1:Real-Time 0:Default
+	//std::cout << "MarvinAPI: Configured operating mode: ";
+	//std::cout << (nOperatingMode ? "Real-Time Compare \n" : "High Speed IO Default \n"); // nOperatingMode 1:Real-Time 0:Default
 
 	// --- Set up the operating frequency -------------------------------------------------------
 	DWORD nCheckFrequency = 1;
@@ -109,8 +109,7 @@ void MarvinAPI::cmd_ConfigureHandle(SHORT nHandle) {
 	DioGetFrequency(nHandle, &nCheckFrequency, &nStatus);
 	CheckStatus();
 	// TODO: Make frequency display 6 decimal points
-	//char checkFrequencyMessage[100];
-	std::cout << "MarvinAPI: Configured operating frequency: " << (nCheckFrequency / 1000000) << "MHz\n";
+	//std::cout << "MarvinAPI: Configured operating frequency: " << (nCheckFrequency / 1000000) << "MHz\n";
 
 	// --- Setup channel states of the card -------------------------------------------------------
 	DWORD channelState = 0x00000000;
@@ -119,9 +118,9 @@ void MarvinAPI::cmd_ConfigureHandle(SHORT nHandle) {
 	DioGetChannelsOutputStates(nHandle, &channelState, &nStatus);
 	CheckStatus();
 	// Display the channel state
-	std::cout << "MarvinAPI: Configured channels state set to 0x" << std::hex << channelState << std::dec << "\n";
+	//std::cout << "MarvinAPI: Configured channels state set to 0x" << std::hex << channelState << std::dec << "\n";
 	
-	
+	std::cout << "MarvinAPI: Configured attributes of the handle\n";
 
 	// --- Setup output voltage level for LVDS. ---------------------------------------------------
 	// TODO: Set the output voltage level for LVDS
@@ -209,6 +208,8 @@ void MarvinAPI::cmd_RunProgram(DWORD _milliseconds) {
 	Sleep(_milliseconds);
 	CheckStatusRegister();
 
+	DioReadProgramCounter(nHandle, &dwSize, &nStatus);
+	CheckStatus();
 	
 	// Tell card to stop program
 	stateHALT();
@@ -216,10 +217,11 @@ void MarvinAPI::cmd_RunProgram(DWORD _milliseconds) {
 
 void MarvinAPI::cmd_ReadFromCard() {
 	//Read back the card memory after operation with Anokiwave PAA
+	std::cout << "(Debugger) check here. "<< dwSize <<"\n";
 	DioReadInMemory(nHandle, dwMemory, 0, dwSize, &nStatus);
 	CheckStatus();
 	std::cout << "MarvinAPI: Reading Card Memory into AnokiAPI heap \n";
-
+	
 	DioSaveFile(nHandle, szDIFileNameOutput, 0, &dwSize, &nStatus);
 	CheckStatus();
 	std::cout << "MarvinAPI: Read card memory into file\n";
@@ -275,6 +277,10 @@ void MarvinAPI::set_BufferValue(SHORT _nHandle, DWORD _value, DWORD _numSteps) {
 void MarvinAPI::set_CardMemory(SHORT _nHandle, PVOID _memory, PVOID _control, DWORD _numSteps) {
 	//dwMemory = _memory;
 
+	std::cout << "MarvinAPI: End of command halt set\n";
+	DioWriteCtrlCommand(_nHandle, dwMemoryIndex, DIO_COMMAND_PAUSE, 0, 0, 0, 0, &nStatus);
+	CheckStatus();
+
 	// Load the data information into memory
 	std::cout << "MarvinAPI: Memory location pointer set\n";
 	DioWriteOutMemory(_nHandle, _memory, dwMemoryIndex,  _numSteps, &nStatus);
@@ -288,7 +294,7 @@ void MarvinAPI::set_CardMemory(SHORT _nHandle, PVOID _memory, PVOID _control, DW
 	CheckStatus();
 
 	std::cout << "MarvinAPI: End of command halt set\n";
-	DioWriteCtrlCommand(_nHandle, dwMemoryIndex + _numSteps, DIO_COMMAND_HALT, 0, 0, 0, 0, &nStatus);
+	DioWriteCtrlCommand(_nHandle, dwMemoryIndex + _numSteps, DIO_COMMAND_JUMP_A, 0, 0, 0, 0, &nStatus);
 	CheckStatus();
 
 	std::vector<unsigned long> addindex;
@@ -333,6 +339,11 @@ void MarvinAPI::set_fileChannelName(SHORT _nFileHandler) {
 	DioFileSetChannelName(_nFileHandler, 7, _channelName, 5, &nStatus);
 
 
+}
+
+void MarvinAPI::set_fileName(char* _nFilename) {
+	szDIOInputFileName = std::string(_nFilename);
+	szDIOInputFileName = szDIOInputFileName + ".DIO";
 }
 
 // --- Define get functions here --------------------------------------------------------------
@@ -475,16 +486,16 @@ void MarvinAPI::CheckStatusRegister() {
 
 	// 10 bit status register
 	if (nBoardType == DIO_BOARD_TYPE_GX5290) {
-		std::cout << "MarvinAPI: Status Register content: ";
+		//std::cout << "MarvinAPI: Status Register content: ";
 
-		WORD bitMask = 0x0200;
-		// Sweep through to display each bit position
-		for (unsigned char i = 0; i < 10; i++) {
+		//WORD bitMask = 0x0200;
+		//// Sweep through to display each bit position
+		//for (unsigned char i = 0; i < 10; i++) {
 			// Displaying each bit
-			std::cout << ((bitMask & _statusRegister) > 0) ? 1 : 0;
-			bitMask = bitMask >> 1;
-		}
-		std::cout << "\n";
+			//std::cout << ((bitMask & _statusRegister) > 0) ? 1 : 0;
+			//bitMask = bitMask >> 1;
+		//}
+		//std::cout << "\n";
 
 		// Set status flags
 		status_AOF   = _statusRegister & 0x0100 ? true : false;
