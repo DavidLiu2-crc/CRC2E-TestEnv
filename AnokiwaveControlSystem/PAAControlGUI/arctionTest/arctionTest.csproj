@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{92556067-EE7C-4986-A3DF-7A3B499E6288}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>arctionTest</RootNamespace>
+    <AssemblyName>arctionTest</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Arction.Direct3D9">
+      <HintPath>lib\ChartLightning_LibNET4\Arction.Direct3D9.dll</HintPath>
+    </Reference>
+    <Reference Include="Arction.DirectSound">
+      <HintPath>lib\ChartLightning_LibNET4\Arction.DirectSound.dll</HintPath>
+    </Reference>
+    <Reference Include="Arction.DirectX">
+      <HintPath>lib\ChartLightning_LibNET4\Arction.DirectX.dll</HintPath>
+    </Reference>
+    <Reference Include="Arction.DirectXFiles">
+      <HintPath>lib\ChartLightning_LibNET4\Arction.DirectXFiles.dll</HintPath>
+    </Reference>
+    <Reference Include="Arction.DirectXInit">
+      <HintPath>lib\ChartLightning_LibNET4\Arction.DirectXInit.dll</HintPath>
+    </Reference>
+    <Reference Include="Arction.Licensing">
+      <HintPath>lib\ChartLightning_LibNET4\Arction.Licensing.dll</HintPath>
+    </Reference>
+    <Reference Include="Arction.LightningChartUltimate">
+      <HintPath>lib\ChartLightning_LibNET4\Arction.LightningChartUltimate.dll</HintPath>
+    </Reference>
+    <Reference Include="Arction.MathCore">
+      <HintPath>lib\ChartLightning_LibNET4\Arction.MathCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Arction.RenderingEngine11, Version=8.5.1.4001, Culture=neutral, PublicKeyToken=6484d7bb14b95dd3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\ChartLightning_LibNET4\Arction.RenderingEngine11.dll</HintPath>
+    </Reference>
+    <Reference Include="Arction.SignalTools">
+      <HintPath>lib\ChartLightning_LibNET4\Arction.SignalTools.dll</HintPath>
+    </Reference>
+    <Reference Include="Arction.WPF.LightningChartUltimate">
+      <HintPath>lib\ChartLightning_LibNET4\Arction.WPF.LightningChartUltimate.dll</HintPath>
+    </Reference>
+    <Reference Include="Arction.WPF.SignalTools">
+      <HintPath>lib\ChartLightning_LibNET4\Arction.WPF.SignalTools.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.10.0, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\ChartLightning_LibNET4\Microsoft.VisualStudio.Shell.Immutable.10.0.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WpfToolkit">
+      <HintPath>lib\ChartLightning_LibNET4\WpfToolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="arctionChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="arctionChart.Designer.cs">
+      <DependentUpon>arctionChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ladybug.cs" />
+    <Compile Include="ladybugClass.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LadybugFunctors.cs" />
+    <Compile Include="LadybugGeom.cs" />
+    <Compile Include="LadybugGPS.cs" />
+    <Compile Include="LadybugImageAdjustment.cs" />
+    <Compile Include="LadybugRenderer.cs" />
+    <Compile Include="LadybugSensors.cs" />
+    <Compile Include="LadybugStream.cs" />
+    <Compile Include="LadybugVideo.cs" />
+    <Compile Include="PGRCameraGUI.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="arctionChart.resx">
+      <DependentUpon>arctionChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
