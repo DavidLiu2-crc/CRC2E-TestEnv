@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LadybugAPI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +14,7 @@ namespace arctionTest
 	public partial class Form1 : Form
 	{
 		arctionChart arction;
+		ladybugClass ladybug;
 		Bitmap backgroundBitmap;
 		public Form1()
 		{
@@ -34,16 +36,25 @@ namespace arctionTest
 
 			//arction.chartBackground = backgroundBitmap;
 			
-			ladybugClass ladybug = new ladybugClass();
-			ladybug.LadybugInit();
-			ladybug.LadybugImageFromStream();
+			ladybug = new ladybugClass();
+			ladybug.LadybugInitialize();
+
+			ladybug.LadybugGetImages();
+			//ladybug.LadybugImageFromStream();
 
 			arction.chartBackground = ladybug.ladybugProcImage;
 
-			
 
-			//ladybug.LadybugClose();
+
+
+			//Application.Idle += new System.EventHandler(this.Form1_Idle);
 		}
+
+		private void Form1_Idle(object sender, System.EventArgs e)
+		{
+			arction.chartBackground = ladybug.LadybugStepStreamCounter();
+		}
+
 
 	}
 }

@@ -84,3 +84,61 @@ C:\Users\chuqi.liu\Documents\PAAControlGUI\arctionTest\obj\Debug\arctionTest.csp
 C:\Users\chuqi.liu\Documents\PAAControlGUI\arctionTest\obj\Debug\arctionTest.csproj.CopyComplete
 C:\Users\chuqi.liu\Documents\PAAControlGUI\arctionTest\obj\Debug\arctionTest.exe
 C:\Users\chuqi.liu\Documents\PAAControlGUI\arctionTest\obj\Debug\arctionTest.pdb
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\obj\Debug\arctionTest.csprojAssemblyReference.cache
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\obj\Debug\arctionTest.arctionChart.resources
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\obj\Debug\arctionTest.Properties.Resources.resources
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\obj\Debug\arctionTest.csproj.GenerateResource.cache
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\obj\Debug\arctionTest.csproj.CoreCompileInputs.cache
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\obj\Debug\arctionTest.exe
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\obj\Debug\arctionTest.pdb
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\bin\Debug\arctionTest.exe.config
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\bin\Debug\arctionTest.exe
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\bin\Debug\arctionTest.pdb
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\bin\Debug\Arction.Direct3D9.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\bin\Debug\Arction.DirectSound.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\bin\Debug\Arction.DirectX.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\bin\Debug\Arction.DirectXFiles.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\bin\Debug\Arction.DirectXInit.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\bin\Debug\Arction.Licensing.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\bin\Debug\Arction.LightningChartUltimate.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\bin\Debug\Arction.MathCore.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\bin\Debug\Arction.RenderingEngine11.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\bin\Debug\Arction.SignalTools.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\bin\Debug\Arction.WPF.LightningChartUltimate.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\bin\Debug\Arction.WPF.SignalTools.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\bin\Debug\Microsoft.VisualStudio.Shell.Immutable.10.0.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\bin\Debug\WpfToolkit.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\bin\Debug\Arction.LightningChartUltimate.xml
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\bin\Debug\Arction.SignalTools.xml
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\bin\Debug\Arction.WPF.LightningChartUltimate.xml
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\bin\Debug\Arction.WPF.SignalTools.xml
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\AnokiwaveControlSystem\PAAControlGUI\arctionTest\obj\Debug\arctionTest.csproj.CopyComplete
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\bin\Debug\arctionTest.exe.config
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\bin\Debug\arctionTest.exe
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\bin\Debug\arctionTest.pdb
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\bin\Debug\Arction.Direct3D9.dll
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\bin\Debug\Arction.DirectSound.dll
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\bin\Debug\Arction.DirectX.dll
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\bin\Debug\Arction.DirectXFiles.dll
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\bin\Debug\Arction.DirectXInit.dll
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\bin\Debug\Arction.Licensing.dll
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\bin\Debug\Arction.LightningChartUltimate.dll
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\bin\Debug\Arction.MathCore.dll
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\bin\Debug\Arction.RenderingEngine11.dll
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\bin\Debug\Arction.SignalTools.dll
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\bin\Debug\Arction.WPF.LightningChartUltimate.dll
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\bin\Debug\Arction.WPF.SignalTools.dll
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\bin\Debug\Microsoft.VisualStudio.Shell.Immutable.10.0.dll
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\bin\Debug\WpfToolkit.dll
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\bin\Debug\Arction.LightningChartUltimate.xml
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\bin\Debug\Arction.SignalTools.xml
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\bin\Debug\Arction.WPF.LightningChartUltimate.xml
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\bin\Debug\Arction.WPF.SignalTools.xml
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\obj\Debug\arctionTest.csprojAssemblyReference.cache
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\obj\Debug\arctionTest.arctionChart.resources
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\obj\Debug\arctionTest.Properties.Resources.resources
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\obj\Debug\arctionTest.csproj.GenerateResource.cache
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\obj\Debug\arctionTest.csproj.CoreCompileInputs.cache
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\obj\Debug\arctionTest.csproj.CopyComplete
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\obj\Debug\arctionTest.exe
+P:\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\miniArctionGUI\PAAControlGUI\arctionTest\obj\Debug\arctionTest.pdb

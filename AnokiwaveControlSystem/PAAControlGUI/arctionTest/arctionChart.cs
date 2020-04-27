@@ -29,6 +29,7 @@ namespace arctionTest
 		{
 			InitializeComponent();
 
+
 			CreateChart();
 
 
@@ -43,12 +44,11 @@ namespace arctionTest
 			_chart.BeginUpdate();
 
 			// Configure the chart handle
-			_chart.Title.Text = "Arction dynamic chart";
-			
+			_chart.Title.Text = "Arction dynamic stream";
+			_chart.ActiveView = ActiveView.ViewXY;
+
 			_chart.ViewXY.ZoomPanOptions.LeftMouseButtonAction = MouseButtonAction.Zoom;
 			_chart.ViewXY.ZoomPanOptions.RightMouseButtonAction = MouseButtonAction.Pan;
-
-			_chart.ActiveView = ActiveView.ViewXY;
 			_chart.ViewXY.LegendBox.Visible = false;
 			_chart.ViewXY.XAxes[0].ValueType = AxisValueType.Number;
 			_chart.ViewXY.XAxes[0].SetRange(-360, 360);
@@ -102,6 +102,8 @@ namespace arctionTest
 					BitmapAntialiasOptions options = new BitmapAntialiasOptions() { ResolutionDivider = 2 };
 					imageGrid.SetHeightDataFromBitmap(-360, 360, -90, 90, 0, 100, value, options);
 					imageGrid.Visible = true;
+
+					imageGrid.InvalidateData();
 					
 					
 				}
