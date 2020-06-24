@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AnokiwaveControllerLibrary", "AnokiwaveControllerLibrary\AnokiwaveControllerLibrary.vcxproj", "{747DAC33-D92B-4425-B417-83A77986D8BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnokiwaveControllerGUI", "AnokiwaveControllerGUI\AnokiwaveControllerGUI.csproj", "{2F264279-97EF-4773-AE2D-FEAF4D56BE33}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AnokiwaveControllerClient", "AnokiwaveControllerClient\AnokiwaveControllerClient.vcxproj", "{ABA5E91B-1836-4B08-8F95-DADA784BC014}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{747DAC33-D92B-4425-B417-83A77986D8BD}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{747DAC33-D92B-4425-B417-83A77986D8BD}.Debug|x64.ActiveCfg = Debug|x64
+		{747DAC33-D92B-4425-B417-83A77986D8BD}.Debug|x64.Build.0 = Debug|x64
+		{747DAC33-D92B-4425-B417-83A77986D8BD}.Debug|x86.ActiveCfg = Debug|Win32
+		{747DAC33-D92B-4425-B417-83A77986D8BD}.Debug|x86.Build.0 = Debug|Win32
+		{747DAC33-D92B-4425-B417-83A77986D8BD}.Release|Any CPU.ActiveCfg = Release|Win32
+		{747DAC33-D92B-4425-B417-83A77986D8BD}.Release|x64.ActiveCfg = Release|x64
+		{747DAC33-D92B-4425-B417-83A77986D8BD}.Release|x64.Build.0 = Release|x64
+		{747DAC33-D92B-4425-B417-83A77986D8BD}.Release|x86.ActiveCfg = Release|Win32
+		{747DAC33-D92B-4425-B417-83A77986D8BD}.Release|x86.Build.0 = Release|Win32
+		{2F264279-97EF-4773-AE2D-FEAF4D56BE33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F264279-97EF-4773-AE2D-FEAF4D56BE33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F264279-97EF-4773-AE2D-FEAF4D56BE33}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2F264279-97EF-4773-AE2D-FEAF4D56BE33}.Debug|x64.Build.0 = Debug|Any CPU
+		{2F264279-97EF-4773-AE2D-FEAF4D56BE33}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2F264279-97EF-4773-AE2D-FEAF4D56BE33}.Debug|x86.Build.0 = Debug|Any CPU
+		{2F264279-97EF-4773-AE2D-FEAF4D56BE33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F264279-97EF-4773-AE2D-FEAF4D56BE33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F264279-97EF-4773-AE2D-FEAF4D56BE33}.Release|x64.ActiveCfg = Release|Any CPU
+		{2F264279-97EF-4773-AE2D-FEAF4D56BE33}.Release|x64.Build.0 = Release|Any CPU
+		{2F264279-97EF-4773-AE2D-FEAF4D56BE33}.Release|x86.ActiveCfg = Release|Any CPU
+		{2F264279-97EF-4773-AE2D-FEAF4D56BE33}.Release|x86.Build.0 = Release|Any CPU
+		{ABA5E91B-1836-4B08-8F95-DADA784BC014}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{ABA5E91B-1836-4B08-8F95-DADA784BC014}.Debug|x64.ActiveCfg = Debug|x64
+		{ABA5E91B-1836-4B08-8F95-DADA784BC014}.Debug|x64.Build.0 = Debug|x64
+		{ABA5E91B-1836-4B08-8F95-DADA784BC014}.Debug|x86.ActiveCfg = Debug|Win32
+		{ABA5E91B-1836-4B08-8F95-DADA784BC014}.Debug|x86.Build.0 = Debug|Win32
+		{ABA5E91B-1836-4B08-8F95-DADA784BC014}.Release|Any CPU.ActiveCfg = Release|Win32
+		{ABA5E91B-1836-4B08-8F95-DADA784BC014}.Release|x64.ActiveCfg = Release|x64
+		{ABA5E91B-1836-4B08-8F95-DADA784BC014}.Release|x64.Build.0 = Release|x64
+		{ABA5E91B-1836-4B08-8F95-DADA784BC014}.Release|x86.ActiveCfg = Release|Win32
+		{ABA5E91B-1836-4B08-8F95-DADA784BC014}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2093A07A-2033-440C-A0BF-7A8DA4639789}
+	EndGlobalSection
+EndGlobal

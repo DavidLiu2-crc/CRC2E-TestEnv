@@ -1,0 +1,5 @@
+﻿  ControllerLibrary.cpp
+  AnokiSequence.cpp
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ControllerSolution\AnokiwaveControllerLibrary\src\AnokiSequence.cpp(401,51): warning C4244: '=': conversion from 'float' to 'unsigned long', possible loss of data
+  Generating Code...
+  AnokiwaveControllerLibrary.vcxproj -> C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ControllerSolution\Debug\AnokiwaveControllerLibrary.dll

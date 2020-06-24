@@ -1,0 +1,9 @@
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ControlSolution\AnokiwaveControllerGUI\bin\Debug\AnokiwaveControllerGUI.exe.config
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ControlSolution\AnokiwaveControllerGUI\bin\Debug\AnokiwaveControllerGUI.exe
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ControlSolution\AnokiwaveControllerGUI\bin\Debug\AnokiwaveControllerGUI.pdb
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ControlSolution\AnokiwaveControllerGUI\obj\Debug\AnokiwaveControllerGUI.csprojAssemblyReference.cache
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ControlSolution\AnokiwaveControllerGUI\obj\Debug\AnokiwaveControllerGUI.Properties.Resources.resources
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ControlSolution\AnokiwaveControllerGUI\obj\Debug\AnokiwaveControllerGUI.csproj.GenerateResource.cache
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ControlSolution\AnokiwaveControllerGUI\obj\Debug\AnokiwaveControllerGUI.csproj.CoreCompileInputs.cache
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ControlSolution\AnokiwaveControllerGUI\obj\Debug\AnokiwaveControllerGUI.exe
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ControlSolution\AnokiwaveControllerGUI\obj\Debug\AnokiwaveControllerGUI.pdb

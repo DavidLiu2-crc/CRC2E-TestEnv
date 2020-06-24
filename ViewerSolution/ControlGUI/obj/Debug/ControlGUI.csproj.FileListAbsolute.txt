@@ -1,0 +1,78 @@
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\ControlGUI.exe.config
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\ControlGUI.exe.manifest
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\ControlGUI.application
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\ControlGUI.exe
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\ControlGUI.pdb
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\Arction.Direct3D9.dll
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\Arction.DirectSound.dll
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\Arction.DirectX.dll
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\Arction.DirectXFiles.dll
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\Arction.DirectXInit.dll
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\Arction.Licensing.dll
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\Arction.LightningChartUltimate.dll
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\Arction.MathCore.dll
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\Arction.RenderingDefinitions.dll
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\Arction.RenderingEngine.dll
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\Arction.RenderingEngine11.dll
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\Arction.RenderingEngine9.dll
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\Arction.SignalTools.dll
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\csmatio.dll
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\MathNet.Numerics.Data.Matlab.dll
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\MathNet.Numerics.dll
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\Microsoft.VisualStudio.Shell.Immutable.10.0.dll
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\WpfToolkit.dll
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\Arction.LightningChartUltimate.xml
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\Arction.SignalTools.xml
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\MathNet.Numerics.xml
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\bin\Debug\MathNet.Numerics.Data.Matlab.xml
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\obj\Debug\ControlGUI.csprojAssemblyReference.cache
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\obj\Debug\ControlGUI.arctionChart.resources
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\obj\Debug\ControlGUI.Form1.resources
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\obj\Debug\ControlGUI.Properties.Resources.resources
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\obj\Debug\ControlGUI.csproj.GenerateResource.cache
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\obj\Debug\ControlGUI.csproj.CoreCompileInputs.cache
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\obj\Debug\ControlGUI.TrustInfo.xml
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\obj\Debug\ControlGUI.exe.manifest
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\obj\Debug\ControlGUI.application
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\obj\Debug\ControlGUI.csproj.CopyComplete
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\obj\Debug\ControlGUI.exe
+C:\Users\chuqi.liu\Documents\GitHub\Channel-Characterization\Measurements\Interim Sounder\PAAControlGUI\ControlGUI\obj\Debug\ControlGUI.pdb
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\ControlGUI.exe.config
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\ControlGUI.exe.manifest
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\ControlGUI.application
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\ControlGUI.exe
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\ControlGUI.pdb
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\Arction.Direct3D9.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\Arction.DirectSound.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\Arction.DirectX.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\Arction.DirectXFiles.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\Arction.DirectXInit.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\Arction.Licensing.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\Arction.LightningChartUltimate.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\Arction.MathCore.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\Arction.RenderingDefinitions.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\Arction.RenderingEngine.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\Arction.RenderingEngine11.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\Arction.RenderingEngine9.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\Arction.SignalTools.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\csmatio.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\MathNet.Numerics.Data.Matlab.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\MathNet.Numerics.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\Microsoft.VisualStudio.Shell.Immutable.10.0.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\WpfToolkit.dll
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\Arction.LightningChartUltimate.xml
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\Arction.SignalTools.xml
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\MathNet.Numerics.xml
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\bin\Debug\MathNet.Numerics.Data.Matlab.xml
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\obj\Debug\ControlGUI.csprojAssemblyReference.cache
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\obj\Debug\ControlGUI.arctionChart.resources
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\obj\Debug\ControlGUI.Form1.resources
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\obj\Debug\ControlGUI.Properties.Resources.resources
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\obj\Debug\ControlGUI.csproj.GenerateResource.cache
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\obj\Debug\ControlGUI.csproj.CoreCompileInputs.cache
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\obj\Debug\ControlGUI.TrustInfo.xml
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\obj\Debug\ControlGUI.exe.manifest
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\obj\Debug\ControlGUI.application
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\obj\Debug\ControlGUI.csproj.CopyComplete
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\obj\Debug\ControlGUI.exe
+C:\Users\chuqi.liu\Documents\GitHub\CRC2E-TestEnv\ViewerSolution\ControlGUI\obj\Debug\ControlGUI.pdb
