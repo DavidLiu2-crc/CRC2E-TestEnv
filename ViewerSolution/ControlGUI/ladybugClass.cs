@@ -26,10 +26,12 @@ namespace ControlGUI
 		private LadybugPanoAngle configPanoAngle = LadybugPanoAngle.LADYBUG_DEFAULT_PANO;											// Panoramic angle centered at Camera 0
 
 		private bool isHighBitDepth = false;
+		// Texture / Image sensor buffer resolution
 		private uint textureCols;
 		private uint textureRows;
 
-		private uint m_renderCols;
+		// Rendered output image resolution
+		private uint m_renderCols;	
 		private uint m_renderRows;
 
 		// Event flags

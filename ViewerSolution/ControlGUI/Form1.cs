@@ -221,9 +221,9 @@ namespace ControlGUI
 				ladybug.InitializeOffScreenRender(ch.GetLadybugContext());
 				
 				uint n = 0; // Frame counter
-				while (button2_status)
+				while (button2_status)	// Feep fetching until button until stop
                 {
-					// 
+					// Fetch image from camera (includes locking function inside)
 					ladybug.FetchFromCamera(ch.GetLadybugContext(), ch.GetReaderContext(), ref pixelImage);
 					//ladybug.GetImagePixel(out pixelImage);
 
@@ -242,7 +242,7 @@ namespace ControlGUI
 				ladybug.StopFetching(ch.GetLadybugContext());
             }
 
-
+			// Resets the button label to restart camera capturing
 			button2_status = false;
 			this.UIThread(delegate
 			{
@@ -251,7 +251,8 @@ namespace ControlGUI
 		}
 
 		/// <summary>
-		/// Heatmap do worker definition
+		/// Heatmap do worker
+		/// TODO: Implement VISA functions to fetch and compute the heatmpa
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -261,7 +262,6 @@ namespace ControlGUI
 			{
 				// TODO: Insert function to hold and waiting for incoming PXA fetch block
 				// Introduce more fetch blocks in case where fetch length > fetch block
-
 
 				// Temporary blocking method here
 				Thread.Sleep(300);
@@ -274,7 +274,7 @@ namespace ControlGUI
 		}
 
 		/// <summary>
-		/// Get time difference 
+		/// Get time difference between time of function called and lastTime passed
 		/// </summary>
 		/// <param name="lastTime"></param>
 		/// <param name="frames"></param>
@@ -292,10 +292,10 @@ namespace ControlGUI
 		}
 
 		/// <summary>
-		/// 
+		/// Update the labels of the Form with frame rate, average time between processed frames, counter for image processed.
 		/// </summary>
-		/// <param name="lastTime"></param>
-		/// <param name="frameCounter"></param>
+		/// <param name="lastTime"> DateTime object called 5 frames ago</param>
+		/// <param name="frameCounter"> Value of counter for image processed</param>
 		public void updateFrameLabels(ref DateTime lastTime, uint frameCounter)
         {
 			// Update the frame counter in UI
@@ -488,15 +488,6 @@ namespace ControlGUI
 			// Pass the row value and reinitialize the int[][] pixel array
 			ladybug.ConfigureRenderer(imageRenderedCols, imageRenderedRows);
 		}
-
-        
-
-
-
-        //private void timer_Elapsed(Object source, System.Timers.ElapsedEventArgs e)
-        //{
-        //	  arction.updateBitmap(currentBitmap.Clone(new Rectangle(0, 0, currentBitmap.Width, currentBitmap.Height), currentBitmap.PixelFormat));
-        //}
 
     }
 }

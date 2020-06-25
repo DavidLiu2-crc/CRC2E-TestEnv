@@ -30,6 +30,7 @@ namespace ControlGUI
 		// Define the developer license string (from 2015 Arction Lightning Chart V6.4.1)
 		internal string lightningLicenseKey = "Communications Research Centre Canada (CRC)/Developer1/LightningChartUltimate/G2RC2UYKP5Z78Y2293C3RW8JAY2TA43G294V";
 
+		// Define the range of the chart
 		double xRangeMin, xRangeMax, yRangeMin, yRangeMax;
 
 		public arctionChart(int XRangeMin, int XRangeMax, int YRangeMin, int YRangeMax)
@@ -65,17 +66,17 @@ namespace ControlGUI
 			_chart.ViewXY.LegendBox.Visible = false;
 
 			// Configure the chart axis
-			_chart.ViewXY.XAxes[0].Title.Text = "Azimuth (deg)";
+			_chart.ViewXY.XAxes[0].Title.Text = "Azimuth (deg)";	// Set X label
 			_chart.ViewXY.XAxes[0].ValueType = AxisValueType.Number;
-			_chart.ViewXY.XAxes[0].SetRange(XRangeMin, XRangeMax);
+			_chart.ViewXY.XAxes[0].SetRange(XRangeMin, XRangeMax);	// Set X Range of chart
 			_chart.ViewXY.XAxes[0].AutoDivSpacing = false;
-			_chart.ViewXY.XAxes[0].MajorDiv = 20;
+			_chart.ViewXY.XAxes[0].MajorDiv = 20;					// Set X division width
 			_chart.ViewXY.XAxes[0].KeepDivCountOnRangeChange = true;
-			_chart.ViewXY.YAxes[0].Title.Text = "Elevation (deg)";
+			_chart.ViewXY.YAxes[0].Title.Text = "Elevation (deg)";	// Set Y label
 			_chart.ViewXY.YAxes[0].ValueType = AxisValueType.Number;
-			_chart.ViewXY.YAxes[0].SetRange(YRangeMin, YRangeMax);
+			_chart.ViewXY.YAxes[0].SetRange(YRangeMin, YRangeMax);	// Set Y Range of chart
 			_chart.ViewXY.YAxes[0].AutoDivSpacing = true;
-			_chart.ViewXY.YAxes[0].MajorDiv = 30;
+			_chart.ViewXY.YAxes[0].MajorDiv = 30;					// Set Y division width
 			_chart.ViewXY.YAxes[0].KeepDivCountOnRangeChange = true;
 
 
@@ -89,7 +90,7 @@ namespace ControlGUI
 			imageGrid.Visible = true;
 			imageGrid.ShowInLegendBox = false;
 
-
+			// Configure the heatmap wire intensity handle
 			wireGrid = new IntensityGridSeries(_chart.ViewXY, _chart.ViewXY.XAxes[0], _chart.ViewXY.YAxes[0]);
 			wireGrid.Optimization = IntensitySeriesOptimization.DynamicData;
 			wireGrid.LegendBoxUnits = "dB";
@@ -99,22 +100,23 @@ namespace ControlGUI
 			wireGrid.MouseInteraction = false;  // Todo: Play with this parameter for hover feature
 			wireGrid.Fill = IntensityFillStyle.Paletted;
 
-			wireGrid.SetRangesXY(-30, 30, -30, 30); // Configure the view port of the heatmap
 			// The width of each rectangle/pixel is automatically configured by the dimensions of the double[][] colors
-
+			wireGrid.SetRangesXY(-30, 30, -30, 30); // Configure the view port of the heatmap
+			
 			// Render data as pixel rectangles
 			wireGrid.PixelRendering = true;
 			wireGrid.WireframeType = SurfaceWireframeType.Wireframe;
 			wireGrid.WireframeLineStyle.Color = Color.FromArgb(100, Color.Gray);
 			wireGrid.Visible = true;
 
-			// Attempting to configure the same jet color scale
+			// Creating a color heatmap palette
 			ValueRangePalette p = new ValueRangePalette();
 			int colorAlpha = 60;
 			double stepValue = -100;
 			p.MinValue = stepValue;
 			p.Type = PaletteType.Gradient;
-			
+
+			// Attempting to configure the same jet color scale
 			p.Steps.Clear();
 			p.Steps.Add(new PaletteStep(p, Color.FromArgb(colorAlpha, Color.Blue), -100));
 			p.Steps.Add(new PaletteStep(p, Color.FromArgb(colorAlpha, Color.Aqua), -69 ));
@@ -123,6 +125,8 @@ namespace ControlGUI
 			p.Steps.Add(new PaletteStep(p, Color.FromArgb(colorAlpha, Color.Brown), -6 ));
 			wireGrid.ValueRangePalette = p;
 
+
+			// Add the grid object to the chart
 			_chart.ViewXY.IntensityGridSeries.Add(imageGrid);
 			_chart.ViewXY.IntensityGridSeries.Add(wireGrid);
 			
